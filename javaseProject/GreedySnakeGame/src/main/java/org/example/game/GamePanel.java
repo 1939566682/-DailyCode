@@ -53,6 +53,7 @@ public class GamePanel extends JPanel {
         score = 0;
         // 重置方向
         direction = "R";
+
     }
 
     public GamePanel() {
