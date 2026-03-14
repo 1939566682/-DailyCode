@@ -1,0 +1,12 @@
+# 忽略独立 Git 仓库（避免嵌套提交）
+Algorithm/
+
+# 常见 Java/IDEA 忽略文件（可选，推荐加上）
+.idea/
+*.iml
+target/
+*.class
+
+# 系统文件
+.DS_Store
+Thumbs.db
