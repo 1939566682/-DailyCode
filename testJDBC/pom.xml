@@ -13,6 +13,7 @@
 
     <modules>
         <module>JDBC_Demo1</module>
+        <module>JDBCDemo2</module>
     </modules>
 
     <properties>
