@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 加载外部 jdbc.properties 文件 -->
+    <properties resource="jdbc.properties"/>
+
+    <!-- 强制指定 Log4j 2 日志适配器  不指定则自动查找处理 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+
+    <!-- 包扫描起别名 -->
+    <typeAliases>
+        <package name="org.example.pojo"/>
+    </typeAliases>
+
+    <!-- 配置环境 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url"
+                          value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 配置映射器 -->
+    <mappers>
+        <package name="org.example.mapper"/>
+    </mappers>
+</configuration>
