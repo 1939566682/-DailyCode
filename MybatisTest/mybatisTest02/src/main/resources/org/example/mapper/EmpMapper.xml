@@ -5,17 +5,21 @@
 <mapper namespace="org.example.mapper.EmpMapper">
 
     <select id="findOne" resultType="Emp">
-        select * from emp where EMPNO = 7499;
+        select *
+        from emp
+        where EMPNO = 7499;
     </select>
 
     <!-- list集合查询 -->
     <select id="findEmpList" resultType="Emp">
-        select * from emp;
+        select *
+        from emp;
     </select>
-    
+
     <!-- map集合查询 -->
     <select id="findEmpMap" resultType="map">
-        select * from emp;
+        select *
+        from emp;
     </select>
 
 
@@ -24,7 +28,9 @@
     Emp findEmpByEmpno(int empno);
     -->
     <select id="findEmpByEmpno" resultType="Emp">
-        select * from emp where EMPNO = #{empno};
+        select *
+        from emp
+        where EMPNO = #{empno};
     </select>
 
     <!--
@@ -39,5 +45,190 @@
     </select>
 
     <!-- 参数为对象 -->
+    <!-- ...... -->
 
+    <!-- findEmpByCondition -->
+    <!--动态SQL-->
+    <select id="findEmpByCondition">
+        select * from emp
+        <where>
+            <if test="empno != null">
+                and empno = #{empno}
+            </if>
+            <if test="ename != null and ename != ''">
+                and ename = #{ename}
+            </if>
+            <if test="job != null  and job != ''">
+                and job = #{job}
+            </if>
+            <if test="mgr != null">
+                and mgr = #{mgr}
+            </if>
+            <if test="hiredate != null">
+                and hiredate = #{hiredate}
+            </if>
+            <if test="sal != null">
+                and sal = #{sal}
+            </if>
+            <if test="comm != null">
+                and comm = #{comm}
+            </if>
+            <if test="deptno != null">
+                and deptno = #{deptno}
+            </if>
+        </where>
+    </select>
+
+    <!-- <set> -->
+    <!-- Integer updateEmpByCondition(Emp emp); -->
+    <select id="updateEmpByCondition">
+        update emp
+        <set>
+            <if test="ename != null and ename != ''">
+                , ename = #{ename}
+            </if>
+            <if test="job != null  and job != ''">
+                , job = #{job}
+            </if>
+            <if test="mgr != null">
+                , mgr = #{mgr}
+            </if>
+            <if test="hiredate != null">
+                , hiredate = #{hiredate}
+            </if>
+            <if test="sal != null">
+                , sal = #{sal}
+            </if>
+            <if test="comm != null">
+                , comm = #{comm}
+            </if>
+            <if test="deptno != null">
+                , deptno = #{deptno}
+            </if>
+        </set>
+        where EMPNO = #{empno}
+    </select>
+
+    <!-- <trim> -->
+    <!--
+    prefix：加前缀
+    prefixOverrides：去前缀
+    suffix：加后缀
+    suffixOverrides：去后缀
+    -->
+    <!-- findEmpByCondition2 -->
+    <select id="findEmpByCondition2">
+        select * from emp
+
+        <trim prefix="where" prefixOverrides="and" suffix="" suffixOverrides="">
+            <if test="empno != null">
+                and empno = #{empno}
+            </if>
+            <if test="ename != null and ename != ''">
+                and ename = #{ename}
+            </if>
+            <if test="job != null  and job != ''">
+                and job = #{job}
+            </if>
+            <if test="mgr != null">
+                and mgr = #{mgr}
+            </if>
+            <if test="hiredate != null">
+                and hiredate = #{hiredate}
+            </if>
+            <if test="sal != null">
+                and sal = #{sal}
+            </if>
+            <if test="comm != null">
+                and comm = #{comm}
+            </if>
+            <if test="deptno != null">
+                and deptno = #{deptno}
+            </if>
+        </trim>
+    </select>
+
+    <!-- <choose>  <when> -->
+    <!-- select * from emp WHERE empno = ? -->
+    <!-- 类似 switch 当第一个通过则不走后面的 -->
+    <select id="findEmpByCondition3">
+        select * from emp
+        <where>
+            <choose>
+                <when test="empno != null">
+                    and empno = #{empno}
+                </when>
+                <when test="ename != null and ename != ''">
+                    and ename = #{ename}
+                </when>
+                <when test="job != null  and job != ''">
+                    and job = #{job}
+                </when>
+                <when test="mgr != null">
+                    and mgr = #{mgr}
+                </when>
+                <when test="hiredate != null">
+                    and hiredate = #{hiredate}
+                </when>
+                <when test="sal != null">
+                    and sal = #{sal}
+                </when>
+                <when test="comm != null">
+                    and comm = #{comm}
+                </when>
+                <when test="deptno != null">
+                    and deptno = #{deptno}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <!-- <foreach> -->
+    <!-- List<Emp> findEmpByEmpnos(List<Integer> empnos); -->
+    <select id="findEmpByEmpnos">
+        select * from emp
+        <where>
+            <if test="list != null and list.size() > 0">
+                empno in
+                <foreach collection="list" item="empno" open="(" close=")" separator=",">
+                    #{empno}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!-- <bind> -->
+    <select id="findEmpByCondition4">
+        select * from emp
+        <where>
+            <if test="empno != null">
+                <bind name="likePattern" value="'%'+ename+'%'"/>
+                and empno = #{empno}
+            </if>
+            <if test="ename != null and ename != ''">
+                <!-- and ename like concat('%',#{ename},'%') -->
+                <bind name="likePattern" value="'%' + ename + '%'"/>
+                and ename like #{likePattern}
+            </if>
+            <if test="job != null  and job != ''">
+                and job = #{job}
+            </if>
+            <if test="mgr != null">
+                and mgr = #{mgr}
+            </if>
+            <if test="hiredate != null">
+                and hiredate = #{hiredate}
+            </if>
+            <if test="sal != null">
+                and sal = #{sal}
+            </if>
+            <if test="comm != null">
+                and comm = #{comm}
+            </if>
+            <if test="deptno != null">
+                and deptno = #{deptno}
+            </if>
+        </where>
+    </select>
+    <!-- <include> -->
 </mapper>

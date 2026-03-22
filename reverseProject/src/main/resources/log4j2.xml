@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Log4j2 核心配置文件：status=WARN 仅输出自身警告，monitorInterval=30 秒自动重载配置 -->
+<Configuration status="WARN" monitorInterval="30">
+    <!-- Appenders：定义日志输出目的地 -->
+    <Appenders>
+        <!-- 默认控制台输出：处理普通日志，按级别配色 -->
+        <Console name="DefaultConsole" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %highlight{%-5level}{FATAL=Bright Red, ERROR=Red, WARN=Yellow, INFO=Green, DEBUG=Cyan, TRACE=Blue} %logger{50} - %msg%n"
+                    disableAnsi="false"/>
+        </Console>
+
+        <!-- SQL 专用控制台输出：DEBUG 级别青色，SQL 消息红色 -->
+        <Console name="SqlConsole" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %highlight{%-5level}{DEBUG=Cyan} %logger{50} - %style{%msg}{red}%n"
+                    disableAnsi="false"/>
+        </Console>
+    </Appenders>
+
+    <!-- Loggers：按包名控制日志输出规则 -->
+    <Loggers>
+        <!-- 屏蔽 VFS 包冗余日志：仅输出 INFO 级别 -->
+        <Logger name="org.apache.ibatis.io" level="INFO" additivity="false">
+            <AppenderRef ref="DefaultConsole"/>
+        </Logger>
+
+        <!-- 普通 MyBatis 日志：DEBUG 级别，默认输出 -->
+        <Logger name="org.apache.ibatis" level="DEBUG" additivity="false">
+            <AppenderRef ref="DefaultConsole"/>
+        </Logger>
+
+        <!-- Mapper 包日志：SQL 定义处，使用 SQL 控制台 -->
+        <Logger name="org.example.mapper" level="DEBUG" additivity="false">
+            <AppenderRef ref="SqlConsole"/>
+        </Logger>
+
+        <!-- Executor 包日志：SQL 执行核心，使用 SQL 控制台 -->
+        <Logger name="org.apache.ibatis.executor" level="DEBUG" additivity="false">
+            <AppenderRef ref="SqlConsole"/>
+        </Logger>
+
+        <!-- 屏蔽连接池冗余日志：仅输出 INFO 级别 -->
+        <Logger name="org.apache.ibatis.datasource.pooled.PooledDataSource" level="INFO" additivity="false">
+            <AppenderRef ref="DefaultConsole"/>
+        </Logger>
+
+        <!-- 根日志器：兜底配置 -->
+        <Root level="INFO">
+            <AppenderRef ref="DefaultConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -118,6 +118,98 @@ public class EmpTest {
         List<Emp> empList = empMapper.findEmpByDeptnoAndSal(20, 1000);
         for (Emp emp : empList) {
             System.out.println(emp);
+        }
+    }
+
+    @Test
+    public void testFindEmpByCondition() {
+        // 校验 session 是否初始化成功
+        if (session == null) {
+            throw new RuntimeException("SqlSession 初始化失败！");
+        }
+
+        EmpMapper empMapper = session.getMapper(EmpMapper.class);
+        Emp emp = new Emp();
+//        emp.setEmpno(7499);
+        emp.setEname("allen");
+        Emp e = empMapper.findEmpByCondition(emp);
+        System.out.println(e);
+    }
+
+    @Test
+    public void testUpdateEmpByCondition() {
+        if (session == null) {
+            throw new RuntimeException("SqlSession 初始化失败！");
+        }
+
+        EmpMapper empMapper = session.getMapper(EmpMapper.class);
+        Emp emp = new Emp();
+        emp.setEmpno(7499);
+        emp.setEname("AllEN");
+        empMapper.updateEmpByCondition(emp);
+    }
+
+    @Test
+    public void testFindEmpByCondition2() {
+        // 校验 session 是否初始化成功
+        if (session == null) {
+            throw new RuntimeException("SqlSession 初始化失败！");
+        }
+
+        EmpMapper empMapper = session.getMapper(EmpMapper.class);
+        Emp emp = new Emp();
+//        emp.setEmpno(7499);
+        emp.setEname("allen");
+        Emp e = empMapper.findEmpByCondition2(emp);
+        System.out.println(e);
+    }
+
+    @Test
+    public void testFindEmpByCondition3() {
+        // 校验 session 是否初始化成功
+        if (session == null) {
+            throw new RuntimeException("SqlSession 初始化失败！");
+        }
+
+        EmpMapper empMapper = session.getMapper(EmpMapper.class);
+        Emp emp = new Emp();
+        emp.setEmpno(7499);
+        emp.setEname("allen");
+        Emp e = empMapper.findEmpByCondition3(emp);
+        System.out.println(e);
+    }
+
+    @Test
+    public void testFindEmpByEmpnos() {
+        // 校验 session 是否初始化成功
+        if (session == null) {
+            throw new RuntimeException("SqlSession 初始化失败！");
+        }
+
+        EmpMapper empMapper = session.getMapper(EmpMapper.class);
+        ArrayList<Integer> empnos = new ArrayList<>();
+        empnos.add(7499);
+        empnos.add(7369);
+        empnos.add(7876);
+        List<Emp> empList = empMapper.findEmpByEmpnos(empnos);
+        for (Emp emp : empList) {
+            System.out.println(emp);
+        }
+    }
+
+    @Test
+    public void testFindEmpByCondition4() {
+        // 校验 session 是否初始化成功
+        if (session == null) {
+            throw new RuntimeException("SqlSession 初始化失败！");
+        }
+
+        EmpMapper empMapper = session.getMapper(EmpMapper.class);
+        Emp emp = new Emp();
+        emp.setEname("A");
+        List<Emp> emps = empMapper.findEmpByCondition4(emp);
+        for (Emp e : emps) {
+            System.out.println(e);
         }
     }
 
