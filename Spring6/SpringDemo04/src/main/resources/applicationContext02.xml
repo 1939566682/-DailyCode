@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="person" class="org.example.pojo.Person">
+        <property name="arr">
+            <array>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+                <value>ddd</value>
+            </array>
+        </property>
+        <property name="list">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+                <value>ddd</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+                <value>ddd</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry>
+                    <key><value>18</value></key>
+                    <value>aaa</value>
+                </entry>
+                <entry key="19" value="bbb"></entry>
+                <entry>
+                    <key><value>20</value></key>
+                    <value>ccc</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

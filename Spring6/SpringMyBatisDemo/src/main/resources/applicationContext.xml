@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--【1】通过配置bean对象，给对象属性注入值来配置连接数据库数据源-->
+    <!--DriverManagerDataSource属于spring-jdbc包-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!--这个name属性都可以在DriverManagerDataSource中找到对应的setter方法-->
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/springmybatis?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8&amp;allowPublicKeyRetrieval=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+
+    <!-- 【2】配置SQLSessionFactory对象 -->
+    <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 工厂依赖数据源，所以需要注入数据源对应的对象 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 配置别名 -->
+        <property name="typeAliasesPackage" value="org.example.pojo"/>
+        <!-- 加入配置，解析mybatis.xml -->
+        <!--  <property name="configLocation" value="classpath:mybatis.xml"></property> -->
+    </bean>
+    <!-- 【3】扫描UserMapper.xml文件 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入工厂对象 -->
+        <property name="sqlSessionFactoryBeanName" value="factory"/>
+        <!-- 扫描文件： -->
+        <property name="basePackage" value="org.example.mapper"/>
+    </bean>
+    <!-- 加入UserServiceImpl构建对象 -->
+    <!--todo 必须有这个  @Autowired 自动装配不生效  暂不知道原因-->
+     <bean id="userServiceImpl" class="org.example.service.impl.UserServiceImpl" >
+            <property name="userMapper" ref="userMapper"></property>
+        </bean>
+    <!-- 加入扫描注解所在的包：多个包用逗号分隔开 -->
+    <context:component-scan base-package="org.example.mapper,org.example.service"/>
+</beans>

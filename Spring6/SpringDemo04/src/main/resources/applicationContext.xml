@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="c" class="org.example.pojo.Clazz" p:cid="1" p:cname="java">
+<!--        <property name="cid" value="1"></property>-->
+<!--        <property name="cname" value="java"></property>-->
+    </bean>
+
+    <bean id="stu" class="org.example.pojo.Student" p:age="18" p:name="lulu" p:clazz-ref="c">
+<!--        <property name="age" value="18"></property>-->
+<!--        <property name="name" value="lulu"></property>-->
+<!--        <property name="clazz" ref="c"></property>-->
+    </bean>
+
+</beans>

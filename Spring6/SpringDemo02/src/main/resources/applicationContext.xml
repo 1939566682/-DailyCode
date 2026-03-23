@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--方式一：通过构造器实例化bean-->
+    <bean id="person" class="org.example.pojo.Person"></bean>
+    <bean id="user" class="org.example.pojo.User"></bean>
+
+    <!--方式二：工厂模式实例化  调用工厂中的普通工厂方法-->
+    <!--
+    工厂bean
+    代替实现PetStore的实例化：PerStore p = new PetStore();
+    -->
+    <bean id="factory" class="org.example.factory.PetStore"></bean>
+    <!--业务bean-->
+    <bean id="cat" factory-bean="factory" factory-method="getAnimal">
+        <constructor-arg name="petName" value="cat"></constructor-arg>
+    </bean>
+
+    <!--方式三：静态工厂实例化-->
+    <bean id="dog" class="org.example.factory.PetStore" factory-method="getAnimal2">
+        <constructor-arg name="petName" value="dog"></constructor-arg>
+    </bean>
+</beans>

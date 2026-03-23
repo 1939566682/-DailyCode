@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 利用这种方式，底层会去寻找空构造器 -->
+    <bean id="c1" class="org.example.pojo.Clazz"/>
+    <!-- 利用构造注入的方式，对属性进行初始化操作 -->
+    <!-- 通过name属性，通过参数的名字进行赋值 -->
+    <bean id="c2" class="org.example.pojo.Clazz">
+        <constructor-arg name="cid" value="1"/>
+        <constructor-arg name="cname" value="java506班"/>
+    </bean>
+    <!-- 通过index属性，通过参数的索引进行赋值 -->
+    <bean id="c3" class="org.example.pojo.Clazz">
+        <constructor-arg index="0" value="2"/>
+        <constructor-arg index="1" value="java302班"/>
+    </bean>
+    <!-- 通过type属性，通过参数的类型进行赋值 -->
+    <bean id="c4" class="org.example.pojo.Clazz">
+        <constructor-arg type="int" value="3"/>
+        <constructor-arg type="java.lang.String" value="java816班"/>
+    </bean>
+    <!-- name属性用的最多，index、type用的少 -->
+    <!-- name\type\index属性可以单独使用，也可以配合使用 -->
+    <bean id="c5" class="org.example.pojo.Clazz">
+        <constructor-arg type="int" index="0" name="cid" value="4"/>
+        <constructor-arg type="java.lang.String" index="1" name="cname" value="java999班"/>
+    </bean>
+    <!-- 构建Student对象 -->
+    <bean id="stu" class="org.example.pojo.Student">
+        <constructor-arg name="age" value="18"/>
+        <constructor-arg name="name" value="露露"/>
+        <constructor-arg name="clazz" ref="c5"/>
+    </bean>
+
+</beans>

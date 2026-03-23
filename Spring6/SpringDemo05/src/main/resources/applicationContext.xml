@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd"
+       xmlns:p="http://www.springframework.org/schema/p"
+       default-autowire="byName"
+>
+
+    <bean id="clazz" class="org.example.pojo.Clazz" p:cname="Java">
+    </bean>
+
+    <!--
+    byName  通过类中的属性名与 bean 的 id 匹配
+    byType  通过类中属性的类型与 bean 的 class 的类型匹配
+    constructor 通过构造器匹配
+    -->
+    <bean id="stu" class="org.example.pojo.Student" autowire="byType"></bean>
+
+
+</beans>
