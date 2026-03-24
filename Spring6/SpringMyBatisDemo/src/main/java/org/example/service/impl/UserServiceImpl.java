@@ -4,10 +4,8 @@ import org.example.mapper.UserMapper;
 import org.example.pojo.User;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,9 +15,11 @@ import org.springframework.stereotype.Service;
 
 
 /**
- *  @Component注解的作用：简化了applicationContext.xml中对这个创建对象的配置 ，而创建对象这件事还是spring来管理。
- *  帮我们构建对象，默认的名字就是类名的首字母小写： UserServiceImpl  ---> userServiceImpl
- *  我们也可以指定对象的名字：通过传入参数的形式：@Component("usi")
+ * @Component注解的作用：
+ * 简化了applicationContext.xml中对这个创建对象的配置
+ * 而创建对象这件事还是spring来管理。
+ * 帮我们构建对象，默认的名字就是类名的首字母小写： UserServiceImpl  ---> userServiceImpl
+ * 我们也可以指定对象的名字：通过传入参数的形式：@Component("usi")
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,8 +32,9 @@ public class UserServiceImpl implements UserService {
      * 使用了 @Qualifier("um1")注解后@Autowired是不能省略的，因为@Autowired帮我们完成属性注入，
      * @Qualifier只是定位到你需要注入的对象，必须搭配使用
      * */
-//    @Autowired
+    @Autowired
     private UserMapper userMapper;
+
     /*加入@Autowired注解以后，底层会自动帮我们定义setter方法，无需我们自己创建这个方法*/
     //todo  必须有这个  @Autowired 自动装配不生效  并且需要去掉 @Autowired  暂不知道原因
     public void setUserMapper(UserMapper userMapper) {
@@ -44,14 +45,14 @@ public class UserServiceImpl implements UserService {
     public User selectOneUser(String uname, String pwd) {
         /*ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserMapper userMapper = (UserMapper)ac.getBean("userMapper");*/
-        return userMapper.selectOneUser(uname,pwd);
+        return userMapper.selectOneUser(uname, pwd);
     }
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
         for (String name:beanDefinitionNames){
             System.out.println(name);
         }
-    }*/
+    }
 }

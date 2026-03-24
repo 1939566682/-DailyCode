@@ -1,0 +1,90 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 配置注解所在的包 对这个包进行扫描 -->
+    <context:component-scan base-package="org.example"/>
+    <!--
+    Schema-based
+    运行时增强  每次运行都增强
+    -->
+    <!--    &lt;!&ndash;
+            构建前置通知对象：
+            构建对象的形式可以在applicationContext.xml中配置bean标签
+            也可以在MyBeforeAdvice类前加入@Component注解
+            &ndash;&gt;
+        <bean id="before" class="org.example.advice.MyBeforeAdvice"/>
+        &lt;!&ndash; 构建后置通知对象 &ndash;&gt;
+        <bean id="after" class="org.example.advice.MyAfterAdvice"/>
+        &lt;!&ndash; 构建异常通知对象 &ndash;&gt;
+        <bean id="throw" class="org.example.advice.MyThrowAdvice"/>
+        &lt;!&ndash; 构建环绕通知对象： &ndash;&gt;
+        <bean id="around" class="org.example.advice.MyAroundAdvice"/>
+        &lt;!&ndash; 织入切面 ： 需要导入aop的命名空间，从官网中去复制粘贴即可（3行） &ndash;&gt;
+        <aop:config>
+            &lt;!&ndash; 定义切点
+                    id属性就是切点的名字
+                    expression 切点表达式  作用：定位到切点  切点在哪个类中  类中的哪个方法 返回值  参数
+                    execution(返回值类型 方法的定位(参数))
+                     &ndash;&gt;
+            <aop:pointcut id="p1" expression="execution(void org.example.service.impl.UserServiceImpl.b(int))"/>
+            &lt;!&ndash; 给切点加入前置通知：
+                     pointcut-ref  给哪个切点加入通知
+                     advice-ref 给切点加入什么通知
+                      &ndash;&gt;
+            <aop:advisor advice-ref="before" pointcut-ref="p1"/>
+            &lt;!&ndash; 给切点加入后置通知： &ndash;&gt;
+            <aop:advisor advice-ref="after" pointcut-ref="p1"/>
+            &lt;!&ndash; 给切点加入异常通知 &ndash;&gt;
+            <aop:advisor advice-ref="throw" pointcut-ref="p1"/>
+            &lt;!&ndash; 给切点加入环绕通知： &ndash;&gt;
+            <aop:advisor advice-ref="around" pointcut-ref="p1"/>
+        </aop:config>-->
+
+    <!--
+    AspectJ
+    编译时增强  只有一次
+    切面多时选择AspectJ
+    -->
+<!--        &lt;!&ndash; 构建MyAspectJAdvice对象 &ndash;&gt;
+        <bean id="aspectj" class="org.example.advice.MyAspectJAdvice"/>
+        &lt;!&ndash; 配置切面 &ndash;&gt;
+        <aop:config>
+            &lt;!&ndash; 加入aop:aspect标签是aspectj的配置方式 &ndash;&gt;
+            <aop:aspect ref="aspectj">
+                &lt;!&ndash; 配置切点 &ndash;&gt;
+                &lt;!&ndash; <aop:pointcut id="p" expression="execution(void org.example.service.impl.UserServiceImpl.b(int)) and args(n)"/> &ndash;&gt;
+                &lt;!&ndash; 指定service.impl包下的UserServiceImpl的类的所有返回值为void的b方法 &ndash;&gt;
+                &lt;!&ndash; <aop:pointcut id="p1" expression="execution(void org.example.service.impl.UserServiceImpl.b(..)) and args(n)"/> &ndash;&gt;
+                &lt;!&ndash; 指定service.impl包下的UserServiceImpl的类的所有返回值为void的所有方法 &ndash;&gt;
+                &lt;!&ndash; <aop:pointcut id="p2" expression="execution(void org.example.service.impl.UserServiceImpl.*(..)) and args(n)"/> &ndash;&gt;
+                &lt;!&ndash; 指定service.impl包下的所有类的所有返回值为void的所有方法 &ndash;&gt;
+                &lt;!&ndash; <aop:pointcut id="p3" expression="execution(void org.example.service.impl.*.*(..)) and args(n)"/> &ndash;&gt;
+                &lt;!&ndash; 指定service.impl包下的所有类的所有方法 &ndash;&gt;
+                <aop:pointcut id="p4" expression="execution(* org.example.service.impl.*.*(..)) and args(n)"/>
+                &lt;!&ndash; 配置环绕通知 &ndash;&gt;
+                <aop:around method="around" pointcut-ref="p4"/>
+                &lt;!&ndash; 给切点配置前置通知，利用标签找到对应的MyAspectJAdvice其中的before方法
+                            怎么才能找到before方法呢？需要在applicationContext.xml中先构建MyAspectJAdvice对象，
+                            通过ref属性加入到aop:aspect之后，然后通过aop:before标签找到对应的before方法 &ndash;&gt;
+                <aop:before method="before" pointcut-ref="p4" arg-names="n"/>
+                &lt;!&ndash; 配置后置通知
+                            aop:after的方式： 如果出现异常，那么后置通知也会执行
+                            aop:after-returning的方式：如果出现异常，那么后置通知就不执行了
+                             &ndash;&gt;
+                &lt;!&ndash; <aop:after method="after" pointcut-ref="p"></aop:after> &ndash;&gt;
+                <aop:after-returning method="after" pointcut-ref="p4" arg-names="n"/>
+                &lt;!&ndash; 配置异常通知 &ndash;&gt;
+                <aop:after-throwing method="mythrow" pointcut-ref="p4" arg-names="n,ex" throwing="ex"/>
+            </aop:aspect>
+        </aop:config>-->
+
+    <!--注解配置  只支持AspectJ-->
+    <!--    &lt;!&ndash;开启注解版 AOP → 让 @Before @Around 生效  取代上面所有&ndash;&gt;
+        <aop:aspectj-autoproxy/>-->
+</beans>

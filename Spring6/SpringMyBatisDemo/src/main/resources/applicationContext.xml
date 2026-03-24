@@ -26,7 +26,7 @@
         <!-- 配置别名 -->
         <property name="typeAliasesPackage" value="org.example.pojo"/>
         <!-- 加入配置，解析mybatis.xml -->
-        <!--  <property name="configLocation" value="classpath:mybatis.xml"></property> -->
+        <!--<property name="configLocation" value="classpath:mybatis.xml"></property>-->
     </bean>
     <!-- 【3】扫描UserMapper.xml文件 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -37,9 +37,9 @@
     </bean>
     <!-- 加入UserServiceImpl构建对象 -->
     <!--todo 必须有这个  @Autowired 自动装配不生效  暂不知道原因-->
-     <bean id="userServiceImpl" class="org.example.service.impl.UserServiceImpl" >
-            <property name="userMapper" ref="userMapper"></property>
-        </bean>
+    <!--     <bean id="userServiceImpl" class="org.example.service.impl.UserServiceImpl" >-->
+    <!--            <property name="userMapper" ref="userMapper"></property>-->
+    <!--        </bean>-->
     <!-- 加入扫描注解所在的包：多个包用逗号分隔开 -->
     <context:component-scan base-package="org.example.mapper,org.example.service"/>
 </beans>

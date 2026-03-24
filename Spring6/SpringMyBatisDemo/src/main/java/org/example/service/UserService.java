@@ -9,5 +9,5 @@ import org.example.pojo.User;
  */
 
 public interface UserService {
-    public abstract User selectOneUser(String uname, String pwd);
+    User selectOneUser(String uname, String pwd);
 }
