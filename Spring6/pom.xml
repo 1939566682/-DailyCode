@@ -19,7 +19,7 @@
         <module>SpringProxy01</module>
         <module>SoringAOPDemo01</module>
         <module>SpringJDBCDemo01</module>
-<!--        <module>SpringTX</module>-->
+        <module>SpringTX</module>
     </modules>
 
     <properties>
