@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加载db.properties属性文件，用来读取db.properties中的数据-->
+    <context:property-placeholder location="db.properties"></context:property-placeholder>
+
+    <!-- 配置 c3p0 数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- property标签的value属性对应的是jdbc.properties中的值 -->
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+
+        <!--C3P0 其他额外配置（对应的值在jdbc.properties文件中指定）-->
+        <!-- 指定连接池中保留的最大连接数。 Default:15-->
+        <property name="maxPoolSize" value="${maxPoolSize}"/>
+        <!-- 指定连接池中保留的最小连接数。-->
+        <property name="minPoolSize" value="${minPoolSize}"/>
+        <!-- 指定连接池的初始化连接数。取值应在minPoolSize 与 maxPoolSize 之间.Default:3-->
+        <property name="initialPoolSize" value="${initialPoolSize}"/>
+        <!-- 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。 Default:0-->
+        <property name="maxIdleTime" value="${maxIdleTime}"/>
+        <!-- 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。 Default:3-->
+        <property name="acquireIncrement" value="${acquireIncrement}"/>
+        <!-- JDBC的标准,用以控制数据源内加载的PreparedStatements数量。
+        但由于预缓存的statements属于单个connection，而不是整个连接池所以设置这个参数需要考虑到多方面的因数。如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default:0-->
+        <property name="maxStatements" value="${maxStatements}"/>
+        <!-- 每60秒检查所有连接池中的空闲连接。Default:0 -->
+        <property name="idleConnectionTestPeriod" value="${idleConnectionTestPeriod}"/>
+    </bean>
+
+    <!-- 配置dbcp数据源-->
+    <!--<bean id="myDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        &lt;!&ndash; 连接池启动时的初始值 &ndash;&gt;
+        <property name="initialSize" value="1"/>
+        &lt;!&ndash; 最大空闲值.当经过一个高峰时间后，连接池可以将已经用不到的连接慢慢释放一部分，一直减少到maxIdle为止 &ndash;&gt;
+        <property name="maxIdle" value="2"/>
+        &lt;!&ndash; 最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请一些连接，以避免洪峰来时再申请而造成的性能开销 &ndash;&gt;
+        <property name="minIdle" value="1"/>
+    </bean>-->
+
+    <!-- 配置JdbcTemplate模板实例，并注入一个dataSource数据源-->
+    <bean id="jdbcTemplate"  class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--扫描注解-->
+    <context:component-scan base-package="org.example"></context:component-scan>
+
+</beans>

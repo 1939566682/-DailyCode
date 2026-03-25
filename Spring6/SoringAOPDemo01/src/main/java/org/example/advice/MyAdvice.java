@@ -36,7 +36,7 @@ public class MyAdvice {
         System.out.println("环绕通知：方法执行后");
         return result;
     }
-    
+
     /**
      * 异常通知：只有当目标方法抛出异常时才会执行
      * 可以通过 throwing 属性绑定异常对象，获取异常信息
