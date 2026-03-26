@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 扫描控制器类，千万不要把service等扫描进来，也千万不要在Spring配置文件扫描控制器类所在包 -->
+    <context:component-scan base-package="org.example.controller"></context:component-scan>
+    <!-- 让Spring MVC的注解生效 ：@RequestMapping，这个位置别忘记加入mvc的命名空间-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!--配置静态资源放行-->
+    <!--mapping：当URI是什么样格式时，不再执行控制器，而是寻找静态资源。 ** 是通配符，表示任意层路径 -->
+    <!--location:去哪个目录中寻找静态资源。mapping中**的值是什么，就去location目录中找对应资源-->
+    <!--例如URL是http://localhost:8080/demo01/js/jquery.js 其中mapping的**就是jquery.js,就会去location的/js/目录中寻找jquery.js -->
+    <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
+<!--    <mvc:resources mapping="/css/**" location="/css/"></mvc:resources>-->
+<!--    <mvc:resources mapping="/images/**" location="/images/"></mvc:resources>-->
+
+    <!--放在WEB-INF中时-->
+    <!--<mvc:resources mapping="/js/**" location="/WEB-INF/js/"></mvc:resources>
+    <mvc:resources mapping="/css/**" location="/WEB-INF/css/"></mvc:resources>
+    <mvc:resources mapping="/images/**" location="/WEB-INF/images/"></mvc:resources>-->
+</beans>
