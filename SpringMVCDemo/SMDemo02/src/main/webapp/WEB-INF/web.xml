@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+  <!-- SpringMVC 核心控制器 -->
+  <servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:SpringMVC.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+
+    <!-- 新增 -->
+    <multipart-config>
+      <max-file-size>2097152</max-file-size>
+      <max-request-size>4194304</max-request-size>
+      <file-size-threshold>0</file-size-threshold>
+    </multipart-config>
+    <!--
+        max-file-size: 指定上传文件允许的最大大小。 默认值为1MB
+        max-request-size: 指定multipart/form-data请求允许的最大大小。 默认值为10MB。
+        PS: 其中max-file-size指定的大小是单文件上传的大小限制，而max-request-size是一次请求的多个文件大小限制。
+        location: 指定将存储上载文件的目录。 未指定时，将使用自定义目录。
+        file-size-threshold: 指定文件将写入磁盘的大小阈值。 默认值为0。
+    -->
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+</web-app>

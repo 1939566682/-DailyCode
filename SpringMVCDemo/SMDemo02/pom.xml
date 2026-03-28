@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.example</groupId>
-    <artifactId>SMDemo01</artifactId>
+    <artifactId>SMDemo02</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>SMDemo01 Maven Webapp</name>
+    <name>SMDemo02 Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
@@ -34,19 +34,14 @@
             <scope>provided</scope>
         </dependency>
         <!--返回值转为 json -->
-        <!--    <dependency>-->
-        <!--      <groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--      <artifactId>jackson-databind</artifactId>-->
-        <!--      <version>2.15.2</version>-->
-        <!--    </dependency>-->
-        <!--返回值转为 xml -->
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
             <version>2.15.2</version>
         </dependency>
     </dependencies>
+
     <build>
-        <finalName>SMDemo01</finalName>
+        <finalName>SMDemo02</finalName>
     </build>
 </project>

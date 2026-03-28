@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+hi test01.html<br>
+<!--直接向标签内部填充内容，清空原有内容 -->
+<span th:text="abc"></span><br>
+<!-- 从作用域中获取username输入到标签内部 ,idea中报红色波浪线错误不要紧，只是页面语法不支持-->
+<span th:text="${msg1}"></span><br>
+<span th:text="${msg4.id}"></span><br>
+<span th:text="${msg4.username}"></span><br>
+<input type="text" th:value="${msg2}"/><br>
+<span th:if="${msg3}>40">会显示</span><br>
+<table border="1" width="500">
+    <tr>
+        <td>编号</td>
+        <td>姓名</td>
+    </tr>
+    <tr th:each="u,i : ${msg5}">
+        <td th:text="${u.id}" ></td>
+        <td th:text="${u.username}"></td>
+        <td th:text="${i.size}"></td> <!--集合长度-->
+        <td th:text="${i.count}"></td><!--计数-->
+        <td th:text="${i.index}"></td><!--索引-->
+    </tr>
+</table>
+<!-- 多个参数就用逗号分开：@{/show2(id=1,username='lili')}-->
+<a th:href="@{/show3(id=1)}" >跳转</a><br>
+<!-- 获取作用域值-->
+<a th:href="@{/show3(id=${msg4.id})}">跳转2</a><br>
+<!-- href=”javascript:void(0);”的含义 即让超链接去执行一个js函数,而不是去跳转到一个地址-->
+<th><a href="javascript:void(0);"  th:onclick="'del('+${msg4.id}+')'">删除</a></th><br>
+
+<script type="text/javascript">
+    function del(id){
+        alert(id)
+    }
+</script>
+</body>
+</html>

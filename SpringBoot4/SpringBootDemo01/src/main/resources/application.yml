@@ -1,0 +1,46 @@
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Spring 核心配置
+spring:
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/你的数据库名?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: root
+
+  # jackson 时间格式全局配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# MyBatis 配置
+mybatis:
+  # mapper xml 文件路径
+  mapper-locations: classpath:mapper/*.xml
+  # 实体类别名包
+  type-aliases-package: org.example.pojo
+  configuration:
+    # 开启驼峰命名自动映射
+    map-underscore-to-camel-case: true
+    # 打印SQL（开发环境用）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# SpringDoc OpenAPI (Swagger) 配置
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+# 日志配置
+logging:
+  level:
+    root: info
+    org.example: debug
