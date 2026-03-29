@@ -1,13 +1,8 @@
-# SpringBoot 核心配置
 spring:
-  # 应用名称
-  application:
-    name: SpringBootMyBatisDemo01
-  # 数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource  #底层使用druid连接池
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/springboot?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/springboot?serverTimezone=Asia/Shanghai&useSSL=false&characterEncoding=utf8
     username: root
     password: root
     druid:
@@ -37,33 +32,10 @@ spring:
         # 启用控制台-后台管理界面，必须启用，否则访问界面会404
         enabled: true
 
-  # ====================== 热部署配置 ======================
-  devtools:
-    restart:
-      enabled: true  # 开启热部署
-      additional-exclude: static/**,templates/**  # 排除静态资源不重启
-      poll-interval: 1000  # 监听文件变化间隔
-      quiet-period: 400    # 等待代码稳定后再重启
 
-  favicon:
-      enabled: false
 
-# MyBatis 基础配置（SpringBoot集成MyBatis必备）
 mybatis:
-  # mapper.xml 文件路径
-  mapper-locations: classpath:mapper/*.xml
-  # 实体类别名包
-  type-aliases-package: org.example.pojo
-  # 开启下划线转驼峰
-  configuration:
-    map-underscore-to-camel-case: true
-    # 打印SQL日志
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-logging:
-  level:
-    org.example.mapper: trace
-
-# 服务器端口（默认8080）
-server:
-  port: 8080
+  #起别名
+  type-aliases-package: com.msb.pojo
+  #扫描mybatis下所有的xml文件  ---》使用mybatis-plus后可以不使用mapper.xml文件了 ，所以这步可以取消
+  # mapper-locations: classpath:mapper/*.xml
