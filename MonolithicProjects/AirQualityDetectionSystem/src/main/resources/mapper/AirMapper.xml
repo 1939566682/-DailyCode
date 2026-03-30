@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.AirMapper">
+
+    <select id="getAirListByDistrictId" resultType="org.example.vo.AirVO">
+        select a.id, district_id, monitor_time, pm10, pm25, monitoring_station, last_modify_time
+        from air_quality_index a
+                 left join district d on a.district_id = d.id
+        where d.id = #{id}
+    </select>
+</mapper>
