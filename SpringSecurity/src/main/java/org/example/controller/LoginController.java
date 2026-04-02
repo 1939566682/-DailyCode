@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ public class LoginController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
 
     @RequestMapping("/user/login")
     public String login(String username, String password) {
@@ -48,15 +50,25 @@ public class LoginController {
         // 4、认证成功  把用户信息放到 SecurityContext 再把 SecurityContext 放到 SecurityContextHolder 里
         SecurityContextHolder.getContext().setAuthentication(user);
 
-        return "success!";
+        return "success! 登录成功，当前用户：" + user.getName();
     }
 
+    /**
+     * 角色授权
+     * @return
+     */
     @GetMapping("/role")
+    @PreAuthorize("hasAnyRole('管理员','用户')")
     public String role(){
         return "role";
     }
 
+    /**
+     * 权限授权
+     * @return
+     */
     @GetMapping("/perm")
+    @PreAuthorize("hasAnyAuthority('xxx:yyy','user:select')")
     public String perm(){
         return "perm";
     }

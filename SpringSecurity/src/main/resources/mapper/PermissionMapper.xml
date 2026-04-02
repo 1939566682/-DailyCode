@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.PermissionMapper">
+    <select id="findPermissionByUserId" resultType="String">
+        select p.perm_name
+        from user u
+                 left join user_role ur on u.id = ur.uid
+                 left join role r on r.id = ur.rid
+                 left join role_permission rp on r.id = rp.rid
+                 left join permission p on p.id = rp.pid
+        where u.id = #{id}
+    </select>
+</mapper>

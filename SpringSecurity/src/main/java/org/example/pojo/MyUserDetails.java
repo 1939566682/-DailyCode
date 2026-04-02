@@ -20,11 +20,16 @@ import java.util.List;
 public class MyUserDetails implements UserDetails {
     private String username;
     private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
+    public MyUserDetails(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.authorities;
     }
 
     @Override

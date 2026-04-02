@@ -52,8 +52,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(req ->req
                 .mvcMatchers("/user/login").permitAll()
-                .mvcMatchers("/role").hasRole("admin")
-                .mvcMatchers("/perm").hasAuthority("user:select")
+                // 角色和权限校验
+//                .mvcMatchers("/role").hasAnyRole("管理员","用户")
+//                .mvcMatchers("/perm").hasAuthority("user:add")
                 .anyRequest().authenticated()
         );
         return http.build();
