@@ -20,5 +20,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public BaseResponse<Object> BaseExceptionHandler(BaseException e) {
         return BaseResponse.fail(e.getMessage());
+
+        
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.hjycommunity.community.mapper.HjyCommunityMapper">
+
+    <!-- 小区列表查询（支持动态条件+关联省市县） -->
+    <select id="QueryCommunityList" resultType="org.example.hjycommunity.community.domain.dto.HjyCommunityDTO">
+        select
+        hc.*,
+        sa1.name as communityProvinceName,
+        sa2.name as communityCityName,
+        sa3.name as communityTownName
+        from hjy_community hc
+        left join sys_area sa1 on hc.community_province_code = sa1.code
+        left join sys_area sa2 on hc.community_city_code = sa2.code
+        left join sys_area sa3 on hc.community_town_code = sa3.code
+        <where>
+            <!-- 小区名称模糊查询 -->
+            <if test="communityName != null and communityName != ''">
+                and hc.community_name like concat('%', #{communityName}, '%')
+            </if>
+
+            <!-- 省 -->
+            <if test="communityProvinceCode != null and communityProvinceCode != ''">
+                and hc.community_province_code = #{communityProvinceCode}
+            </if>
+
+            <!-- 市 -->
+            <if test="communityCityCode != null and communityCityCode != ''">
+                and hc.community_city_code = #{communityCityCode}
+            </if>
+
+            <!-- 区/县 -->
+            <if test="communityTownCode != null and communityTownCode != ''">
+                and hc.community_town_code = #{communityTownCode}
+            </if>
+        </where>
+        order by hc.create_time desc
+    </select>
+</mapper>
+

@@ -1,18 +1,16 @@
 package org.example.hjycommunity.entity;
 
-import java.io.Serial;
 import java.util.Date;
 import java.io.Serializable;
 
 /**
  * 小区 (HjyCommunity)实体类
  *
- * @author luoyu
- * @since 2026-04-03 19:19:58
+ * @author Yang QingBo
+ * @since 2026-04-06 21:28:47
  */
 public class HjyCommunity implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 479478202816798638L;
+    private static final long serialVersionUID = 757317709916110646L;
 /**
      * 小区id
      */

@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * 小区 (HjyCommunity)表服务实现类
  *
- * @author luoyu
- * @since 2026-04-03 19:19:59
+ * @author Yang QingBo
+ * @since 2026-04-06 21:28:47
  */
 @Service("hjyCommunityService")
 public class HjyCommunityServiceImpl implements HjyCommunityService {

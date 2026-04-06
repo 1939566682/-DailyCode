@@ -11,7 +11,7 @@ server:
   port: 8080
   servlet:
     # 应用的访问路径
-    context-path: /
+    context-path: /hejiayun
   tomcat:
     # tomcat的URI编码
     uri-encoding: UTF-8
@@ -53,9 +53,8 @@ mybatis-plus:
   ## plus的实体别名包，不需要写出实体类的完整路径，只需要写出类名即可
   type-aliases-package: org.example.hjycommunity.**.domain
   ## mybatis  mapper.xml的位置
-  mapper-locations: classpath:mapper/**/*Mapper.xml
+  mapper-locations: classpath*:/mapper/**/*.xml
   ## mybatis  config的配置文件位置
-
   config-location: classpath:mybatis-config.xml
   ## 全局配置
   global-config:

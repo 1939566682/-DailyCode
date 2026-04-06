@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.example.hjycommunity.**.mapper")
+@MapperScan("org.example.hjycommunity.**.mapper")
 public class HjyCommunityApplication {
 
     public static void main(String[] args) {

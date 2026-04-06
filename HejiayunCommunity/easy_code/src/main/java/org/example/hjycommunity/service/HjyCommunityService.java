@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 /**
  * 小区 (HjyCommunity)表服务接口
  *
- * @author luoyu
- * @since 2026-04-03 19:19:59
+ * @author Yang QingBo
+ * @since 2026-04-06 21:28:47
  */
 public interface HjyCommunityService {
 
