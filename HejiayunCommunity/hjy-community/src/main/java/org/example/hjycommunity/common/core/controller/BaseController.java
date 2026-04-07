@@ -60,7 +60,7 @@ public class BaseController {
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
 
-        // 两个都不为 null 才分页，否则不分页（导出全部）
+        // 两个都不为 null 才分页 否则不分页（导出全部）
         if (pageNum != null && pageSize != null && pageNum > 0 && pageSize > 0) {
             PageHelper.startPage(pageNum, pageSize);
         }
