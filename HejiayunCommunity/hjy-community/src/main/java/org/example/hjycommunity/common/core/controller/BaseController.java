@@ -34,19 +34,34 @@ public class BaseController {
      */
     private PageDomain getPageDomain() {
         PageDomain pageDomain = new PageDomain();
-        pageDomain.setPageNum(ServletUtils.getParameterToInt(PAGE_NUM));
-        pageDomain.setPageSize(ServletUtils.getParameterToInt(PAGE_SIZE));
+
+        // 安全获取 pageNum
+        Integer pageNum = ServletUtils.getParameterToInt(PAGE_NUM);
+        if (pageNum != null) {
+            pageDomain.setPageNum(pageNum);
+        }
+
+        // 安全获取 pageSize
+        Integer pageSize = ServletUtils.getParameterToInt(PAGE_SIZE);
+        if (pageSize != null) {
+            pageDomain.setPageSize(pageSize);
+        }
+
         return pageDomain;
     }
 
     /**
-     * 封装调用 PageHelper 的 startPage 方法
+     * 智能分页：只有传入 pageNum 和 pageSize 才开启分页
+     * 不传参数 -> 导出全部数据
+     * 传参数 -> 导出当前页
      */
     protected void startPage() {
         PageDomain pageDomain = getPageDomain();
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
-        if (pageNum != null && pageSize != null) {
+
+        // 两个都不为 null 才分页，否则不分页（导出全部）
+        if (pageNum != null && pageSize != null && pageNum > 0 && pageSize > 0) {
             PageHelper.startPage(pageNum, pageSize);
         }
     }

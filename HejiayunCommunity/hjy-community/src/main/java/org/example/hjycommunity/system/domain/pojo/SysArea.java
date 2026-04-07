@@ -1,5 +1,6 @@
 package org.example.hjycommunity.system.domain.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
+@TableName("sys_area")
 public class SysArea implements Serializable {
     @Serial
     private static final long serialVersionUID = 264069274408151200L;

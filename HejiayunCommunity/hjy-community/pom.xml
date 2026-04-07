@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.msb</groupId>
+    <groupId>org.example</groupId>
     <artifactId>hjy-community</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -228,7 +228,12 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
         </dependency>
-
+        <!-- 引入easyPOI -->
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-spring-boot-starter</artifactId>
+            <version>4.2.0</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>

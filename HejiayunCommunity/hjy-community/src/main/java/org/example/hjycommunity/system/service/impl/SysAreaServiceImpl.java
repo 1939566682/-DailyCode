@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class SysAreaServiceImpl implements SysAreaService {
+
     @Autowired
     private SysAreaMapper sysAreaMapper;
 

@@ -54,10 +54,15 @@ public class ServletUtils {
 
 
     /**
-     * 获取Integer参数
+     * 获取Integer参数 (自动处理null，不会报错)
      */
     public static Integer getParameterToInt(String name) {
-        return Integer.parseInt(getRequest().getParameter(name));
+        String value = getRequest().getParameter(name);
+        // 如果为null 或 空字符串，返回 null，不解析
+        if (value == null || value.trim().isEmpty()) {
+            return null;
+        }
+        return Integer.parseInt(value);
     }
 
     /**

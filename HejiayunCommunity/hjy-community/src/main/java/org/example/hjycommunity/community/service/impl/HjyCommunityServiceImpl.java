@@ -46,4 +46,35 @@ public class HjyCommunityServiceImpl implements HjyCommunityService {
         hjyCommunity.setCommunityCode(CODE_PREFIX + System.currentTimeMillis());
         return hjyCommunityMapper.insert(hjyCommunity);
     }
+
+    /**
+     * 根据 ID 查询小区信息
+     *
+     * @param hjyCommunityId
+     * @return
+     */
+    @Override
+    public HjyCommunity selectHjyCommunityById(Long hjyCommunityId) {
+        return hjyCommunityMapper.selectById(hjyCommunityId);
+    }
+
+    /**
+     * 修改小区信息
+     * @param hjyCommunity
+     * @return
+     */
+    @Override
+    public Integer updateHjyCommunity(HjyCommunity hjyCommunity) {
+        return hjyCommunityMapper.updateById(hjyCommunity);
+    }
+
+    /**
+     * 删除小区信息
+     * @param hjyCommunityIds
+     * @return
+     */
+    @Override
+    public Integer deleteHjyCommunityByIds(List<Long> hjyCommunityIds) {
+        return hjyCommunityMapper.deleteBatchIds(hjyCommunityIds);
+    }
 }

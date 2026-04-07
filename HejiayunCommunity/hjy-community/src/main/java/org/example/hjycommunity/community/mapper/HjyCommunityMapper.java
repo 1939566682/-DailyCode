@@ -17,6 +17,11 @@ import java.util.List;
 @Mapper
 public interface HjyCommunityMapper extends BaseMapper<HjyCommunity> {
 
+    /**
+     * 根据条件查询小区列表
+     * @param hjyCommunity
+     * @return
+     */
     List<HjyCommunityDTO> QueryCommunityList(HjyCommunity hjyCommunity);
 
 }
