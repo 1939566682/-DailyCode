@@ -3,6 +3,7 @@ package org.example.hjycommunity.community.service;
 import org.apache.ibatis.annotations.Param;
 import org.example.hjycommunity.community.domain.dto.HjyCommunityDTO;
 import org.example.hjycommunity.community.domain.pojo.HjyCommunity;
+import org.example.hjycommunity.community.domain.vo.HjyCommunityVO;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface HjyCommunityService {
      * @param hjyCommunity
      * @return
      */
-    List<HjyCommunityDTO> QueryCommunityList(HjyCommunity hjyCommunity);
+    List<HjyCommunityDTO> queryCommunityList(HjyCommunity hjyCommunity);
 
     /**
      * 新增小区
@@ -51,4 +52,11 @@ public interface HjyCommunityService {
      * @return
      */
     Integer deleteHjyCommunityByIds(@Param("hjyCommunityIds") List<Long> hjyCommunityIds);
+
+    /**
+     * 获取小区下拉列表
+     * @param hjyCommunity
+     * @return
+     */
+    List<HjyCommunityVO> queryPullDown(HjyCommunity hjyCommunity);
 }

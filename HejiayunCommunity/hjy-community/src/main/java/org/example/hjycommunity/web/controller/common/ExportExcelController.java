@@ -40,7 +40,7 @@ public class ExportExcelController extends BaseController {
     @GetMapping("/exportCommunityExcel")
     public BaseResponse<String> exportExcel(HjyCommunity hjyCommunity, HttpServletResponse response) {
         startPage();
-        List<HjyCommunityDTO> list = hjyCommunityService.QueryCommunityList(hjyCommunity);
+        List<HjyCommunityDTO> list = hjyCommunityService.queryCommunityList(hjyCommunity);
 
         List<HjyCommunityExcelDto> excelDtoList = list.stream().map(
                 hjyCommunityDto -> {

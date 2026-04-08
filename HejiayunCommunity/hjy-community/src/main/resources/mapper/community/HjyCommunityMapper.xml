@@ -3,7 +3,7 @@
 <mapper namespace="org.example.hjycommunity.community.mapper.HjyCommunityMapper">
 
     <!-- 小区列表查询（支持动态条件+关联省市县） -->
-    <select id="QueryCommunityList" resultType="org.example.hjycommunity.community.domain.dto.HjyCommunityDTO">
+    <select id="queryCommunityList" resultType="org.example.hjycommunity.community.domain.dto.HjyCommunityDTO">
         select
         hc.*,
         sa1.name as communityProvinceName,
