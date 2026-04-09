@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -73,5 +74,24 @@ public class LoginServiceImpl implements LoginService {
         log.info("log() -> 登录成功，返回token给前端");
 
         return ResponseResult.success(map);
+    }
+
+    @Override
+    public ResponseResult<String> logout() {
+        UsernamePasswordAuthenticationToken authentication =
+                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+        // 认证失败
+        if (Objects.isNull(authentication)) {
+            log.error("log() -> 登出：获取用户认证信息失败");
+            throw new RuntimeException("用户名或密码错误");
+        }
+
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Long userId = loginUser.getSysUser().getUserId();
+
+        // 删除 redis 中的用户信息
+        redisCache.deleteObject("login:" + userId);
+        return ResponseResult.success("注销成功");
     }
 }

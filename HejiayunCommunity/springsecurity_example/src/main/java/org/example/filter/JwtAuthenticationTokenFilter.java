@@ -69,6 +69,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String redisKey = "login:" + userId;
         LoginUser loginUser = redisCache.getCacheObject(redisKey);
         if (Objects.isNull(loginUser)) {
+            log.warn("用户未登录");
             throw new RuntimeException("用户未登录");
         }
 
