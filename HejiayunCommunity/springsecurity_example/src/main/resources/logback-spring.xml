@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <contextName>custom-logback</contextName>
+    <!-- 日志存放路径 -->
+    <property name="log.path" value="/home/hejiayun/logs" />
+    <!-- 日志输出格式（无颜色版本，用于文件和生产环境控制台） -->
+    <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
+    <!-- 彩色日志格式（仅开发环境控制台使用） -->
+<!--    <property name="log.pattern.color" value="%highlight(%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n)" />-->
+    <property name="log.pattern.color" value="%highlight(%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n){INFO=green, DEBUG=blue}" />
+
+    <!-- 统一彩色控制台 Appender -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.pattern.color}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ==================== 文件 Appender ==================== -->
+    <!-- INFO 级别日志文件 -->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/sys-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- ERROR 级别日志文件 -->
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/sys-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 用户访问日志文件 -->
+    <appender name="sys-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-user.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/sys-user.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ==================== 日志级别控制（按环境区分） ==================== -->
+    <!-- 开发环境：输出 DEBUG 及以上级别 -->
+    <springProfile name="dev">
+        <logger name="org.example" level="debug" />
+        <logger name="org.springframework" level="warn" />
+        <logger name="sys-user" level="info">
+            <appender-ref ref="sys-user" />
+        </logger>
+        <root level="debug">
+            <appender-ref ref="console" />
+            <appender-ref ref="file_info" />
+            <appender-ref ref="file_error" />
+        </root>
+    </springProfile>
+
+    <!-- 生产环境（非 dev）：只输出 INFO 及以上，不输出 DEBUG -->
+    <springProfile name="!dev">
+        <logger name="org.example" level="info" />
+        <logger name="org.springframework" level="warn" />
+        <logger name="sys-user" level="info">
+            <appender-ref ref="sys-user" />
+        </logger>
+        <root level="info">
+            <appender-ref ref="console" />
+            <appender-ref ref="file_info" />
+            <appender-ref ref="file_error" />
+        </root>
+    </springProfile>
+
+</configuration>

@@ -91,7 +91,4 @@ public class BaseResponse<T>  implements Serializable {
         baseResponse.setData(null);
         return baseResponse;
     }
-
-
-
 }
