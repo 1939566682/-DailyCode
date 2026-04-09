@@ -38,6 +38,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不存在");
         }
 
+        // todo 查询用户权限信息
+
+
         log.info("log() -> 用户查询成功，封装为LoginUser");
         return new LoginUser(sysUser);
     }

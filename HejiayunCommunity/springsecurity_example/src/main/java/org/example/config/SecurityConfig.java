@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,7 +20,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * {@code @date} 2026-04-09 16:22
  */
 
+/**
+ * 启用全局方法级别的安全控制
+ *   设置 prePostEnabled = true
+ *   pre 表示方法执行前进行授权校验
+ *   post 表示方法执行后进行授权校验
+ */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

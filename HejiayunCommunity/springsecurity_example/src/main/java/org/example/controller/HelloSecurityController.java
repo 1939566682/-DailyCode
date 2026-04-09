@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloSecurityController {
 
+    /**
+     * @PreAuthorize() 在方法执行前进行权限的校验
+     * hasAuthority() 检查用户是否具有指定权限
+     * hasAuthority('test') 检查用户是否具有 test 权限
+     * 在方法执行后进行权限的校验可以使用 @PostAuthorize()
+     * @return
+     */
     @RequestMapping("/hello")
+    @PreAuthorize("hasAuthority('test')")
     public String hello(){
         return "Hello Security!";
     }
