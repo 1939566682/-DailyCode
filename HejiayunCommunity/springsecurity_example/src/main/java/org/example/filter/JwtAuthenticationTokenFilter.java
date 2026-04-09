@@ -44,10 +44,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //1.从请求头中获取token
+        // 1.从请求头中获取token
         String token = request.getHeader("token");
 
-        //2.判断token是否为空,为空直接放行
+        // 2.判断token是否为空,为空直接放行
         if (!StringUtils.hasText(token)) {
             //放行
             filterChain.doFilter(request, response);
@@ -55,7 +55,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        //3.解析Token
+        // 3.解析Token
         String userId;
         try {
             Claims claims = JwtUtil.parseJWT(token);
@@ -65,7 +65,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException("非法token");
         }
 
-        //4.从redis中获取用户信息
+        // 4.从redis中获取用户信息
         String redisKey = "login:" + userId;
         LoginUser loginUser = redisCache.getCacheObject(redisKey);
         if (Objects.isNull(loginUser)) {
@@ -73,13 +73,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException("用户未登录");
         }
 
-        //5.将用户新保存到SecurityContextHolder,以便后续的访问控制和授权操作使用。
-        // todo 获取权限信息封装到 AuthenticationToken
+        // 5.将用户新保存到SecurityContextHolder,以便后续的访问控制和授权操作使用。
+        // 获取权限信息封装到 AuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginUser, null, null);
+                new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-        //6.放行
+        // 6.放行
         filterChain.doFilter(request, response);
     }
 
