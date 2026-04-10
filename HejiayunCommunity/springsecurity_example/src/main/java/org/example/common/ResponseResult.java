@@ -1,6 +1,7 @@
 package org.example.common;
 
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 /**
  * ResponseResult
@@ -14,6 +15,22 @@ public class ResponseResult<T> {
     private String code;
     private String message;
     private T data;
+
+    public ResponseResult(HttpStatus httpStatus, String msg) {
+        this.code = String.valueOf(httpStatus.value());
+        this.message = msg;
+        return;
+    }
+
+    public ResponseResult(int value, T msg) {
+        this.code = String.valueOf(value);
+        this.message = msg.toString();
+    }
+
+    public ResponseResult() {
+
+    }
+
 
     public static <T> ResponseResult<T> success(String message) {
         ResponseResult<T> result = new ResponseResult<>();
