@@ -6,6 +6,7 @@ import org.example.entity.LoginUser;
 import org.example.entity.Menu;
 import org.example.entity.SysUser;
 import org.example.mapper.MenuMapper;
+import org.example.mapper.RoleMapper;
 import org.example.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private MenuMapper menuMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -56,8 +59,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         System.out.println("--");
 
+        // 获取当前用户角色信息
+        List<String> roles = roleMapper.selectRolesByUserId(sysUser.getUserId());
+
 
         log.info("log() -> 用户查询成功，封装为LoginUser");
-        return new LoginUser(sysUser,perms);
+        return new LoginUser(sysUser,perms,roles);
     }
 }

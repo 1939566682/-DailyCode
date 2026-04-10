@@ -56,4 +56,19 @@ public class HelloSecurityController {
     public ResponseResult<String> testCors() {
         return ResponseResult.success("OK Cors");
     }
+
+    @RequestMapping("/level1")
+    //当前用户是common角色,并且具有system:role:list或者system:user:list
+    @PreAuthorize("hasRole('common') OR hasAnyAuthority('system:role:list','system:user:list')")
+    public String level1() {
+        return "level1 page";
+    }
+
+    @RequestMapping("/level2")
+    //当前用户拥有admin或者common角色,或者具有system:role:list权限
+    @PreAuthorize("hasAnyRole('admin','common') OR hasAuthority('system:role:list')")
+    public String level2() {
+        return "level2 page";
+    }
+
 }

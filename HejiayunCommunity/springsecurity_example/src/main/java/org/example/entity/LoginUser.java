@@ -2,8 +2,6 @@ package org.example.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +29,9 @@ public class LoginUser implements UserDetails {
     // 存储权限的集合
     private List<String> permissions;
 
+    //存储角色信息集合
+    private List<String> roles;
+
     // authorities 权限集合
     @JSONField(serialize = false)
     private List<SimpleGrantedAuthority> authorities;
@@ -47,8 +48,15 @@ public class LoginUser implements UserDetails {
         this.permissions = permissions;
     }
 
+    public LoginUser(SysUser user, List<String> permissions, List<String> roles) {
+        this.sysUser = user;
+        this.permissions = permissions;
+        this.roles = roles;
+    }
+
     /**
      * 用于获取用户被授予的权限 可以用于实现访问控制
+     *
      * @return
      */
     @Override
@@ -66,13 +74,21 @@ public class LoginUser implements UserDetails {
             return new ArrayList<>();
         }
 
-        return permissions.stream()
+        authorities = permissions.stream()
                 .map(SimpleGrantedAuthority::new)
                 .toList();
+
+        //处理角色信息
+        authorities = roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
+
+        return authorities;
     }
 
     /**
      * 获取用户密码 用于密码验证
+     *
      * @return
      */
     @Override
