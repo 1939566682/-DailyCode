@@ -67,7 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http
-
                 // 不会创建会话，每个请求都将被视为独立的请求。
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -75,6 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/user/login").anonymous()
+                .antMatchers("/yes").hasAnyAuthority("system:user:list") // 配置形式的权限控制
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 

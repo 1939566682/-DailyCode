@@ -29,9 +29,27 @@ public class HelloSecurityController {
     }
 
     @RequestMapping("/ok")
-    @PreAuthorize("hasAuthority('system:role:list')")
+    @PreAuthorize("hasAnyAuthority('system:role:list','system:user:list')")  // 检查用户是否具有任何一个指定权限
     public String ok() {
         return "OK Spring Security!";
+    }
+
+    @RequestMapping("/yes")
+    @PreAuthorize("@my_ex.hasAuthority('system:user:list')")  // 检查用户是否具有任何一个指定权限
+    public String yes() {
+        return "YES Spring Security!";
+    }
+
+    @RequestMapping("/role1")
+    @PreAuthorize("hasRole('admin')")
+    public String role1() {
+        return "role1 Spring Security!";
+    }
+
+    @RequestMapping("/role2")
+    @PreAuthorize("hasAnyRole('admin','zhangsan')")
+    public String role2() {
+        return "role2 Spring Security!";
     }
 
     @RequestMapping("/testCors")
