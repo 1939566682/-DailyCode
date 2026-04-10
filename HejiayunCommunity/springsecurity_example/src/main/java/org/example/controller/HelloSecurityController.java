@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.common.ResponseResult;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +32,10 @@ public class HelloSecurityController {
     @PreAuthorize("hasAuthority('system:role:list')")
     public String ok() {
         return "OK Spring Security!";
+    }
+
+    @RequestMapping("/testCors")
+    public ResponseResult<String> testCors() {
+        return ResponseResult.success("OK Cors");
     }
 }

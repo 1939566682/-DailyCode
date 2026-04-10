@@ -59,13 +59,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //该方法用于配置 HTTP 请求的安全处理
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // 允许跨域
+        http.cors();
+
+        // 关闭csrf
+        http.csrf().disable();
+
         http
-                //关闭csrf
-                .csrf().disable()
-                //不会创建会话，每个请求都将被视为独立的请求。
+
+                // 不会创建会话，每个请求都将被视为独立的请求。
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                //定义请求授权规则
+                // 定义请求授权规则
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/user/login").anonymous()
@@ -81,5 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 // 配置授权异常处理器 403
                 .accessDeniedHandler(accessDeniedHandler);
+
+
     }
 }
