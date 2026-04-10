@@ -3,7 +3,9 @@ package org.example.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.example.entity.LoginUser;
+import org.example.entity.Menu;
 import org.example.entity.SysUser;
+import org.example.mapper.MenuMapper;
 import org.example.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private MenuMapper menuMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -43,10 +47,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         // 查询用户权限信息,添加到 LoginUser 中 ，这里先写死封装到 List 中
-        ArrayList<String> list = new ArrayList<>(List.of("test"));
+//        ArrayList<String> list = new ArrayList<>(List.of("test"));
+        // 从数据库查询用户权限信息  保存到 LoginUser
+        List<String> perms = menuMapper.selectPermsByUserId(sysUser.getUserId());
+        System.out.println("--");
+        for (String perm : perms) {
+            System.out.println(perm);
+        }
+        System.out.println("--");
 
 
         log.info("log() -> 用户查询成功，封装为LoginUser");
-        return new LoginUser(sysUser,list);
+        return new LoginUser(sysUser,perms);
     }
 }

@@ -1,0 +1,64 @@
+package org.example.entity;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * Menu
+ * 菜单表对应实体类
+ * @author Yang QingBo
+ * {@code @date} 2026-04-10 15:11
+ */
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@TableName(value = "sys_menu")
+public class Menu implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 6535985969569377951L;
+
+    @TableId
+    private Long id;
+
+    //菜单名
+    private String menuName;
+
+    //路由地址
+    private String path;
+
+    //组件路径
+    private String component;
+
+    //菜单状态 (0 显示, 1隐藏)
+    private String visible;
+
+    //菜单状态 (0 正常, 1 停用)
+    private String status;
+
+    //权限标识
+    private String perms;
+
+    //菜单图标
+    private String icon;
+
+    private String createBy;
+
+    private String updateBy;
+
+    private Date updateTime;
+
+    private Date createTime;
+
+    private String remark;
+}

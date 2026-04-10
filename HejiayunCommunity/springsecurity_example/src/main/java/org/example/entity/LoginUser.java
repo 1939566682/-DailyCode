@@ -61,6 +61,11 @@ public class LoginUser implements UserDetails {
             return authorities;
         }
 
+        // 修复空指针问题
+        if (permissions == null) {
+            return new ArrayList<>();
+        }
+
         return permissions.stream()
                 .map(SimpleGrantedAuthority::new)
                 .toList();

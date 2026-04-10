@@ -15,15 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloSecurityController {
 
     /**
+     * @return
      * @PreAuthorize() 在方法执行前进行权限的校验
      * hasAuthority() 检查用户是否具有指定权限
      * hasAuthority('test') 检查用户是否具有 test 权限
      * 在方法执行后进行权限的校验可以使用 @PostAuthorize()
-     * @return
      */
     @RequestMapping("/hello")
-    @PreAuthorize("hasAuthority('test')")
-    public String hello(){
-        return "Hello Security!";
+    @PreAuthorize("hasAuthority('system:user:list')")
+    public String hello() {
+        return "Hello Spring Security!";
+    }
+
+    @RequestMapping("/ok")
+    @PreAuthorize("hasAuthority('system:role:list')")
+    public String ok() {
+        return "OK Spring Security!";
     }
 }
