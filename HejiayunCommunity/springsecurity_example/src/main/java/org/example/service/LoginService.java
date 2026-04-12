@@ -14,6 +14,8 @@ import java.util.Map;
 
 public interface LoginService {
     ResponseResult<Map<String, String>> login(SysUser sysUser);
+    
+    String login(String username, String password, String code, String uuid);
 
     ResponseResult<String> logout();
 }

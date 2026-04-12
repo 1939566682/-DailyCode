@@ -30,6 +30,14 @@ public class ResponseResult<T> {
     public ResponseResult() {
 
     }
+    
+    public static <T> ResponseResult<T> success(String message,T data) {
+        ResponseResult<T> result = new ResponseResult<>();
+        result.setCode(ResultCode.SUCCESS.getCode());
+        result.setMessage(message);
+        result.setData(data);
+        return result;
+    }
 
 
     public static <T> ResponseResult<T> success(String message) {
