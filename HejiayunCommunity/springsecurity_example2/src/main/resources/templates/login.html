@@ -2,20 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>登录页面</title>
+    <title>登录</title>
 </head>
 <body>
-<h1>用户登录</h1>
+<h3>表单登录</h3>
+
 <form method="post" th:action="@{/login}">
-    <label>
-        用户名:
-        <input name="username" type="text"/>
-    </label><br>
-    <label>
-        密码:
-        <input name="password" type="password"/>
-    </label><br>
-    <input type="submit" value="登录"/>
+    <input type="text" name="username" placeholder="用户名"><br>
+
+    <input type="password" name="password" placeholder="密码"><br>
+
+    <input name="imageCode" type="text" placeholder="验证码"><br>
+
+    <img th:onclick="this.src='/code/image?'+Math.random()" th:src="@{/code/image}" alt="验证码"/><br>
+    <button type="submit">登录</button>
 </form>
 </body>
 </html>
