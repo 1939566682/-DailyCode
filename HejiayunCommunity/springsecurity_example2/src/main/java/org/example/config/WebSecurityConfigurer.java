@@ -1,11 +1,13 @@
 package org.example.config;
 
+import org.example.filter.KaptchaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
@@ -27,6 +29,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private LogoutSuccessHandler logoutSuccessHandler;
 	
+	@Autowired
+	private KaptchaFilter kaptchaFilter;
 	
 	/**
 	 * 定制基于 HTTP 请求的用户访问控制
@@ -40,7 +44,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				//除上述以外,指定其他所有请求都需要经过身份验证
 				.anyRequest().authenticated();
 		
-		//开启 form表单登录
+		//开启 form 表单登录
 		http.formLogin()
 				.loginPage("/login.html")      //登录页面(覆盖security的)
 				.loginProcessingUrl("/login")  //提交路径
@@ -58,5 +62,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
 		http.csrf().disable();//这里先关闭 CSRF
 		
+		//将自定义图形验证码校验过滤器,添加到UsernamePasswordAuthenticationFilter之前
+		http.addFilterBefore(kaptchaFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }
