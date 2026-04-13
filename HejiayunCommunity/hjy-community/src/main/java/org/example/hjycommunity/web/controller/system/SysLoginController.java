@@ -1,7 +1,6 @@
 package org.example.hjycommunity.web.controller.system;
 
 import org.example.hjycommunity.common.utils.ChainedMap;
-import org.example.hjycommunity.framework.exception.CaptchaNotMatchException;
 import org.example.hjycommunity.system.domain.pojo.LoginBody;
 import org.example.hjycommunity.system.service.SysLoginService;
 import org.springframework.beans.factory.annotation.Autowired;

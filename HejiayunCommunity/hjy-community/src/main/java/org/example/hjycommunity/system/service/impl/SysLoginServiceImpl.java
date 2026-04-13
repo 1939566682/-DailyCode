@@ -1,7 +1,9 @@
 package org.example.hjycommunity.system.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.hjycommunity.common.constant.Constants;
 import org.example.hjycommunity.common.core.exception.BaseException;
+import org.example.hjycommunity.common.core.exception.UserPasswordNotMatchException;
 import org.example.hjycommunity.common.utils.RedisCache;
 import org.example.hjycommunity.framework.exception.CaptchaNotMatchException;
 import org.example.hjycommunity.system.domain.pojo.LoginUser;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
  * {@code @date} 2026-04-12 19:34
  */
 
+@Slf4j
 @Service
 public class SysLoginServiceImpl implements SysLoginService {
 	
@@ -47,12 +50,15 @@ public class SysLoginServiceImpl implements SysLoginService {
 		
 		//1.从redis中获取验证码,判断是否正确
 		String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
+		log.info("log() login captcha key:{}",verifyKey);
 		String captcha = redisCache.getCacheObject(verifyKey);
+		log.info("log() login captcha value:{}",captcha);
+		
 		redisCache.deleteObject(verifyKey);
 		
 		if (captcha == null || !code.equalsIgnoreCase(captcha)) {
 			try {
-				throw new CaptchaNotMatchException("验证码错误!");
+				throw new CaptchaNotMatchException();
 			} catch (CaptchaNotMatchException e) {
 				throw new RuntimeException(e);
 			}
@@ -65,7 +71,7 @@ public class SysLoginServiceImpl implements SysLoginService {
 			authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (Exception e) {
-			throw new BaseException("用户不存在或密码错误！");
+			throw new UserPasswordNotMatchException();
 		}
 		
 		//3. 获取经过身份验证的用户的主体信息

@@ -1,9 +1,7 @@
 package org.example.hjycommunity.common.core.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 
@@ -25,7 +23,7 @@ public class BaseException extends RuntimeException {
     /**
      * 错误码
      */
-    private String code;
+    private int code;
 
     /**
      * 错误消息
@@ -39,7 +37,7 @@ public class BaseException extends RuntimeException {
         this.message = message;
     }
     
-    public BaseException(String code, String message) {
+    public BaseException(int code, String message) {
         super(message);
         this.code = code;
         this.message = message;

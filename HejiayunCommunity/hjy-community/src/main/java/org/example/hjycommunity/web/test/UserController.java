@@ -41,6 +41,6 @@ public class UserController {
 
     @RequestMapping("/queryUser")
     public BaseResponse<User> queryUser(User user) {
-        throw new BaseException("500","测试异常类");
+        throw new BaseException(500,"测试异常类");
     }
 }

@@ -59,7 +59,7 @@ public class ExcelUtils {
             workbook.write(outputStream);
         } catch (Exception e) {
             log.error("导出Excel异常{}", e.getMessage());
-            throw new BaseException("500", "导出Excel失败，请联系网站管理员！");
+            throw new BaseException(500, "导出Excel失败，请联系网站管理员！");
         } finally {
             try {
                 outputStream.close();

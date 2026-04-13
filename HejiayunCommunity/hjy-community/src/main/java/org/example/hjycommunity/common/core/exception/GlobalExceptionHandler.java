@@ -15,12 +15,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(BaseException.class)
+    
     @ResponseBody
+    @ExceptionHandler(BaseException.class)
     public BaseResponse<Object> BaseExceptionHandler(BaseException e) {
         return BaseResponse.fail(e.getMessage());
-
-        
+    }
+    
+    /**
+     * 业务异常处理
+     * @param e
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(CustomException.class)
+    public BaseResponse<Object> CustomExceptionHandler(CustomException e) {
+        return BaseResponse.fail(e.getCode()+"",e.getMessage(),e.isSuccess());
     }
 }

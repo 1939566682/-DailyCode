@@ -14,7 +14,7 @@ public interface SysUserService {
 	/**
 	 * 通过用户名查询用户
 	 * @param userName
-	 * @return: com.msb.hjycommunity.system.domain.SysUser
+	 * &#064;return:
 	 */
-	public SysUser selectUserByUserName(String userName);
+	SysUser selectUserByUserName(String userName);
 }
