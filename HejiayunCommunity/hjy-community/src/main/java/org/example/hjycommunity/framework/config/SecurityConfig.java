@@ -1,5 +1,6 @@
 package org.example.hjycommunity.framework.config;
 
+import org.example.hjycommunity.framework.security.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * SecurityConfig
@@ -26,6 +30,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Autowired
 	private AuthenticationEntryPoint unauthorizedHandler;
+	
+	@Autowired
+	private CorsFilter corsFilter;
+	
+	/**
+	 * token过滤器
+	 */
+	@Autowired
+	private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 	
 	
 	@Bean
@@ -62,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//过滤请求
 				.authorizeRequests()
 				// 对于登录login 验证码captchaImage 允许匿名访问
-				.mvcMatchers("/login","/captchaImage").anonymous()
+				.mvcMatchers("/login", "/captchaImage").anonymous()
 				// 除上面外的所有请求全部需要鉴权认证
 				.anyRequest().authenticated();
 		http
@@ -70,15 +83,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
 		
 		//添加JWTFilter
-		
+		http.addFilterBefore(jwtAuthenticationTokenFilter,UsernamePasswordAuthenticationFilter.class);
 		//添加 CORS filter
+		http.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+		// 确保在用户注销时  响应头依然包含跨域的字段
+		http.addFilterBefore(corsFilter, LogoutFilter.class);
 	}
 	
 	/*
 	 * 配置密码加密方式
 	 */
 	@Bean
-	public PasswordEncoder passwordEncoder(){
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	

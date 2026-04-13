@@ -1,4 +1,4 @@
-package org.example.hjycommunity.system.service.impl;
+package org.example.hjycommunity.framework.security;
 
 import com.alibaba.fastjson.JSON;
 import org.example.hjycommunity.common.constant.HttpStatus;

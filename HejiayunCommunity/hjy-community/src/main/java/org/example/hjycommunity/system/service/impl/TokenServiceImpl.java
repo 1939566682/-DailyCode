@@ -104,7 +104,7 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public LoginUser getLoginUser(HttpServletRequest request) {
 		String token = getToken(request);
-		if (StringUtils.isEmpty(token)) {
+		if (!StringUtils.isEmpty(token)) {
 			Claims claims = parserToken(token);
 			// 解析对应的用户信息
 			String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
