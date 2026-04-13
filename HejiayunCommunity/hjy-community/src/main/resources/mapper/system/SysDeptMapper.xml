@@ -43,7 +43,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="SysDeptMap">
         select
-dept_id, parent_id, ancestors, dept_name, order_num, leader, phone, email, status, del_flag, create_by, create_time, update_by, update_time
+        dept_id, parent_id, ancestors, dept_name, order_num, leader, phone, email, status, del_flag, create_by,
+        create_time, update_by, update_time
         from sys_dept
         <where>
             <if test="deptId != null">
@@ -231,4 +232,3 @@ update_time = values(update_time)
     </delete>
 
 </mapper>
-
