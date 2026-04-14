@@ -1,6 +1,10 @@
 package org.example.hjycommunity.system.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.example.hjycommunity.common.constant.UserConstants;
 import org.example.hjycommunity.system.domain.pojo.SysMenu;
+import org.example.hjycommunity.system.domain.vo.MetaVo;
+import org.example.hjycommunity.system.domain.vo.RouterVo;
 import org.example.hjycommunity.system.mapper.SysMenuMapper;
 import org.example.hjycommunity.system.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +60,84 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 	
 	/**
+	 * 构建前端路由所需要的菜单
+	 *
+	 * @param menus selectMenuTreeByUserId 所返回的菜单
+	 * @return
+	 */
+	@Override
+	public List<RouterVo> buildMenuTree(List<SysMenu> menus) {
+		List<RouterVo> routers = new ArrayList<>();
+		for (SysMenu menu : menus) {
+			RouterVo routerVo = new RouterVo();
+			routerVo.setName(getRouterName(menu));
+			routerVo.setPath(getRouterPath(menu));
+			routerVo.setComponent(getRouterComponent(menu));
+			routerVo.setHidden("1".equals(menu.getVisible()));
+			routerVo.setMeta(new MetaVo(menu.getMenuName(), menu.getIcon(), "1".equals(menu.getIsCache())));
+			List<SysMenu> subMenuList = menu.getChildren();
+			if (subMenuList != null && !subMenuList.isEmpty() && UserConstants.TYPE_DIR.equals(menu.getMenuType())) {
+				routerVo.setAlwaysShow(true);
+				routerVo.setRedirect("noRedirect");
+				routerVo.setChildren(buildMenuTree(subMenuList)); // 递归设置子菜单
+			}
+			routers.add(routerVo);
+		}
+		return routers;
+	}
+	
+	/**
+	 * 获取组件信息
+	 * 获取 menu.getComponent()
+	 * 如果是顶级菜单 直接返回 Layout
+	 * 如果不是 则原样返回 menu.getComponent()
+	 *
+	 * @param menu
+	 * @return 路由组件信息
+	 */
+	private String getRouterComponent(SysMenu menu) {
+		if (menu == null) {
+			throw new NullPointerException("getRouterComponent(SysMenu menu) menu不能为空");
+		}
+		String component = menu.getComponent();
+		// 如果是子菜单
+		if (component != null) {
+			return component;
+			// 如果不是顶级菜单  且菜单类型是目录
+		} else if (menu.getParentId() != 0 && UserConstants.TYPE_DIR.equals(menu.getMenuType())) {
+			return UserConstants.PARENT_VIEW;
+		} else return UserConstants.LAYOUT;
+	}
+	
+	/**
+	 * 获取路由的地址
+	 * 获取 menu_path
+	 * 如果是顶级菜单 在menu_path后将在首字母前加'/'
+	 * 如果不是 则原样返回
+	 *
+	 * @param menu
+	 * @return 路由路径
+	 */
+	private String getRouterPath(SysMenu menu) {
+		String path = menu.getPath();
+		if (menu.getParentId() == 0 && UserConstants.TYPE_DIR.equals(menu.getMenuType())) {
+			path = "/" + path;
+		}
+		return path;
+	}
+	
+	/**
+	 * 获取路由名称 ( 获取 menu_path 后将首字母大写 )
+	 *
+	 * @param menu
+	 * @return 路由名称
+	 */
+	private String getRouterName(SysMenu menu) {
+		String routerPath = menu.getPath();
+		return StringUtils.capitalize(routerPath);
+	}
+	
+	/**
 	 * 根据父节点 id 获取子节点
 	 *
 	 * @param menus    菜单列表
@@ -78,7 +160,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * 递归获取子菜单
 	 *
 	 * @param menus 整个菜单列表
-	 * @param menu 第一次调用是实参为一级菜单
+	 * @param menu  第一次调用是实参为一级菜单
 	 */
 	private void recursionFunction(List<SysMenu> menus, SysMenu menu) {
 		// 获取子节点列表
@@ -98,7 +180,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * 获取子节点列表
 	 *
 	 * @param menus 整个菜单列表
-	 * @param menu 第一次调用时 实参为一级菜单
+	 * @param menu  第一次调用时 实参为一级菜单
 	 * @return 第一次调用时 返回一个 List<SysMenu> 集合  存储一级菜单下的所有子节点
 	 */
 	private List<SysMenu> getChildList(List<SysMenu> menus, SysMenu menu) {

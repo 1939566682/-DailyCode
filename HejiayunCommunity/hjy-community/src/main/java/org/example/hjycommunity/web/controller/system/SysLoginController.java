@@ -8,6 +8,7 @@ import org.example.hjycommunity.system.domain.pojo.LoginBody;
 import org.example.hjycommunity.system.domain.pojo.LoginUser;
 import org.example.hjycommunity.system.domain.pojo.SysMenu;
 import org.example.hjycommunity.system.domain.pojo.SysUser;
+import org.example.hjycommunity.system.domain.vo.RouterVo;
 import org.example.hjycommunity.system.service.SysLoginService;
 import org.example.hjycommunity.system.service.SysMenuService;
 import org.example.hjycommunity.system.service.TokenService;
@@ -83,10 +84,13 @@ public class SysLoginController {
 	 * @return: 路由信息
 	 */
 	@GetMapping("/getRouters")
-	public BaseResponse<List<SysMenu>> getRouters(){
+	public BaseResponse<List<RouterVo>> getRouters(){
 		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 		SysUser user = loginUser.getUser();
+		// 获取菜单列表
 		List<SysMenu> menus = sysMenuService.selectMenuTreeByUserId(user.getUserId());
-		return BaseResponse.success(menus);
+		// 将获取到的菜单列表转换为 前端所需要的路由列表
+		List<RouterVo> routerVos = sysMenuService.buildMenuTree(menus);
+		return BaseResponse.success(routerVos);
 	}
 }
