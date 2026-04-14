@@ -61,6 +61,10 @@ public class LoginUser implements UserDetails {
 		this.user = user;
 	}
 	
+	/**
+	 * 获取用户被授予的权限
+	 * @return
+	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of();

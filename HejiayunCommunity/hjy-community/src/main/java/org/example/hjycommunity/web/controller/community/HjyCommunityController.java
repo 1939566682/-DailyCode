@@ -9,6 +9,7 @@ import org.example.hjycommunity.community.domain.pojo.HjyCommunity;
 import org.example.hjycommunity.community.domain.vo.HjyCommunityVO;
 import org.example.hjycommunity.community.service.HjyCommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class HjyCommunityController extends BaseController {
      * @return
      */
     @GetMapping("/list")
+    @PreAuthorize("@pe.hasPermission('system:community:list')")
     public PageResult communityList(HjyCommunity hjyCommunity) {
         // 分页
         startPage();

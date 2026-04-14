@@ -1,6 +1,5 @@
 package org.example.hjycommunity.framework.service;
 
-import org.example.hjycommunity.system.domain.pojo.SysRole;
 import org.example.hjycommunity.system.domain.pojo.SysUser;
 import org.example.hjycommunity.system.service.SysMenuService;
 import org.example.hjycommunity.system.service.SysRoleService;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 /**
  * SysPermissionService
- * 用户的权限处理
+ * 用户权限处理
  * @author Yang QingBo
  * {@code @date} 2026-04-13 17:38
  */
