@@ -48,6 +48,7 @@ public class BaseResponse<T>  implements Serializable {
         baseResponse.setCode(ResultCode.SUCCESS.getCode());
         baseResponse.setMsg(ResultCode.SUCCESS.getMessage());
         baseResponse.setData(null);
+        baseResponse.setSuccess(true);
         return baseResponse;
     }
 
@@ -59,6 +60,7 @@ public class BaseResponse<T>  implements Serializable {
         baseResponse.setData(data);
         baseResponse.setCode(ResultCode.SUCCESS.getCode());
         baseResponse.setMsg(ResultCode.SUCCESS.getMessage());
+        baseResponse.setSuccess(true);
         return baseResponse;
     }
 
@@ -70,6 +72,7 @@ public class BaseResponse<T>  implements Serializable {
         baseResponse.setCode(ResultCode.ERROR.getCode());
         baseResponse.setMsg(message);
         baseResponse.setData(null);
+        baseResponse.setSuccess(false);
         return baseResponse;
     }
 
@@ -81,6 +84,7 @@ public class BaseResponse<T>  implements Serializable {
         baseResponse.setCode(code);
         baseResponse.setMsg(message);
         baseResponse.setData(null);
+        baseResponse.setSuccess(false);
         return baseResponse;
     }
     
