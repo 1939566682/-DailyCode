@@ -1,5 +1,8 @@
 package org.example.hjycommunity.system.service;
 
+import org.example.hjycommunity.system.domain.pojo.SysMenu;
+
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,4 +20,11 @@ public interface SysMenuService {
 	 * @return
 	 */
 	Set<String> selectMenuPermissionsByUserId(Long userId);
+	
+	/**
+	 * 根据用户 id 查询菜单信息
+	 * @param userId
+	 * @return
+	 */
+	List<SysMenu> selectMenuTreeByUserId(Long userId);
 }

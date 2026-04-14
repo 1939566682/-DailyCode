@@ -1,12 +1,15 @@
 package org.example.hjycommunity.web.controller.system;
 
+import org.example.hjycommunity.common.core.domain.BaseResponse;
 import org.example.hjycommunity.common.utils.ChainedMap;
 import org.example.hjycommunity.common.utils.ServletUtils;
 import org.example.hjycommunity.framework.service.SysPermissionService;
 import org.example.hjycommunity.system.domain.pojo.LoginBody;
 import org.example.hjycommunity.system.domain.pojo.LoginUser;
+import org.example.hjycommunity.system.domain.pojo.SysMenu;
 import org.example.hjycommunity.system.domain.pojo.SysUser;
 import org.example.hjycommunity.system.service.SysLoginService;
+import org.example.hjycommunity.system.service.SysMenuService;
 import org.example.hjycommunity.system.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,6 +38,8 @@ public class SysLoginController {
 	
 	@Autowired
 	private TokenService tokenService;
+	@Autowired
+	private SysMenuService sysMenuService;
 	
 	/**
 	 * 登录方法
@@ -70,5 +76,17 @@ public class SysLoginController {
 		map.put("permissions", permissions);
 		
 		return map;
+	}
+	
+	/**
+	 * 获取路由信息
+	 * @return: 路由信息
+	 */
+	@GetMapping("/getRouters")
+	public BaseResponse<List<SysMenu>> getRouters(){
+		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+		SysUser user = loginUser.getUser();
+		List<SysMenu> menus = sysMenuService.selectMenuTreeByUserId(user.getUserId());
+		return BaseResponse.success(menus);
 	}
 }

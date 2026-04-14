@@ -22,4 +22,18 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
 	 * @return
 	 */
 	List<String> selectMenuPermissionsByUserId(Long userId);
+	
+	/**
+	 * 用户为 admin  查询全部的菜单信息
+	 * @return
+	 */
+	List<SysMenu> selectMenuTreeAll();
+	
+	
+	/**
+	 * 根据用户 id 查询菜单信息
+	 * @param userId
+	 * @return
+	 */
+	List<SysMenu> selectMenuTreeByUserId(Long userId);
 }

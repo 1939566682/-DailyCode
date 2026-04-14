@@ -1,5 +1,6 @@
 package org.example.hjycommunity.framework.security.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.hjycommunity.system.domain.pojo.LoginUser;
 import org.example.hjycommunity.system.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import java.util.Objects;
  * {@code @date} 2026-04-13 11:45
  */
 
+@Slf4j
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	
@@ -36,6 +38,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request,
 	                                HttpServletResponse response,
 	                                FilterChain filterChain) throws ServletException, IOException {
+		
+		log.info(" log() JwtAuthenticationTokenFilter doFilterInternal");
+		
 		// 从 redis 中拿到用户信息
 		LoginUser loginUser = tokenService.getLoginUser(request);
 		// 获取用户认证对象
@@ -45,6 +50,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 		 * 每一个请求都对应着一个单独的 Authentication
 		 */
 		if (!Objects.isNull(loginUser) && Objects.isNull(authentication)) {
+			log.info("log() 解析到用户：{}",loginUser.getUsername());
 			// 验证令牌有限期 缓存用户信息 & 刷新令牌的有效期
 			tokenService.verifyToken(loginUser);
 			
