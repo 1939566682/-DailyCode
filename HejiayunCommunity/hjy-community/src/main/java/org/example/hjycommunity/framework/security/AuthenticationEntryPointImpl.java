@@ -32,6 +32,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException){
 		//状态码 401
 		int code = HttpStatus.UNAUTHORIZED;
-		ServletUtils.renderString(response, JSON.toJSONString(BaseResponse.fail(Integer.toString(code),"认证失败，无法访问系统资源")));
+		ServletUtils.renderString(response, JSON.toJSONString(BaseResponse.fail(code,"认证失败，无法访问系统资源")));
 	}
 }

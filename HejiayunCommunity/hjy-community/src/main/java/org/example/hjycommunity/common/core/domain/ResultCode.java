@@ -11,21 +11,18 @@ import lombok.Getter;
 
 @Getter
 public enum ResultCode {
-    SUCCESS("200","操作成功"),
-    ERROR("500","操作失败");
+    SUCCESS(200,"操作成功"),
+    ERROR(500,"操作失败");
 
-    private String code;
+    private int code;
     private String message;
 
     ResultCode() {
     }
 
-    private ResultCode(String code, String message) {
+    private ResultCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
 
 }
-
-
-

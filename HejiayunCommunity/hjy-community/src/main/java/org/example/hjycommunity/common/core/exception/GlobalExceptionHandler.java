@@ -30,6 +30,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(CustomException.class)
     public BaseResponse<Object> CustomExceptionHandler(CustomException e) {
-        return BaseResponse.fail(e.getCode()+"",e.getMessage(),e.isSuccess());
+        return BaseResponse.fail(e.getCode(),e.getMessage(),e.isSuccess());
     }
 }
