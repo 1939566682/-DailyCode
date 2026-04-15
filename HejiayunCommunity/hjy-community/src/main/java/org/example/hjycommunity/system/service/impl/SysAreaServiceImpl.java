@@ -54,10 +54,10 @@ public class SysAreaServiceImpl implements SysAreaService {
 
         List<SysArea> subAreaList = list.stream()
                 .filter(area -> area.getParentId().equals(sysAreaDTO.getCode()))
-                .collect(Collectors.toList());
+                .toList();
 
         if (subAreaList.isEmpty()) {
-            return List.of();
+            return null;
         }
 
         return subAreaList.stream()

@@ -57,7 +57,7 @@ public class PermsExpressionService {
 	 * @return
 	 */
 	private boolean hasPermissions(Set<String> permissions, String permission) {
-		return permissions.contains(permission) /*|| permissions.contains(ALL_PERMISSION)*/;
+		return permissions.contains(permission) || permissions.contains(ALL_PERMISSION);
 	}
 	
 	/**

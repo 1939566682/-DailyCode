@@ -26,7 +26,7 @@ public class SysAreaController extends BaseController {
     private SysAreaService sysAreaService;
 
     @GetMapping("/tree")
-    public BaseResponse<List<SysAreaDTO>> getAreaAsTree(SysAreaDTO sysAreaDTO) {
+    public BaseResponse<List<SysAreaDTO>> getAreaAsTree(SysAreaDTO sysAreaDTO) { // todo 当时为啥写参数SysAreaDTO sysAreaDTO？ 没用到
         return BaseResponse.success(sysAreaService.findAreaAsTree());
     }
 
