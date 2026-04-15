@@ -1,6 +1,7 @@
 package org.example.hjycommunity.framework.config;
 
 import org.example.hjycommunity.framework.security.filter.JwtAuthenticationTokenFilter;
+import org.example.hjycommunity.framework.security.filter.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
+
 
 /**
  * SecurityConfig
@@ -31,6 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthenticationEntryPoint unauthorizedHandler;
 	
+	/**
+	 * 退出登录处理器
+	 */
+	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
+	
+	/**
+	 * 跨域过滤器
+	 */
 	@Autowired
 	private CorsFilter corsFilter;
 	
@@ -82,9 +94,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//认证失败处理器
 				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
 		
-		//添加JWTFilter
-		http.addFilterBefore(jwtAuthenticationTokenFilter,UsernamePasswordAuthenticationFilter.class);
-		//添加 CORS filter
+		http
+				// 登出配置
+				.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+		
+		// 添加 JWTFilter
+		http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+		// 添加 CORS filter
 		http.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
 		// 确保在用户注销时  响应头依然包含跨域的字段
 		http.addFilterBefore(corsFilter, LogoutFilter.class);

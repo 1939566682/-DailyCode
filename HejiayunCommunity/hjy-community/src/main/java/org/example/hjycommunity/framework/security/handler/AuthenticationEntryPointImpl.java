@@ -1,4 +1,4 @@
-package org.example.hjycommunity.framework.security;
+package org.example.hjycommunity.framework.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import org.example.hjycommunity.common.constant.HttpStatus;
@@ -8,16 +8,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * AuthenticationEntryPointImpl
- *
+ * 自定义失败认证处理器
  * @author Yang QingBo
  * {@code @date} 2026-04-12 20:40
  */
