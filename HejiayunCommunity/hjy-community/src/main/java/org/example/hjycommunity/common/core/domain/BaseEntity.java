@@ -70,6 +70,4 @@ public class BaseEntity implements Serializable {
      */
     @TableField(exist = false)
     private Map<String, Object> params;
-
-    //get/set ......
 }
