@@ -1,6 +1,7 @@
 package org.example.hjycommunity.system.domain.pojo;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -47,7 +48,10 @@ public class SysDictType extends BaseEntity {
 	@Excel(name = "状态", replace = {"正常_0", "停用_1"})
 	private String status;
 	
+	@TableField(exist = false)
 	private String beginTime;
+	
+	@TableField(exist = false)
 	private String endTime;
 	
 	private String remark;
