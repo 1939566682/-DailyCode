@@ -10,12 +10,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class LinuxTestApplication extends SpringBootServletInitializer {
 	
-	public static void main(String[] args) {
-		SpringApplication.run(LinuxTestApplication.class, args);
-	}
-	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(LinuxTestApplication.class);
+	}
+	
+	public static void main(String[] args) {
+		 SpringApplication.run(LinuxTestApplication.class, args);
 	}
 }

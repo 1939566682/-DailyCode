@@ -1,9 +1,7 @@
 spring:
   application:
     name: linux-test
-  # 解决你启动报错的关键！！！
   main:
-    web-application-type: servlet # 强制开启web服务
     allow-bean-definition-overriding: true
 
   datasource:
