@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+#        group: PDD_GROUP
+#        namespace: bb4df622-7d70-4cd1-ac58-8707b9b861ce
+server:
+  port: 80

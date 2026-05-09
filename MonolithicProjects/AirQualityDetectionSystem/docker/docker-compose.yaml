@@ -1,0 +1,9 @@
+services:
+  air:
+    restart: always
+    image: air:1.0.0
+    container_name: air
+    ports:
+      - 8080:8080
+    build:
+      context: ./

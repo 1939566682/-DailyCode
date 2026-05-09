@@ -8,6 +8,10 @@
         select a.id, district_id, monitor_time, pm10, pm25, monitoring_station, last_modify_time
         from air_quality_index a
                  left join district d on a.district_id = d.id
-        where d.id = #{id}
+        <where>
+            <if test="districtId != null and districtId != 0">
+                and d.id = #{districtId}
+            </if>
+        </where>
     </select>
 </mapper>

@@ -1,9 +1,7 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/air_quality_detection_system?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+  profiles:
+    active: test
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
