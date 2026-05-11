@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.example.client.StockClient;
+import org.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -18,6 +21,16 @@ import org.springframework.web.client.RestTemplate;
 @RefreshScope
 public class OrderController {
 	
+	@Autowired
+	private StockClient stockClient;
+	
+	// 基于 openFeign 尝试访问Stock服务
+	@GetMapping("/order/feign")
+	public String feign() {
+		return stockClient.test();
+	}
+	
+	
 	// restTemplate 是启动类构建的
 	@Autowired
 	private RestTemplate restTemplate;
@@ -27,9 +40,42 @@ public class OrderController {
 	private String info;
 	
 	@GetMapping("/order/info")
-	public String getInfo(){
+	@SentinelResource(value = "info")
+	public String getInfo() {
 		return info;
 	}
+	
+	//	===================关联==========================
+	@GetMapping("/order/add")
+	@SentinelResource(value = "add")
+	public String add() {
+		return "add";
+	}
+	
+	//	===================链路==========================
+	@Autowired
+	private OrderService orderService;
+	
+	@GetMapping("/order/aaa")
+	@SentinelResource(value = "aaa")
+	public String aaa() {
+		orderService.common();
+		return "aaa";
+	}
+	
+	@GetMapping("/order/bbb")
+	@SentinelResource(value = "bbb")
+	public String bbb() {
+		orderService.common();
+		return "bbb";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/order/test")
 	public String test() {

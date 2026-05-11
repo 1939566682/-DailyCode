@@ -20,6 +20,13 @@ public class StockController {
 
 	@GetMapping("/stock/test")
 	public String test(){
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		
 		return "stock test!" + serverPort;
 	}
 }

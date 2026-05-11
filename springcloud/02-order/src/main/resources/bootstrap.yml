@@ -14,6 +14,24 @@ spring:
         server-addr: 127.0.0.1:8848
         # 文件后缀
         file-extension: yml
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8718
+      web-context-unify: false # 关闭统一入口管理模式
+feign:
+  client:
+    config:
+      default:
+        read-timeout: 2000
+      stock:  # 服务名
+        read-timeout: 1000
+  httpclient:
+    hc5:
+      enabled: true
+    enabled: false
+  okhttp:
+    enabled: false
 #        namespace: bb4df622-7d70-4cd1-ac58-8707b9b861ce
 #        group: DEV_GROUP
 
