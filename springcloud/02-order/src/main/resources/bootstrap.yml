@@ -1,0 +1,25 @@
+spring:
+  application:
+    # 服务名
+    name: order
+  profiles:
+    # 环境名
+    active: study
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        # nacos地址
+        server-addr: 127.0.0.1:8848
+        # 文件后缀
+        file-extension: yml
+#        namespace: bb4df622-7d70-4cd1-ac58-8707b9b861ce
+#        group: DEV_GROUP
+
+#   order-study.yml
+#   ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+
+# 放到Nacos配置中心管理
+#server:
+#  port: 80

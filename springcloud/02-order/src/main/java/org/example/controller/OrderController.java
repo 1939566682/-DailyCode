@@ -1,6 +1,8 @@
 package org.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -13,10 +15,21 @@ import org.springframework.web.client.RestTemplate;
  */
 
 @RestController
+@RefreshScope
 public class OrderController {
 	
+	// restTemplate 是启动类构建的
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	// 获取 Nacos 配置文件中的 info
+	@Value("${info:empty}")
+	private String info;
+	
+	@GetMapping("/order/info")
+	public String getInfo(){
+		return info;
+	}
 	
 	@GetMapping("/order/test")
 	public String test() {
