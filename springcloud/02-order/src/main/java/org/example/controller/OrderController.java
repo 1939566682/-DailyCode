@@ -63,6 +63,11 @@ public class OrderController {
 		return "aaa";
 	}
 	
+
+	public String aaaFallBack() {
+		return "托底数据 - 服务器正忙 请稍后再试~";
+	}
+	
 	@GetMapping("/order/bbb")
 	@SentinelResource(value = "bbb")
 	public String bbb() {
@@ -70,13 +75,24 @@ public class OrderController {
 		return "bbb";
 	}
 	
+	//	===================熔断降级==========================
+	
+	@GetMapping("/order/circuitBreaker")
+	@SentinelResource(value = "circuitBreaker")
+	public String circuitBreaker(String value) throws InterruptedException {
+		switch (value){
+			case "1":
+				Thread.sleep(1000);
+				break;
+			case "2":
+				int i = 1/0;
+		}
+		return "circuitBreaker  --  success!!";
+	}
 	
 	
 	
-	
-	
-	
-	
+	//	===================Nacos注册中心==========================
 	@GetMapping("/order/test")
 	public String test() {
 		// 直接访问库存服务的 /stock/test 接口 获取数据
