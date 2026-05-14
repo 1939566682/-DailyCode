@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * OrderController
  *
@@ -145,7 +147,7 @@ public class OrderController {
 	//	===================授权规则==========================
 	@GetMapping("/order/author")
 	@SentinelResource(value = "author")
-	public String author( ) {
+	public String author() {
 		return "author!";
 	}
 	
@@ -159,5 +161,12 @@ public class OrderController {
 		// 响应数据
 		return "Order Test get " + result;
 		
+	}
+	
+	//  =========================Gateway的Filter测试========================================
+	@GetMapping("/order/gateway")
+	public String gateway(HttpServletRequest request) {
+		
+		return null;
 	}
 }
