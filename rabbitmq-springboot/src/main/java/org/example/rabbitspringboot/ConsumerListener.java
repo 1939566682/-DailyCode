@@ -1,6 +1,7 @@
-package org.example.rabbitspringboot.config;
+package org.example.rabbitspringboot;
 
 import com.rabbitmq.client.Channel;
+import org.example.rabbitspringboot.config.RabbitMQConfig;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -15,8 +16,8 @@ import java.io.IOException;
  */
 
 //@Component
-//public class ConsumerListener {
-//
+public class ConsumerListener {
+
 //	@RabbitListener(queues = RabbitMQConfig.QUEUE)
 //	public void consume(String msg, Channel channel, Message message) throws IOException {
 //		System.out.println("consumer - 队列的消息为：" + msg);
@@ -24,4 +25,4 @@ import java.io.IOException;
 //		System.out.println("consumer - 唯一标识为：" + id);
 //		channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 //	}
-//}
+}

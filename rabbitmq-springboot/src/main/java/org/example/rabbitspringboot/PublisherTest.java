@@ -1,5 +1,6 @@
-package org.example.rabbitspringboot.config;
+package org.example.rabbitspringboot;
 
+import org.example.rabbitspringboot.config.RabbitMQConfig;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
