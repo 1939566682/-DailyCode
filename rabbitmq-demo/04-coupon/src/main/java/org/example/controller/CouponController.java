@@ -1,0 +1,22 @@
+package org.example.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * CouponController
+ *
+ * @author Yang QingBo
+ * {@code @date} 2026-05-19 11:02
+ */
+
+@RestController
+public class CouponController {
+	
+	@GetMapping("/coupon")
+	public void coupon() throws InterruptedException {
+		Thread.sleep(400);
+		System.out.println("优惠券预扣除成功！");
+	}
+	
+}
