@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface ItemStockClient {
 	
 	@GetMapping("/decr")
-	public void decr();
+	void decr();
 }

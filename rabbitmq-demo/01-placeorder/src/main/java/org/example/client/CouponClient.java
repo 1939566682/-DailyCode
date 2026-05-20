@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface CouponClient {
 	
 	@GetMapping("/coupon")
-	public void coupon();
+	void coupon();
 }

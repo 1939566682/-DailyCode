@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface BusinessClient {
 	
 	@GetMapping("/notify")
-	public void notifyBusiness();
+	void notifyBusiness();
 }

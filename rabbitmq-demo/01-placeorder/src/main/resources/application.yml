@@ -16,8 +16,8 @@ spring:
     virtual-host: /
     publisher-returns: true
     publisher-confirm-type: correlated
-#    template:
-#      mandatory: true
+  #    template:
+  #      mandatory: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rabbitmq-demo?useSSL=false&serverTimezone=Asia/Shanghai

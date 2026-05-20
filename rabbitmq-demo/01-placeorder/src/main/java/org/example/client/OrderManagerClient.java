@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface OrderManagerClient {
 	
 	@GetMapping("/create")
-	public void create();
+	void create();
 }

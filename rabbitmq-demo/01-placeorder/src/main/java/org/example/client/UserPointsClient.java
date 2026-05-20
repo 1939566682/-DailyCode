@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface UserPointsClient {
 	
 	@GetMapping("/up")
-	public void up();
+	void up();
 }
