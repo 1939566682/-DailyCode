@@ -10,6 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>beacon-api</module>
+        <module>beacon-common</module>
+        <module>beacon-cache</module>
     </modules>
 
     <parent>
@@ -41,6 +43,11 @@
                 <version>${spring.cloud.alibaba-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.20</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
