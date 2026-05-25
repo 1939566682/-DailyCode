@@ -18,7 +18,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.12.RELEASE</version>
-        <relativePath/>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <properties>
@@ -27,7 +27,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.cloud-version>Hoxton.SR12</spring.cloud-version>
         <spring.cloud.alibaba-version>2.2.6.RELEASE</spring.cloud.alibaba-version>
+        <horse-version>1.0.0</horse-version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -48,6 +50,13 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.20</version>
+            </dependency>
+            <dependency>
+                <groupId>com.msb.cloud</groupId>
+                <artifactId>horse-framework-starters</artifactId>
+                <version>${horse-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

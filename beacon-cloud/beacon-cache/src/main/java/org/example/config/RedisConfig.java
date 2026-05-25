@@ -20,12 +20,13 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * RedisConfig
- *
+ * 添加了飞马框架依赖  这些可以不用了
  * @author Yang QingBo
  * @date 2026-05-24 18:24
  * @description 设置 RedisTemplate的序列化方式
  */
 
+/*
 @Configuration
 public class RedisConfig {
 
@@ -73,3 +74,4 @@ public class RedisConfig {
 	}
 
 }
+*/

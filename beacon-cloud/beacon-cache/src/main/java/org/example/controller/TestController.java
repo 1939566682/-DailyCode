@@ -1,7 +1,7 @@
 package org.example.controller;
 
+import com.msb.framework.redis.RedisClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,19 +18,19 @@ import java.util.Map;
 public class TestController {
 	
 	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
+	private RedisClient redisClient;
 	
 	// 写测试
 	@PostMapping("/test/set/{key}")
 	public String set(@PathVariable String key, @RequestBody Map<String, String> map) {
-		redisTemplate.opsForHash().putAll(key,map);
+		redisClient.hSet(key, map);
 		return "ok";
 	}
 	
 	// 读测试
 	@GetMapping("/test/get/{key}")
-	public Map<Object, Object> get(@PathVariable String key) {
-		Map<Object, Object> result = redisTemplate.opsForHash().entries(key);
+	public Map<String, Object> get(@PathVariable String key) {
+		Map<String, Object> result = redisClient.hGetAll(key);
 		return result;
 	}
 	
