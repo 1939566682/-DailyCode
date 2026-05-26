@@ -95,5 +95,20 @@ public class StandardSubmit {
 	 */
 	private int reportState;
 	
+	// =================================================================
 	
+	/**
+	 * 获取到的客户端真实IP地址
+	 */
+	private String realIP;
+	
+	/**
+	 * 客户端请求携带的apiKey
+	 */
+	private String apiKey;
+	
+	/**
+	 * 0-验证码短信 1-通知类短信 2-营销类短信
+	 */
+	private Integer state;
 }

@@ -62,6 +62,13 @@ public class SmsController {
 		String realIP = this.getRealIP(req);
 		
 		// ======================构建StandardSubmit  然后封装校验==============================
+		StandardSubmit submit = new StandardSubmit();
+		submit.setRealIP(realIP);
+		submit.setApiKey(singleSendForm.getApikey());
+		submit.setMobile(singleSendForm.getMobile());
+		submit.setText(singleSendForm.getText());
+		submit.setUid(singleSendForm.getUid());
+		submit.setState(singleSendForm.getState());
 		
 		// ======================发送到MQ  交给策略模块处理==============================
 		

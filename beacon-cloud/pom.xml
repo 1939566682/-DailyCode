@@ -12,6 +12,7 @@
         <module>beacon-api</module>
         <module>beacon-common</module>
         <module>beacon-cache</module>
+        <module>beacon-synchronization</module>
     </modules>
 
     <parent>

@@ -1,22 +1,25 @@
 package org.example;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * apiStarterApp
+ * SynchronizationStarterApp
  *
  * @author Yang QingBo
- * {@code @date} 2026-05-23 21:17
+ * @date 2026-05-26 17:07
+ * @description
  */
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-public class apiStarterApp {
+@MapperScan("org.example.mapper")
+public class SynchronizationStarterApp {
 	public static void main(String[] args) {
-		SpringApplication.run(apiStarterApp.class, args);
+		SpringApplication.run(SynchronizationStarterApp.class, args);
 	}
 }
