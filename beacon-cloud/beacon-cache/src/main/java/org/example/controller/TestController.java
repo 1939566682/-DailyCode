@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import com.msb.framework.redis.RedisClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,24 +15,29 @@ import java.util.Map;
  * @description
  */
 
+@Slf4j
 @RestController
 public class TestController {
 	
 	@Autowired
 	private RedisClient redisClient;
 	
-	// 写测试
-	@PostMapping("/test/set/{key}")
-	public String set(@PathVariable String key, @RequestBody Map<String, String> map) {
+	@PostMapping("/cache/hmset/{key}")
+	public void hmset(@PathVariable("key") String key, @RequestBody Map<String, Object> map) {
+		log.info("【缓存模块】 - hmset方法 存储key = {}，存储value = {}", key, map);
 		redisClient.hSet(key, map);
-		return "ok";
 	}
 	
-	// 读测试
-	@GetMapping("/test/get/{key}")
-	public Map<String, Object> get(@PathVariable String key) {
-		Map<String, Object> result = redisClient.hGetAll(key);
-		return result;
+	@PostMapping("/cache/set/{key}")
+	public void set(@PathVariable("key") String key, @RequestParam("value") String value) {
+		log.info("【缓存模块】 - set方法 存储key = {}，存储value = {}", key, value);
+		redisClient.set(key, value);
+	}
+	
+	@PostMapping("/cache/sadd/{key}")
+	void sadd(@PathVariable("key") String key, @RequestBody Map<String, Object>... values) {
+		log.info("【缓存模块】 - sadd方法 存储key = {}，存储value = {}", key, values);
+		redisClient.sAdd(key, values);
 	}
 	
 }

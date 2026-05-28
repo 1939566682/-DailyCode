@@ -14,11 +14,16 @@ spring:
       config:
         server-addr: 192.168.113.3:8848
         file-extension: yml
-        # beacon-cache-dev.yml
+        group: DEFAULT_GROUP
+        shared-configs:
+          - data-id: beacon-cache-dev.yml
+            group: DEFAULT_GROUP
+            refresh: true   # 是否动态刷新
+#         beacon-cache-dev.yml
 # datasource
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.113.3:3306/beacon_cloud?useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.113.3:3306/beacon_cloud?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: root
 # 端口号

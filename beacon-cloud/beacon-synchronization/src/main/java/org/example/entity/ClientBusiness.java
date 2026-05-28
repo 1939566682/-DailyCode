@@ -1,5 +1,8 @@
 package org.example.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -9,6 +12,8 @@ import java.io.Serializable;
  * @author Yang QingBo
  * @since 2026-05-26 17:20:20
  */
+@Setter
+@Getter
 public class ClientBusiness implements Serializable {
     private static final long serialVersionUID = 970984449754065545L;
 
@@ -81,153 +86,9 @@ public class ClientBusiness implements Serializable {
      * 备用字段4
      */
     private String extend4;
-
-
-    public Object getId() {
-        return id;
-    }
-
-    public void setId(Object id) {
-        this.id = id;
-    }
-
-    public String getCorpname() {
-        return corpname;
-    }
-
-    public void setCorpname(String corpname) {
-        this.corpname = corpname;
-    }
-
-    public String getApikey() {
-        return apikey;
-    }
-
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
-    public Integer getIsCallback() {
-        return isCallback;
-    }
-
-    public void setIsCallback(Integer isCallback) {
-        this.isCallback = isCallback;
-    }
-
-    public String getCallbackUrl() {
-        return callbackUrl;
-    }
-
-    public void setCallbackUrl(String callbackUrl) {
-        this.callbackUrl = callbackUrl;
-    }
-
-    public String getClientLinkname() {
-        return clientLinkname;
-    }
-
-    public void setClientLinkname(String clientLinkname) {
-        this.clientLinkname = clientLinkname;
-    }
-
-    public String getClientPhone() {
-        return clientPhone;
-    }
-
-    public void setClientPhone(String clientPhone) {
-        this.clientPhone = clientPhone;
-    }
-
-    public String getClientFilters() {
-        return clientFilters;
-    }
-
-    public void setClientFilters(String clientFilters) {
-        this.clientFilters = clientFilters;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Long getCreateId() {
-        return createId;
-    }
-
-    public void setCreateId(Long createId) {
-        this.createId = createId;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
-    public Long getUpdateId() {
-        return updateId;
-    }
-
-    public void setUpdateId(Long updateId) {
-        this.updateId = updateId;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getExtend1() {
-        return extend1;
-    }
-
-    public void setExtend1(String extend1) {
-        this.extend1 = extend1;
-    }
-
-    public String getExtend2() {
-        return extend2;
-    }
-
-    public void setExtend2(String extend2) {
-        this.extend2 = extend2;
-    }
-
-    public String getExtend3() {
-        return extend3;
-    }
-
-    public void setExtend3(String extend3) {
-        this.extend3 = extend3;
-    }
-
-    public String getExtend4() {
-        return extend4;
-    }
-
-    public void setExtend4(String extend4) {
-        this.extend4 = extend4;
-    }
-    
-    @Override
+	
+	
+	@Override
     public String toString() {
         return "ClientBusiness{" +
                 "id=" + id +

@@ -10,8 +10,9 @@ import java.io.Serializable;
  * @since 2026-05-26 17:20:21
  */
 public class ClientTemplate implements Serializable {
+    
     private static final long serialVersionUID = 801599739230936668L;
-/**
+    /**
      * 主键
      */
     private Long id;
@@ -204,5 +205,26 @@ public class ClientTemplate implements Serializable {
     public void setExtend4(String extend4) {
         this.extend4 = extend4;
     }
-
+	
+	@Override
+	public String toString() {
+		return "ClientTemplate{" +
+				"id=" + id +
+				", signId=" + signId +
+				", templateText='" + templateText + '\'' +
+				", templateType=" + templateType +
+				", templateState=" + templateState +
+				", useId=" + useId +
+				", useWeb='" + useWeb + '\'' +
+				", created=" + created +
+				", createId=" + createId +
+				", updated=" + updated +
+				", updateId=" + updateId +
+				", isDelete=" + isDelete +
+				", extend1='" + extend1 + '\'' +
+				", extend2='" + extend2 + '\'' +
+				", extend3='" + extend3 + '\'' +
+				", extend4='" + extend4 + '\'' +
+				'}';
+	}
 }

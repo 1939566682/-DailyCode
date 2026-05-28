@@ -18,11 +18,14 @@ import java.util.Map;
 
 @FeignClient("beacon-cache")
 public interface CacheClient {
-
+	
 	@PostMapping("/cache/hmset/{key}")
 	void hmset(@PathVariable("key") String key, @RequestBody Map<String, Object> map);
 	
 	@PostMapping("/cache/set/{key}")
-	void set(@PathVariable("key") String key, @RequestParam("value")  String value);
+	void set(@PathVariable("key") String key, @RequestParam("value") Object value);
+	
+	@PostMapping("/cache/sadd/{key}")
+	void sadd(@PathVariable("key") String key, @RequestBody Map<String, Object>... maps);
 	
 }
