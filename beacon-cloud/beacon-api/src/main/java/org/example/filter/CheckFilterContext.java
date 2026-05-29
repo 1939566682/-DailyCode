@@ -1,5 +1,6 @@
 package org.example.filter;
 
+import org.example.model.StandardSubmit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -18,7 +19,7 @@ import java.util.Map;
 @Component
 @RefreshScope
 public class CheckFilterContext {
-
+	
 	// Spring的IOC会将对象全部都放到Map集合中
 	// 基于4.x中spring提供的泛型注入  基于Map只拿到我们需要的类型对象
 	@Autowired
@@ -29,18 +30,17 @@ public class CheckFilterContext {
 	
 	/**
 	 * 当前check方法用于管理校验链的顺序
+	 *
 	 * @param obj
 	 */
-	public void check(Object obj){
+	public void check(StandardSubmit submit) {
 		// 将获取到的filters基于,切分
 		String[] filterArray = filters.split(",");
 		// 遍历数组
 		for (String filter : filterArray) {
 			CheckFilter checkFilter = checkFiltersMap.get(filter);
-			if (checkFilter != null) {
-				checkFilter.check(obj);
-			}
+			checkFilter.check(submit);
 		}
 	}
-
+	
 }

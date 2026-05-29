@@ -1,11 +1,13 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.enums.SmsCodeEnum;
+import org.example.enums.ExceptionEnums;
+import org.example.filter.CheckFilterContext;
 import org.example.form.SingleSendForm;
 import org.example.model.StandardSubmit;
 import org.example.util.R;
 import org.example.vo.ResultVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.validation.BindingResult;
@@ -48,13 +50,15 @@ public class SmsController {
 	 */
 	private final String X_FORWARDED_FOR = "x-forwarded-for";
 	
+	@Autowired
+	private CheckFilterContext checkFilterContext;
 	
 	@PostMapping(value = "/single_send", produces = "application/json;charset=utf-8")
 	public ResultVO singleSend(@RequestBody @Validated SingleSendForm singleSendForm, BindingResult bindingResult, HttpServletRequest req) {
 		if (bindingResult.hasErrors()) {
 			String defaultMessage = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
 			log.error("【接口模块 - 单条短信Controller】 参数不合法 msg：{}", defaultMessage);
-			return R.error(SmsCodeEnum.PARAMETER_ERROR.getCode(), defaultMessage);
+			return R.error(ExceptionEnums.PARAMETER_ERROR.getCode(), defaultMessage);
 			
 			
 		}
@@ -69,6 +73,9 @@ public class SmsController {
 		submit.setText(singleSendForm.getText());
 		submit.setUid(singleSendForm.getUid());
 		submit.setState(singleSendForm.getState());
+		
+		// ======================调用策略模式的校验链==============================
+		checkFilterContext.check(submit);
 		
 		// ======================发送到MQ  交给策略模块处理==============================
 		

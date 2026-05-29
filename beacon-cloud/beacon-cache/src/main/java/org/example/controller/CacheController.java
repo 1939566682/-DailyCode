@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-public class TestController {
+public class CacheController {
 	
 	@Autowired
 	private RedisClient redisClient;
@@ -35,9 +35,16 @@ public class TestController {
 	}
 	
 	@PostMapping("/cache/sadd/{key}")
-	void sadd(@PathVariable("key") String key, @RequestBody Map<String, Object>... values) {
+	public void sadd(@PathVariable("key") String key, @RequestBody Map<String, Object>... values) {
 		log.info("【缓存模块】 - sadd方法 存储key = {}，存储value = {}", key, values);
 		redisClient.sAdd(key, values);
 	}
 	
+	@GetMapping("/cache/hgetall/{key}")
+	Map<String,Object> hGetAll(@PathVariable(value = "key") String key) {
+		log.info("【缓存模块】 - hGetAll方法 获取key = {} 的数据", key);
+		Map<String, Object> value = redisClient.hGetAll(key);
+		log.info("【缓存模块】 - hGetAll方法 获取key = {} 的数据,获取value = {}", key,value);
+		return redisClient.hGetAll(key);
+	}
 }

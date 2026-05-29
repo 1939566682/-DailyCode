@@ -1,5 +1,7 @@
 package org.example.filter;
 
+import org.example.model.StandardSubmit;
+
 /**
  * CheckFilter
  *
@@ -12,8 +14,8 @@ public interface CheckFilter {
 	
 	/**
 	 * 校验
-	 * @param obj
+	 * @param submit
 	 */
-	void check(Object obj);
+	void check(StandardSubmit submit);
 	
 }

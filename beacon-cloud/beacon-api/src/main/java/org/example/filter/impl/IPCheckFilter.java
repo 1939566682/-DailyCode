@@ -2,6 +2,7 @@ package org.example.filter.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.filter.CheckFilter;
+import org.example.model.StandardSubmit;
 import org.springframework.stereotype.Service;
 
 
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class IPCheckFilter implements CheckFilter {
 	
 	@Override
-	public void check(Object obj) {
+	public void check(StandardSubmit submit) {
 		log.info("【接口模块 - 校验ip】  校验ing......");
 	}
 	

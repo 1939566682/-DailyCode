@@ -19,9 +19,9 @@ public class TestController {
 	@Autowired
 	private CheckFilterContext checkFilterContext;
 	
-	@GetMapping("/api/test")
-	public void test() {
-		checkFilterContext.check(new Object());
-	}
+//	@GetMapping("/api/test")
+//	public void test() {
+//		checkFilterContext.check(new Object());
+//	}
 	
 }

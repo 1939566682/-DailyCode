@@ -1,5 +1,7 @@
 package org.example.util;
 
+import org.example.enums.ExceptionEnums;
+import org.example.execption.ApiKeyIllegalException;
 import org.example.vo.ResultVO;
 
 /**
@@ -23,6 +25,13 @@ public class R {
 		ResultVO r = new ResultVO();
 		r.setCode(code);
 		r.setMsg(msg);
+		return r;
+	}
+	
+	public static ResultVO error(ApiKeyIllegalException e) {
+		ResultVO r = new ResultVO();
+		r.setCode(e.getCode());
+		r.setMsg(e.getMessage());
 		return r;
 	}
 }
