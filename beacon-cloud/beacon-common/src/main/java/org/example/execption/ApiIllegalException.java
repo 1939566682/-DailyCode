@@ -12,17 +12,17 @@ import org.example.enums.ExceptionEnums;
  */
 
 @Getter
-public class ApiKeyIllegalException extends RuntimeException {
+public class ApiIllegalException extends RuntimeException {
 	
 	private final Integer code;
 	
-	public ApiKeyIllegalException(String message, Integer code) {
+	public ApiIllegalException(String message, Integer code) {
 		super(message);
 		this.code = code;
 	}
 	
 	
-	public ApiKeyIllegalException(ExceptionEnums enums) {
+	public ApiIllegalException(ExceptionEnums enums) {
 		super(enums.getMessage());
 		this.code = enums.getCode();
 	}

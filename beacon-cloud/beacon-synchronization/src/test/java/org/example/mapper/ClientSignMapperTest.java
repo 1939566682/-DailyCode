@@ -44,7 +44,7 @@ class ClientSignMapperTest {
 				throw new RuntimeException(e);
 			}
 		}).collect(Collectors.toList());
-		cacheClient.sadd("client_sign:clientId",value.toArray(new Map[]{}));
+		cacheClient.sadd("client_sign:1",value.toArray(new Map[]{}));
 		
 	}
 }

@@ -28,6 +28,6 @@ class ClientBalanceMapperTest {
 	void findByClientId() {
 		Long balance = clientBalanceMapper.findByClientId(1L);
 		System.out.println(balance);
-		cacheClient.set("client_balance:clientId",balance);
+		cacheClient.set("client_balance:1",balance);
 	}
 }

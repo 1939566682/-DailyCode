@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.client.BeaconCacheClient;
 import org.example.constant.CacheConstant;
 import org.example.enums.ExceptionEnums;
-import org.example.execption.ApiKeyIllegalException;
+import org.example.execption.ApiIllegalException;
 import org.example.filter.CheckFilter;
 import org.example.model.StandardSubmit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class ApiKeyCheckFilter implements CheckFilter {
 		// 2、如果为null  直接抛出异常
 		if (clientBusiness == null || clientBusiness.isEmpty()) {
 			log.info("【接口模块 - 校验apikey】  非法的apiKey = {}", submit.getApiKey());
-			throw new ApiKeyIllegalException(ExceptionEnums.ILLEGAL_APIKEY);
+			throw new ApiIllegalException(ExceptionEnums.ILLEGAL_APIKEY);
 		}
 		
 		// 3、正常封装数据

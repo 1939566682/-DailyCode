@@ -1,7 +1,7 @@
 package org.example.advice;
 
 import org.example.enums.ExceptionEnums;
-import org.example.execption.ApiKeyIllegalException;
+import org.example.execption.ApiIllegalException;
 import org.example.util.R;
 import org.example.vo.ResultVO;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiKeyExceptionHandler {
 	
-	@ExceptionHandler(ApiKeyIllegalException.class)
-	public ResultVO apiKeyIllegalException(ApiKeyIllegalException e) {
+	@ExceptionHandler(ApiIllegalException.class)
+	public ResultVO apiKeyIllegalException(ApiIllegalException e) {
 		return R.error(e);
 	}
 

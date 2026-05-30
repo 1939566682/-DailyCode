@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * TestController
@@ -41,10 +42,27 @@ public class CacheController {
 	}
 	
 	@GetMapping("/cache/hgetall/{key}")
-	Map<String,Object> hGetAll(@PathVariable(value = "key") String key) {
+	public Map<String, Object> hGetAll(@PathVariable(value = "key") String key) {
 		log.info("【缓存模块】 - hGetAll方法 获取key = {} 的数据", key);
 		Map<String, Object> value = redisClient.hGetAll(key);
-		log.info("【缓存模块】 - hGetAll方法 获取key = {} 的数据,获取value = {}", key,value);
-		return redisClient.hGetAll(key);
+		log.info("【缓存模块】 - hGetAll方法 获取key = {} 的数据，获取value = {}", key, value);
+		return value;
 	}
+	
+	@GetMapping("/cache/hget/{key}/{field}")
+	public Object hGet(@PathVariable(value = "key") String key, @PathVariable(value = "field") String field) {
+		log.info("【缓存模块】 - hGet 方法 获取key = {}，field = {} 的数据  ", key, field);
+		Object value = redisClient.hGet(key, field);
+		log.info("【缓存模块】 - hGet 方法 获取key = {} 的数据，获取value = {}", key, value);
+		return value;
+	}
+	
+	@GetMapping("/cache/smember/{key}")
+	public Set sMember(@PathVariable(value = "key") String key) {
+		log.info("【缓存模块】 - sMember 方法 获取key = {} 的数据  ", key);
+		Set<Object> values = redisClient.sMembers(key);
+		log.info("【缓存模块】 - sMember 方法 获取key = {} 的数据，获取value = {}", key, values);
+		return values;
+	}
+	
 }

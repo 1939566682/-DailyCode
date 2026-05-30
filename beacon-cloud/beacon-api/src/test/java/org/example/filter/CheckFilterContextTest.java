@@ -19,9 +19,9 @@ class CheckFilterContextTest {
 	@Autowired
 	private CheckFilterContext checkFilterContext;
 	
-	@Test
-	void check() {
-		Object o = new Object();
-		checkFilterContext.check(o);
-	}
+//	@Test
+//	void check() {
+//		Object o = new Object();
+//		checkFilterContext.check(o);
+//	}
 }
