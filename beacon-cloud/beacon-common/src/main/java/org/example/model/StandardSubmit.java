@@ -60,7 +60,7 @@ public class StandardSubmit {
 	private LocalDateTime sendTime;
 	
 	/**
-	 * 当前短信的费用
+	 * 当前短信的费用  单位（厘）
 	 */
 	private Long fee;
 	

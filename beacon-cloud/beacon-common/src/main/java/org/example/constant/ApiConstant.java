@@ -19,5 +19,10 @@ public interface ApiConstant {
 	 * 签名后缀
 	 */
 	String SIGN_SUFFIX = "】";
+	
+	/**
+	 * 单挑短信  默认每条50（厘）
+	 */
+	Long SINGLE_FEE = 50L;
 
 }
