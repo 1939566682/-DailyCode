@@ -65,4 +65,21 @@ public class CacheController {
 		return values;
 	}
 	
+	@PostMapping("/cache/pipeline/string")
+	public void pipelineString(@RequestBody Map<String, String> value) {
+		log.info("【缓存模块】 - pipelineString 获取到存储的数据 value的长度 = {}的数据", value.size());
+		redisClient.pipelined(operations ->
+				value.entrySet().forEach(entry -> {
+					operations.opsForValue().set(entry.getKey(), entry.getValue());
+				}));
+	}
+	
+	@GetMapping("/cache/get/{key}")
+	public Object get(@PathVariable(value = "key") String key) {
+		log.info("【缓存模块】 - get 方法 查询key = {} ", key);
+		Object value = redisClient.get(key);
+		log.info("【缓存模块】 - get 方法 查询key = {} 对应的 value = {}", key, value);
+		return value;
+	}
+	
 }

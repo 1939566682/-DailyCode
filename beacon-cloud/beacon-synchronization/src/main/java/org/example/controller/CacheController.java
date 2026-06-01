@@ -37,4 +37,13 @@ public class CacheController {
 		redisClient.set(key, value);
 	}
 	
+	@PostMapping("/cache/pipeline/string")
+	public void pipelineString(@RequestBody Map<String, String> value) {
+		log.info("【缓存模块】 - pipelineString 获取到存储的数据 value的长度 = {}的数据", value.size());
+		redisClient.pipelined(operations ->
+				value.entrySet().forEach(entry -> {
+					operations.opsForValue().set(entry.getKey(), entry.getValue());
+				}));
+	}
+	
 }

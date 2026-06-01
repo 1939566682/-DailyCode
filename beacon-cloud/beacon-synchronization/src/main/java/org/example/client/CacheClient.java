@@ -16,7 +16,7 @@ import java.util.Map;
  * @description
  */
 
-@FeignClient("beacon-cache")
+@FeignClient(name = "beacon-cache", contextId = "cacheClient")
 public interface CacheClient {
 	
 	@PostMapping("/cache/hmset/{key}")
@@ -28,4 +28,6 @@ public interface CacheClient {
 	@PostMapping("/cache/sadd/{key}")
 	void sadd(@PathVariable("key") String key, @RequestBody Map<String, Object>... maps);
 	
+	@PostMapping("/cache/pipeline/string")
+	void pipelineString(@RequestBody Map<String, String> value);
 }

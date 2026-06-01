@@ -30,4 +30,8 @@ public interface CacheConstant {
 	 */
 	String CLIENT_BALANCE = "client_balance:";
 	
+	/**
+	 * 手机号号段补全
+	 */
+	String PHASE = "phase:";
 }

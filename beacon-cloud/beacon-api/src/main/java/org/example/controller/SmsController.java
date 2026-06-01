@@ -1,12 +1,16 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.constant.RabbitMQConstant;
 import org.example.enums.ExceptionEnums;
 import org.example.filter.CheckFilterContext;
 import org.example.form.SingleSendForm;
 import org.example.model.StandardSubmit;
 import org.example.util.R;
+import org.example.util.SnowFlakeUtil;
 import org.example.vo.ResultVO;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -34,6 +38,12 @@ import java.util.Objects;
 @RefreshScope
 public class SmsController {
 	
+	@Autowired
+	private SnowFlakeUtil snowFlakeUtil;
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+	
 	/**
 	 * 客户端IP地址的请求头信息  多个用","隔开
 	 */
@@ -53,6 +63,14 @@ public class SmsController {
 	@Autowired
 	private CheckFilterContext checkFilterContext;
 	
+	/**
+	 * 单条短信验证接口
+	 *
+	 * @param singleSendForm
+	 * @param bindingResult
+	 * @param req
+	 * @return
+	 */
 	@PostMapping(value = "/single_send", produces = "application/json;charset=utf-8")
 	public ResultVO singleSend(@RequestBody @Validated SingleSendForm singleSendForm, BindingResult bindingResult, HttpServletRequest req) {
 		if (bindingResult.hasErrors()) {
@@ -77,7 +95,11 @@ public class SmsController {
 		// ======================调用策略模式的校验链==============================
 		checkFilterContext.check(submit);
 		
+		// ======================基于雪花算法生成唯一id 并添加到StandardSubmit对象中==============================
+		submit.setSequenceId(snowFlakeUtil.nextId());
+		
 		// ======================发送到MQ  交给策略模块处理==============================
+		rabbitTemplate.convertAndSend(RabbitMQConstant.SMS_PRE_SEND, submit,new CorrelationData(submit.getSequenceId().toString()));
 		
 		return R.ok();
 	}

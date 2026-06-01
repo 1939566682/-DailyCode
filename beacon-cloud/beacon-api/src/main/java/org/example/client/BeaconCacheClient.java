@@ -15,7 +15,7 @@ import java.util.Set;
  * @description
  */
 
-@FeignClient("beacon-cache")
+@FeignClient(name = "beacon-cache", contextId = "BeaconCacheClient-api")
 public interface BeaconCacheClient {
 	
 	@GetMapping("/cache/hgetall/{key}")

@@ -13,6 +13,7 @@
         <module>beacon-common</module>
         <module>beacon-cache</module>
         <module>beacon-synchronization</module>
+        <module>beacon-strategy</module>
     </modules>
 
     <parent>
