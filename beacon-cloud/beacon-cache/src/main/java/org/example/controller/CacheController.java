@@ -3,6 +3,7 @@ package org.example.controller;
 import com.msb.framework.redis.RedisClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -23,6 +24,9 @@ public class CacheController {
 	@Autowired
 	private RedisClient redisClient;
 	
+	@Autowired
+	private RedisTemplate redisTemplate;
+	
 	@PostMapping("/cache/hmset/{key}")
 	public void hmset(@PathVariable("key") String key, @RequestBody Map<String, Object> map) {
 		log.info("【缓存模块】 - hmset方法 存储key = {}，存储value = {}", key, map);
@@ -38,6 +42,12 @@ public class CacheController {
 	@PostMapping("/cache/sadd/{key}")
 	public void sadd(@PathVariable("key") String key, @RequestBody Map<String, Object>... values) {
 		log.info("【缓存模块】 - sadd方法 存储key = {}，存储value = {}", key, values);
+		redisClient.sAdd(key, values);
+	}
+	
+	@PostMapping("/cache/saddStr/{key}")
+	public void saddStr(@PathVariable("key") String key, @RequestBody String... values) {
+		log.info("【缓存模块】 - saddStr 存储key = {}，存储value = {}", key, values);
 		redisClient.sAdd(key, values);
 	}
 	
@@ -80,6 +90,18 @@ public class CacheController {
 		Object value = redisClient.get(key);
 		log.info("【缓存模块】 - get 方法 查询key = {} 对应的 value = {}", key, value);
 		return value;
+	}
+	
+	@PostMapping("/cache/sinterStr/{key}/{sinterKey}")
+	public Set<Object> sinterStr(@PathVariable("key") String key, @PathVariable("sinterKey") String sinterKey, @RequestBody String... values) {
+		log.info("【缓存模块】 - sinterStr的交集方法  存储key = {} sinterKey = {} 存储value = {}", key, sinterKey, values);
+		// 1、存储数据到set集合
+		redisClient.sAdd(key, values);
+		// 2、需要将key和sinterKey做交集操作  并拿到返回的set
+		Set<Object> result = redisClient.sIntersect(key, sinterKey);
+		// 3、将key直接删除
+		redisClient.delete(key);
+		return result;
 	}
 	
 }

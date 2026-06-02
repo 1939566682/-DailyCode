@@ -3,11 +3,14 @@ package org.example.filter.impl;
 import com.alibaba.cloud.commons.lang.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.example.client.BeaconCacheClient;
+import org.example.config.RabbitMQConfig;
 import org.example.constant.CacheConstant;
+import org.example.constant.RabbitMQConstant;
 import org.example.filter.StrategyFilter;
 import org.example.model.StandardSubmit;
 import org.example.util.MobileOperatorUtil;
 import org.example.util.OperatorUtil;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +27,22 @@ import org.springframework.stereotype.Service;
 @Service(value = "phase")
 public class PhaseStrategyFilter implements StrategyFilter {
 	
+	/**
+	 * 切分手机号前7位
+	 */
 	private final int MOBILE_START = 0;
 	private final int MOBILE_END = 7;
-	private final String SEPARATE = ",";
+	/**
+	 * 校验的长度
+	 */
 	private final int MOBILE_SPLIT_LENGTH = 2;
+	/**
+	 * 分割区域和运营商的标识
+	 */
+	private final String SEPARATE = ",";
+	/**
+	 * 未知的情况
+	 */
 	private final String UNKNOWN = "unknown";
 	
 	@Autowired
@@ -35,6 +50,9 @@ public class PhaseStrategyFilter implements StrategyFilter {
 	
 	@Autowired
 	private MobileOperatorUtil mobileOperatorUtil;
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
 	
 	@Override
 	public void strategy(StandardSubmit submit) {
@@ -49,9 +67,11 @@ public class PhaseStrategyFilter implements StrategyFilter {
 			mobileInfo = mobileOperatorUtil.getMobileInfoBy360(mobile);
 			if (!StringUtils.isEmpty(mobileInfo)) {
 				// 3、TODO 调用第三方查到消息后  发送消息到MQ  并且同步到MySQL和Redis
+				rabbitTemplate.convertAndSend(RabbitMQConstant.MOBILE_AREA_OPERATOR,submit.getMobile());
 				break getMobileInfo;
 			}
 			mobileInfo = UNKNOWN;
+			// TODO 通知（发送邮件）
 		}
 		
 		// 4、无论是redis还是第三方接口查到了之后  封装到StandardSubmit对象中

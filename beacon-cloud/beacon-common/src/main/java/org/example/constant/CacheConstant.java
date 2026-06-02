@@ -34,4 +34,9 @@ public interface CacheConstant {
 	 * 手机号号段补全
 	 */
 	String PHASE = "phase:";
+	
+	/**
+	 * 敏感词前缀
+	 */
+	String DIRTY_WORD = "dirty_word";
 }
