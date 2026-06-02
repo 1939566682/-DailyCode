@@ -30,9 +30,6 @@ import java.util.UUID;
 @Service(value = "dfaDirtyWord")
 public class DirtyWordDFAStrategyFilter implements StrategyFilter {
 	
-	@Autowired
-	private BeaconCacheClient beaconCacheClient;
-	
 	@Override
 	public void strategy(StandardSubmit submit) {
 		log.info("【策略模块 - 敏感词校验】  校验ing......");
