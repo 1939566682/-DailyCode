@@ -1,5 +1,10 @@
 package org.example.util;
 
+import org.example.client.BeaconCacheClient;
+import org.example.constant.CacheConstant;
+import org.springframework.messaging.rsocket.annotation.ConnectMapping;
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -14,31 +19,26 @@ import java.util.Set;
  */
 
 public class DFAUtil {
-	
-	
 	// 敏感词树
 	private static Map dfaMap = new HashMap();
 	
 	private static final String IS_END = "isEnd";
 	
-	public static void main(String[] args) {
-		// 敏感词库
-		Set<String> dirtyWords = new HashSet<>();
-		dirtyWords.add("三胖");
-		dirtyWords.add("山炮");
-		dirtyWords.add("三胖啊");
-		dirtyWords.add("瘦啊");
-		// 测试
+	private static final String NOT_END = "0";
+	private static final String ALREADY_END = "1";
+	
+	/**
+	 * 初始化敏感词树
+	 */
+	static {
+		// 获取Spring容器中的cacheClient
+		BeaconCacheClient cacheClient = SpingUtil.getBean(BeaconCacheClient.class);
+		// 获取存储在redis中的全部敏感词
+		Set<String> dirtyWords = cacheClient.sMember(CacheConstant.DIRTY_WORD);
+		// 调用create  将dfa的敏感词树构建
 		create(dirtyWords);
-//		System.out.println("===== 树形符号格式 =====");
-//		TrieTreePrintUtil.printTreeBySymbol(dfaMap);
-//		System.out.println("===== 空格缩进格式 =====");
-//		TrieTreePrintUtil.printTreeByBlank(dfaMap);
-		
-		String text = "你瘦啊是个大山炮";
-		System.out.println(getDirtyWords(text));
-		
 	}
+	
 	
 	/**
 	 * 构建敏感词树
@@ -66,16 +66,16 @@ public class DFAUtil {
 				// 操作当前key的value的map
 				nowMap = map;
 				// 如果当前字已经有 isEnd 且 isEnd = 1  则直接跳过
-				if (nowMap.containsKey(IS_END) && nowMap.get(IS_END) == "1") {
+				if (nowMap.containsKey(IS_END) && nowMap.get(IS_END) == ALREADY_END) {
 					continue;
 				}
 				// 此时 isEnd 不存在 或 isEnd = 0
 				if (i == dirtyWord.length() - 1) {
 					// 若此时当前字是最后一个字  则直接将isEnd设置为1
-					nowMap.put(IS_END, "1");
+					nowMap.put(IS_END, ALREADY_END);
 				} else {
 					// 若也不是最后一个字 直接将isEnd设置为0
-					nowMap.put(IS_END, "0");
+					nowMap.put(IS_END, NOT_END);
 				}
 			}
 		}
@@ -111,7 +111,7 @@ public class DFAUtil {
 					// 敏感词长度从i开始算  现在的是dirtyLength
 					dirtyLength++;
 					// 出口：若当前map的isEnd是1  代表结束了  找到了完整的敏感词
-					if ("1".equals(nowMap.get(IS_END))) {
+					if (ALREADY_END.equals(nowMap.get(IS_END))) {
 						// 代表敏感词匹配到一个完整的
 						nextLength = dirtyLength;
 						break;
