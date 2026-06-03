@@ -4,25 +4,24 @@ import lombok.Getter;
 import org.example.enums.ExceptionEnums;
 
 /**
- * ApiIllegalException
- * 接口模块的异常对象
+ * StrategyException
+ * 策略模块的异常对象
  * @author Yang QingBo
- * @date 2026-05-29 14:53
+ * @date 2026-06-03 16:48
  * @description
  */
 
 @Getter
-public class ApiIllegalException extends RuntimeException {
-	
+public class StrategyException extends RuntimeException {
 	private final Integer code;
 	
-	public ApiIllegalException(String message, Integer code) {
+	public StrategyException(String message, Integer code) {
 		super(message);
 		this.code = code;
 	}
 	
 	
-	public ApiIllegalException(ExceptionEnums enums) {
+	public StrategyException(ExceptionEnums enums) {
 		super(enums.getMessage());
 		this.code = enums.getCode();
 	}

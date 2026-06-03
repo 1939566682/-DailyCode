@@ -77,7 +77,7 @@ public class SnowFlakeUtil {
 	public void init() {
 		if (machineId > maxMachineId || serviceId > maxServiceId) {
 			System.out.println("机器ID或服务ID超出最大范围值");
-			throw new ApiIllegalException(ExceptionEnums.SnowFlake_OUT_OF_RANGE);
+			throw new ApiIllegalException(ExceptionEnums.SNOWFLAKE_OUT_OF_RANGE);
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class SnowFlakeUtil {
 		if (timeStamp < lastTimestamp) {
 			// 说明出现了时间回拨
 			System.out.println("当前服务出现时间回拨！！！");
-			throw new ApiIllegalException(ExceptionEnums.SnowFlake_TIME_BACK);
+			throw new ApiIllegalException(ExceptionEnums.SNOWFLAKE_TIME_BACK);
 		}
 		
 		// 2、判断当前生成id的时间和上一次生成的时间

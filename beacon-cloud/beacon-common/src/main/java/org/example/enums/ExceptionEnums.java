@@ -20,8 +20,9 @@ public enum ExceptionEnums {
 	INVALID_MOBILE_FORMAT(-5, "手机号格式不正确"),
 	INSUFFICIENT_BALANCE(-6, "客户余额不足"),
 	PARAMETER_ERROR(-10, "参数不合法"),
-	SnowFlake_OUT_OF_RANGE(-11, "雪花算法的机器ID或服务ID超出最大范围！"),
-	SnowFlake_TIME_BACK(-12, "雪花算法的服务器出现时间回拨问题！"),;
+	SNOWFLAKE_OUT_OF_RANGE(-11, "雪花算法的机器ID或服务ID超出最大范围！"),
+	SNOWFLAKE_TIME_BACK(-12, "雪花算法的服务器出现时间回拨问题！"),
+	HAVE_DIRTY_WORD(-13, "当前短信内容中包含敏感词信息！"),;
 	
 	private final Integer code;
 	private final String message;

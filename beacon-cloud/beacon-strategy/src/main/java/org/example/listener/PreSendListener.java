@@ -3,6 +3,7 @@ package org.example.listener;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.example.constant.RabbitMQConstant;
+import org.example.execption.StrategyException;
 import org.example.filter.StrategyFilter;
 import org.example.filter.StrategyFilterContext;
 import org.example.model.StandardSubmit;
@@ -39,7 +40,7 @@ public class PreSendListener {
 			strategyFilterContext.strategy(submit);
 			log.info("【策略模块 - 消费完毕】手动ack");
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
-		} catch (IOException e) {
+		} catch (StrategyException e) {
 			log.error("【策略模块 - 消费/校验失败】 错误信息：{}",e.getMessage());
 		}
 	}
