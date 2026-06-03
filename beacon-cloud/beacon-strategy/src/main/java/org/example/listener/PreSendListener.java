@@ -42,6 +42,7 @@ public class PreSendListener {
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
 		} catch (StrategyException e) {
 			log.error("【策略模块 - 消费/校验失败】 错误信息：{}",e.getMessage());
+			channel.basicReject(message.getMessageProperties().getDeliveryTag(),false);
 		}
 	}
 }
