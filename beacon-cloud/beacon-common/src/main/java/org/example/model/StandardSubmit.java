@@ -125,4 +125,9 @@ public class StandardSubmit implements Serializable {
 	 * 签名ID
 	 */
 	private Long signId;
+	
+	/**
+	 * 是否携号转网  isTransfer = true  代表做了携号转网的判断并且做了操作
+	 */
+	private boolean isTransfer = false;
 }

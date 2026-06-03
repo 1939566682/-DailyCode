@@ -49,4 +49,9 @@ public interface CacheConstant {
 	 * 间隔符
 	 */
 	String SEPARATE = ":";
+	
+	/**
+	 * 携号转网前缀
+	 */
+	String TRANSFER = "transfer:";
 }
