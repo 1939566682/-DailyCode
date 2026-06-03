@@ -73,6 +73,7 @@ public class StandardSubmit implements Serializable {
 	
 	/**
 	 * 目标手机号的归属地区号  0451  0455
+	 * TODO （策略模块  三方查询不到  暂不处理）
 	 */
 	private Integer areaCode;
 	
@@ -95,6 +96,11 @@ public class StandardSubmit implements Serializable {
 	 * 短信的发送状态， 0-等待ing，1-成功，2-失败
 	 */
 	private int reportState;
+	
+	/**
+	 * 短信发送失败的原因
+	 */
+	private int errorMsg;
 	
 	// =================================================================
 	
