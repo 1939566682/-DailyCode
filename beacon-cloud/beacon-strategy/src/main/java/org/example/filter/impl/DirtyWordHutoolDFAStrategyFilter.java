@@ -56,7 +56,8 @@ public class DirtyWordHutoolDFAStrategyFilter implements StrategyFilter {
 			log.info("【策略模块-敏感词校验】   短信内容包含敏感词信息， dirtyWords = {}", dirtyWords);
 			// 封装错误信息
 			// ========发送写日志================
-			errorSendMsgUtil.sendWriteLog(submit, dirtyWords);
+			submit.setErrorMsg(ExceptionEnums.HAVE_DIRTY_WORD.getMessage() + "dirtyWords = " + dirtyWords);
+			errorSendMsgUtil.sendWriteLog(submit);
 			// ====发送状态报告前 需要将report对象进行数据封装========
 			errorSendMsgUtil.sendPushReport(submit);
 			// ======抛出异常=========

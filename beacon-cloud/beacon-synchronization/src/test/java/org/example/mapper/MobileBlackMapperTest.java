@@ -34,7 +34,7 @@ class MobileBlackMapperTest {
 				cacheClient.set("black:" + mobileBlack.getBlackNumber(), "1");
 			} else {
 				// 客户级别的黑名单  black:clientId:手机号   作为key，value存储1
-				cacheClient.set("black:clientId:" + mobileBlack.getClientId() + ":" + mobileBlack.getBlackNumber(), "1");
+				cacheClient.set("black:" + mobileBlack.getClientId() + ":" + mobileBlack.getBlackNumber(), "1");
 			}
 			
 		}

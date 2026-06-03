@@ -33,6 +33,7 @@ public class StrategyFilterContext {
 	 * @param submit
 	 */
 	public void strategy(StandardSubmit submit) {
+
 		// 1、基于Redis获取客户对应的校验信息
 		String filters = beaconCacheClient.hGet(CacheConstant.CLIENT_BUSINESS + submit.getApiKey(), CLIENT_FILTERS);
 		
@@ -48,7 +49,7 @@ public class StrategyFilterContext {
 			}
 		}
 		
-		
+
 	}
 
 }
