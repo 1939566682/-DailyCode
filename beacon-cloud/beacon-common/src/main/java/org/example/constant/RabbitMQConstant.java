@@ -19,5 +19,10 @@ public interface RabbitMQConstant {
 	 * 策略模块发送手机号归属地&运营商到后台管理模块的队列名称
 	 */
 	String MOBILE_AREA_OPERATOR = "mobile_area_operator_topic";
+	
+	/**
+	 * 策略模块写日志到ElasticSearch的队列
+	 */
+	String SMS_WRITE_LOG = "sms_write_log_topic";
 
 }

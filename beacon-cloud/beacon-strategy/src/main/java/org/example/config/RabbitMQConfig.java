@@ -26,5 +26,14 @@ public class RabbitMQConfig {
 	public Queue preSendQueue() {
 		return QueueBuilder.durable(RabbitMQConstant.MOBILE_AREA_OPERATOR).build();
 	}
+	
+	/**
+	 * 策略模块写日志到ElasticSearch的队列
+	 * @return
+	 */
+	@Bean
+	public Queue writeLogQueue() {
+		return QueueBuilder.durable(RabbitMQConstant.SMS_WRITE_LOG).build();
+	}
 
 }

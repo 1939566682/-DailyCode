@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class StandardSubmit implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * 针对当前短信的唯一标识
 	 */
@@ -100,7 +102,7 @@ public class StandardSubmit implements Serializable {
 	/**
 	 * 短信发送失败的原因
 	 */
-	private int errorMsg;
+	private String errorMsg;
 	
 	// =================================================================
 	
