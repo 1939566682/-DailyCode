@@ -3,6 +3,7 @@ package org.example.constant;
 /**
  * RabbitMQConstant
  * 关于RabbitMQ中的一些队列信息
+ *
  * @author Yang QingBo
  * @date 2026-06-01 14:25
  * @description
@@ -24,5 +25,10 @@ public interface RabbitMQConstant {
 	 * 策略模块写日志到ElasticSearch的队列
 	 */
 	String SMS_WRITE_LOG = "sms_write_log_topic";
-
+	
+	/**
+	 * 状态报告推送的队列
+	 */
+	String SMS_PUSH_REPORT = "sms_push_report_topic";
+	
 }

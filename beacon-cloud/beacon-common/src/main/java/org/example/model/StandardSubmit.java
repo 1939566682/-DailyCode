@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class StandardSubmit implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6094785736431520627L;
 	
 	/**
 	 * 针对当前短信的唯一标识

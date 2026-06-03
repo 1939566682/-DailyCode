@@ -35,5 +35,14 @@ public class RabbitMQConfig {
 	public Queue writeLogQueue() {
 		return QueueBuilder.durable(RabbitMQConstant.SMS_WRITE_LOG).build();
 	}
+	
+	/**
+	 * 状态报告推送的队列
+	 * @return
+	 */
+	@Bean
+	public Queue pushReportQueue() {
+		return QueueBuilder.durable(RabbitMQConstant.SMS_PUSH_REPORT).build();
+	}
 
 }
