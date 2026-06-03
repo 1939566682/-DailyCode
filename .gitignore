@@ -1,5 +1,6 @@
 # 忽略独立 Git 仓库（避免嵌套提交）
 Algorithm/
+HejiayunCommunity/hejiayun_ui/node_modules/
 
 # 常见 Java/IDEA 忽略文件（可选，推荐加上）
 .idea/
