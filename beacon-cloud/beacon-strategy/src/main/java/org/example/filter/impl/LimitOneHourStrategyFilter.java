@@ -70,10 +70,11 @@ public class LimitOneHourStrategyFilter implements StrategyFilter {
 		if (retry > RETRY_COUNT) {
 			log.info("【策略模块 - 一小时限流策略】   插入失败，一小时内已存在三条记录，拒绝发送。clientId={}, mobile={}, sendTime={}",
 					clientId, mobile, submit.getOneHourLimitMilli());
-			submit.setErrorMsg(ExceptionEnums.ONE_HOUR_LIMIT.getMessage() + "mobile = " + mobile + "sendTime = " + submit.getOneHourLimitMilli());
+			submit.setErrorMsg(String.format("%s (mobile=%s, sendTime=%d)",
+					ExceptionEnums.ONE_HOUR_LIMIT.getMessage(), mobile, submit.getOneHourLimitMilli()));
 			errorSendMsgUtil.sendWriteLog(submit);
 			errorSendMsgUtil.sendPushReport(submit);
-			throw new StrategyException(ExceptionEnums.ONE_MINUTE_LIMIT);
+			throw new StrategyException(ExceptionEnums.ONE_HOUR_LIMIT);
 		}
 		// 没有重试两次  三次之内  将数据正常的插入了  基于zRangeByScope做范围查询
 		long start = submit.getOneHourLimitMilli() - ONE_HOUR;
@@ -83,7 +84,8 @@ public class LimitOneHourStrategyFilter implements StrategyFilter {
 			log.info("【策略模块 - 一小时限流策略】   查询到{}条记录，满足限流规则，拒绝发送。clientId={}, mobile={}, sendTime={}",
 					count, clientId, mobile, submit.getOneHourLimitMilli());
 			beaconCacheClient.zRemove(key,submit.getOneHourLimitMilli());
-			submit.setErrorMsg(ExceptionEnums.ONE_HOUR_LIMIT.getMessage() + "mobile = " + mobile);
+			submit.setErrorMsg(String.format("%s (mobile=%s, sendTime=%d)",
+					ExceptionEnums.ONE_HOUR_LIMIT.getMessage(), mobile, submit.getOneHourLimitMilli()));
 			errorSendMsgUtil.sendWriteLog(submit);
 			errorSendMsgUtil.sendPushReport(submit);
 			throw new StrategyException(ExceptionEnums.ONE_HOUR_LIMIT);
