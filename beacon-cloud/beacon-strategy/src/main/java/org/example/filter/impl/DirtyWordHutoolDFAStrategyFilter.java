@@ -43,7 +43,7 @@ public class DirtyWordHutoolDFAStrategyFilter implements StrategyFilter {
 	
 	@Override
 	public void strategy(StandardSubmit submit) {
-		log.info("【策略模块-敏感词校验】   校验ing…………");
+		log.info("【策略模块 - 敏感词校验】   校验ing…………");
 		//1、 获取短信内容
 		String text = submit.getText();
 		
@@ -53,7 +53,7 @@ public class DirtyWordHutoolDFAStrategyFilter implements StrategyFilter {
 		//4、 根据返回的set集合，判断是否包含敏感词
 		if (dirtyWords != null && !dirtyWords.isEmpty()) {
 			//5、 如果有敏感词，抛出异常 / 其他操作。。
-			log.info("【策略模块-敏感词校验】   短信内容包含敏感词信息， dirtyWords = {}", dirtyWords);
+			log.info("【策略模块 - 敏感词校验】   短信内容包含敏感词信息， dirtyWords = {}", dirtyWords);
 			// 封装错误信息
 			// ========发送写日志================
 			submit.setErrorMsg(ExceptionEnums.HAVE_DIRTY_WORD.getMessage() + "dirtyWords = " + dirtyWords);
@@ -66,7 +66,7 @@ public class DirtyWordHutoolDFAStrategyFilter implements StrategyFilter {
 			// 还需要做其他处理
 			// TODO 后期当敏感词做了写操作后  狐妖同步到Redis  并且通知策略模块  针对WordTree做修改
 		}
-		log.info("【策略模块-敏感词校验】   校验通过  没有敏感词信息");
+		log.info("【策略模块 - 敏感词校验】   校验通过  没有敏感词信息");
 		
 	}
 	

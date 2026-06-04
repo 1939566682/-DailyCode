@@ -78,10 +78,9 @@ public class CacheController {
 	@PostMapping("/cache/pipeline/string")
 	public void pipelineString(@RequestBody Map<String, String> value) {
 		log.info("【缓存模块】 - pipelineString 获取到存储的数据 value的长度 = {}的数据", value.size());
-		redisClient.pipelined(operations ->
-				value.entrySet().forEach(entry -> {
-					operations.opsForValue().set(entry.getKey(), entry.getValue());
-				}));
+		redisClient.pipelined(operations -> value.entrySet().forEach(entry -> {
+			operations.opsForValue().set(entry.getKey(), entry.getValue());
+		}));
 	}
 	
 	@GetMapping("/cache/get/{key}")
@@ -102,6 +101,23 @@ public class CacheController {
 		// 3、将key直接删除
 		redisClient.delete(key);
 		return result;
+	}
+	
+	@PostMapping("/cache/zaddLong/{key}/{scope}/{member}")
+	public Boolean zAddLong(@PathVariable("key") String key, @PathVariable("scope") Long scope, @PathVariable("member") Long member) {
+		boolean result = redisClient.zAdd(key, member, scope);
+		log.info("【缓存模块】 - zAddLong方法  存储key = {} 存储scope = {} 存储member = {}  存储结果 = {}", key, scope, member, result);
+		return result;
+	}
+	
+	@PostMapping("/cache/zRangeByScoreCount/{key}/{start}/{end}")
+	public Integer zRangeByScoreCount(@PathVariable("key") String key, @PathVariable("start") Long start, @PathVariable("end") Long end) {
+		log.info("【缓存模块】 - zRangeByScoreCount方法  存储key = {} 存储scope = {} 存储member = {}", key, start, end);
+		Set<Object> values = redisClient.zRangeByScore(key, start, end);
+		if (values != null) {
+			return values.size();
+		}
+		return 0;
 	}
 	
 }

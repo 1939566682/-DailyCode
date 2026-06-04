@@ -54,4 +54,9 @@ public interface CacheConstant {
 	 * 携号转网前缀
 	 */
 	String TRANSFER = "transfer:";
+	
+	/**
+	 * 分钟的限流规则
+	 */
+	String LIMIT_MINUTES = "limit:minutes:";
 }

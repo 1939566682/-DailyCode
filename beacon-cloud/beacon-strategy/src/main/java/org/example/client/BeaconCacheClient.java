@@ -34,4 +34,10 @@ public interface BeaconCacheClient {
 	
 	@GetMapping("/cache/smember/{key}")
 	Set sMember(@PathVariable(value = "key") String key);
+	
+	@PostMapping("/cache/zaddLong/{key}/{scope}/{member}")
+	Boolean zAddLong(@PathVariable("key") String key, @PathVariable("scope") Long scope, @PathVariable("member") Long member);
+	
+	@PostMapping("/cache/zRangeByScoreCount/{key}/{start}/{end}")
+	Integer zRangeByScoreCount(@PathVariable("key") String key, @PathVariable("start") Long start, @PathVariable("end") Long end);
 }

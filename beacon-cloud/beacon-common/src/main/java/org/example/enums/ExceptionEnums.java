@@ -25,6 +25,7 @@ public enum ExceptionEnums {
 	HAVE_DIRTY_WORD(-13, "当前短信内容中包含敏感词信息！"),
 	BLACK_GLOBAL(-14, "当前手机号为平台黑名单！"),
 	BLACK_CLIENT(-15, "当前手机号为客户黑名单！"),
+	ONE_MINUTE_LIMIT(-16, "一分钟限流规则生效，拒绝发送短信！"),
 	;
 	
 	private final Integer code;
