@@ -59,4 +59,9 @@ public interface CacheConstant {
 	 * 分钟的限流规则
 	 */
 	String LIMIT_MINUTES = "limit:minutes:";
+	
+	/**
+	 * 小时的限流规则
+	 */
+	String LIMIT_HOURS = "limit:hours:";
 }

@@ -130,4 +130,9 @@ public class StandardSubmit implements Serializable {
 	 * 是否携号转网  isTransfer = true  代表做了携号转网的判断并且做了操作
 	 */
 	private boolean isTransfer = false;
+	
+	/**
+	 * 针对一小时限流规则存储的系统时间毫秒值
+	 */
+	private Long oneHourLimitMilli;
 }

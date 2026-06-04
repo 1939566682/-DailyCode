@@ -73,6 +73,7 @@ public class LimitOneMinuteStrategyFilter implements StrategyFilter {
 			// 一分钟内发送过短信  限流规则生效
 			log.info("【策略模块 - 一分钟限流策略】   查询到{}条记录，满足限流规则，拒绝发送。clientId={}, mobile={}, sendTime={}",
 					count, clientId, mobile, sendTimeMilli);
+			beaconCacheClient.zRemove(key,sendTimeMilli);
 			submit.setErrorMsg(ExceptionEnums.ONE_MINUTE_LIMIT.getMessage() + "mobile = " + mobile);
 			errorSendMsgUtil.sendWriteLog(submit);
 			errorSendMsgUtil.sendPushReport(submit);

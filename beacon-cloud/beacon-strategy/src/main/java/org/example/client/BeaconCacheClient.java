@@ -1,10 +1,7 @@
 package org.example.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -40,4 +37,7 @@ public interface BeaconCacheClient {
 	
 	@PostMapping("/cache/zRangeByScoreCount/{key}/{start}/{end}")
 	Integer zRangeByScoreCount(@PathVariable("key") String key, @PathVariable("start") Long start, @PathVariable("end") Long end);
+	
+	@DeleteMapping("/cache/zRemove/{key}/{member}")
+	void zRemove(@PathVariable("key") String key,  @PathVariable("member") Long member);
 }

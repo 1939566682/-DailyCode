@@ -120,4 +120,10 @@ public class CacheController {
 		return 0;
 	}
 	
+	@DeleteMapping("/cache/zRemove/{key}/{member}")
+	public void zRemove(@PathVariable("key") String key,  @PathVariable("member") Long member) {
+		log.info("【缓存模块】 - zRemove方法  删除key = {} 删除member = {}", key, member);
+		redisClient.zRemove(key,member);
+	}
+	
 }
