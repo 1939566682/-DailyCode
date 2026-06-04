@@ -3,6 +3,7 @@ package org.example.filter.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.example.client.BeaconCacheClient;
 import org.example.constant.CacheConstant;
+import org.example.constant.SmsConstant;
 import org.example.enums.ExceptionEnums;
 import org.example.execption.StrategyException;
 import org.example.filter.StrategyFilter;
@@ -43,6 +44,9 @@ public class LimitOneHourStrategyFilter implements StrategyFilter {
 	
 	@Override
 	public void strategy(StandardSubmit submit) {
+		
+		if (submit.getState() != SmsConstant.CAPTCHA_TYPE) return;
+		
 		// 1、基于submit获取短信的发送时间
 		LocalDateTime sendTime = submit.getSendTime();
 		// 2、基于LocalDataTime获取到时间的毫秒值
