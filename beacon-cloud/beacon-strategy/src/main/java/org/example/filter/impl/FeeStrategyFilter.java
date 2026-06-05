@@ -40,7 +40,7 @@ public class FeeStrategyFilter implements StrategyFilter {
 		Long clientId = submit.getClientId();
 		// 2、调用redis的decr扣减具体的金额
 		Long balance = beaconCacheClient.hIncrBy(CacheConstant.CLIENT_BALANCE + clientId, BALANCE, -fee);
-		// 3、获取当前客户的欠费金额的限制（外部方法调用）
+		// todo 暂时写死的 3、获取当前客户的欠费金额的限制（外部方法调用）
 		Long amountLimit = ClientBalanceUtil.getClientAmountLimit(clientId);
 		// 4、判断扣减后的金额  是否超出了金额限制
 		if (balance < amountLimit) {
