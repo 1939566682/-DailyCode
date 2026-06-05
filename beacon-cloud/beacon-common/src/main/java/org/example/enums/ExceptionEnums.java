@@ -27,6 +27,7 @@ public enum ExceptionEnums {
 	BLACK_CLIENT(-15, "当前手机号为客户黑名单！"),
 	ONE_MINUTE_LIMIT(-16, "一分钟限流规则生效，拒绝发送短信！"),
 	ONE_HOUR_LIMIT(-17, "一小时限流规则生效，拒绝发送短信！"),
+	NOT_AVAILABLE_CHANNEL(-18, "无可用的通道！"),
 	;
 	
 	private final Integer code;

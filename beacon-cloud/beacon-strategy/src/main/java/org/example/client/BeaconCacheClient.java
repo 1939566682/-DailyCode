@@ -3,6 +3,7 @@ package org.example.client;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -36,6 +37,9 @@ public interface BeaconCacheClient {
 	@GetMapping("/cache/smember/{key}")
 	Set sMember(@PathVariable(value = "key") String key);
 	
+	@GetMapping("/cache/smember/{key}")
+	Set<Map> sMemberMap(@PathVariable(value = "key") String key);
+	
 	@PostMapping("/cache/zaddLong/{key}/{scope}/{member}")
 	Boolean zAddLong(@PathVariable("key") String key,
 	                 @PathVariable("scope") Long scope,
@@ -54,4 +58,7 @@ public interface BeaconCacheClient {
 	Long hIncrBy(@PathVariable("key") String key,
 	             @PathVariable("field") String field,
 	             @PathVariable("number") Long delta);
+	
+	@GetMapping("/cache/hgetall/{key}")
+	Map<String, Object> hGetAll(@PathVariable(value = "key") String key);
 }
