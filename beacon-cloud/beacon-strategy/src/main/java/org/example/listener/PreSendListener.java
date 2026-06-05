@@ -34,13 +34,13 @@ public class PreSendListener {
 	
 	@RabbitListener(queues = RabbitMQConstant.SMS_PRE_SEND)
 	public void listen(StandardSubmit submit, Message message, Channel channel) throws IOException {
-		log.info("【策略模块 - 接收消息】 接收到接口模块发送的消息 submit = {}",submit);
+		log.info("【策略模块 - 接收消息】  接收到接口模块发送的消息 submit = {}",submit);
 		try {
 			strategyFilterContext.strategy(submit);
-			log.info("【策略模块 - 消费完毕】手动ack");
+			log.info("【策略模块 - 消费完毕】  手动ack");
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
 		} catch (StrategyException e) {
-			log.error("【策略模块 - 消费/校验失败】 错误信息：{}",e.getMessage());
+			log.error("【策略模块 - 消费/校验失败】  错误信息：{}",e.getMessage());
 			channel.basicReject(message.getMessageProperties().getDeliveryTag(),false);
 		}
 	}

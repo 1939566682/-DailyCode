@@ -46,7 +46,7 @@ public class LimitOneHourStrategyFilter implements StrategyFilter {
 	public void strategy(StandardSubmit submit) {
 		
 		if (submit.getState() != SmsConstant.CAPTCHA_TYPE) return;
-		
+		log.info("【策略模块 - 一小时限流策略】  校验ing......");
 		// 1、基于submit获取短信的发送时间
 		LocalDateTime sendTime = submit.getSendTime();
 		// 2、基于LocalDataTime获取到时间的毫秒值

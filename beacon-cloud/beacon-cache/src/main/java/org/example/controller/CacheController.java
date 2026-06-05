@@ -47,7 +47,7 @@ public class CacheController {
 	
 	@PostMapping("/cache/saddStr/{key}")
 	public void saddStr(@PathVariable("key") String key, @RequestBody String... values) {
-		log.info("【缓存模块】 - saddStr 存储key = {}，存储value = {}", key, values);
+		log.info("【缓存模块】 - saddStr方法 存储key = {}，存储value = {}", key, values);
 		redisClient.sAdd(key, values);
 	}
 	
@@ -61,17 +61,17 @@ public class CacheController {
 	
 	@GetMapping("/cache/hget/{key}/{field}")
 	public Object hGet(@PathVariable(value = "key") String key, @PathVariable(value = "field") String field) {
-		log.info("【缓存模块】 - hGet 方法 获取key = {}，field = {} 的数据  ", key, field);
+		log.info("【缓存模块】 - hGet方法 获取key = {}，field = {} 的数据  ", key, field);
 		Object value = redisClient.hGet(key, field);
-		log.info("【缓存模块】 - hGet 方法 获取key = {} 的数据，获取value = {}", key, value);
+		log.info("【缓存模块】 - hGet方法 获取key = {} 的数据，获取value = {}", key, value);
 		return value;
 	}
 	
 	@GetMapping("/cache/smember/{key}")
 	public Set sMember(@PathVariable(value = "key") String key) {
-		log.info("【缓存模块】 - sMember 方法 获取key = {} 的数据  ", key);
+		log.info("【缓存模块】 - sMember方法 获取key = {} 的数据  ", key);
 		Set<Object> values = redisClient.sMembers(key);
-		log.info("【缓存模块】 - sMember 方法 获取key = {} 的数据，获取value = {}", key, values);
+		log.info("【缓存模块】 - sMember方法 获取key = {} 的数据，获取value = {}", key, values);
 		return values;
 	}
 	
@@ -85,9 +85,9 @@ public class CacheController {
 	
 	@GetMapping("/cache/get/{key}")
 	public Object get(@PathVariable(value = "key") String key) {
-		log.info("【缓存模块】 - get 方法 查询key = {} ", key);
+		log.info("【缓存模块】 - get方法 查询key = {} ", key);
 		Object value = redisClient.get(key);
-		log.info("【缓存模块】 - get 方法 查询key = {} 对应的 value = {}", key, value);
+		log.info("【缓存模块】 - get方法 查询key = {} 对应的 value = {}", key, value);
 		return value;
 	}
 	
@@ -124,6 +124,15 @@ public class CacheController {
 	public void zRemove(@PathVariable("key") String key,  @PathVariable("member") Long member) {
 		log.info("【缓存模块】 - zRemove方法  删除key = {} 删除member = {}", key, member);
 		redisClient.zRemove(key,member);
+	}
+	
+	@PostMapping("/cache/hIncrBy/{key}/{field}/{number}")
+	public Long hIncrBy(@PathVariable("key") String key,
+	                    @PathVariable("field") String field,
+	                    @PathVariable("number") Long delta) {
+		Long balance = redisClient.hIncrementBy(key, field, delta);
+		log.info("【缓存模块】 - hIncrBy方法  修改  key = {} field = {} delta = {}  修改后余额 balance = {}", key,field, delta, balance);
+		return balance;
 	}
 	
 }

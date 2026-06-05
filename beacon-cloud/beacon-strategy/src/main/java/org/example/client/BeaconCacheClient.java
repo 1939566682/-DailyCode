@@ -18,26 +18,40 @@ public interface BeaconCacheClient {
 	
 	
 	@GetMapping("/cache/hget/{key}/{field}")
-	String hGet(@PathVariable(value = "key") String key, @PathVariable(value = "field") String field);
+	String hGet(@PathVariable(value = "key") String key,
+	            @PathVariable(value = "field") String field);
 	
 	@GetMapping("/cache/hget/{key}/{field}")
-	Integer hGetInteger(@PathVariable(value = "key") String key, @PathVariable(value = "field") String field);
+	Integer hGetInteger(@PathVariable(value = "key") String key,
+	                    @PathVariable(value = "field") String field);
 	
 	@GetMapping("/cache/get/{key}")
 	String getString(@PathVariable(value = "key") String key);
 	
 	@PostMapping("/cache/sinterStr/{key}/{sinterKey}")
-	Set<Object> sinterStr(@PathVariable("key") String key, @PathVariable("sinterKey") String sinterKey, @RequestBody String... values);
+	Set<Object> sinterStr(@PathVariable("key") String key,
+	                      @PathVariable("sinterKey") String sinterKey,
+	                      @RequestBody String... values);
 	
 	@GetMapping("/cache/smember/{key}")
 	Set sMember(@PathVariable(value = "key") String key);
 	
 	@PostMapping("/cache/zaddLong/{key}/{scope}/{member}")
-	Boolean zAddLong(@PathVariable("key") String key, @PathVariable("scope") Long scope, @PathVariable("member") Long member);
+	Boolean zAddLong(@PathVariable("key") String key,
+	                 @PathVariable("scope") Long scope,
+	                 @PathVariable("member") Long member);
 	
 	@PostMapping("/cache/zRangeByScoreCount/{key}/{start}/{end}")
-	Integer zRangeByScoreCount(@PathVariable("key") String key, @PathVariable("start") Long start, @PathVariable("end") Long end);
+	Integer zRangeByScoreCount(@PathVariable("key") String key,
+	                           @PathVariable("start") Long start,
+	                           @PathVariable("end") Long end);
 	
 	@DeleteMapping("/cache/zRemove/{key}/{member}")
-	void zRemove(@PathVariable("key") String key,  @PathVariable("member") Long member);
+	void zRemove(@PathVariable("key") String key,
+	             @PathVariable("member") Long member);
+	
+	@PostMapping("/cache/hIncrBy/{key}/{field}/{number}")
+	Long hIncrBy(@PathVariable("key") String key,
+	             @PathVariable("field") String field,
+	             @PathVariable("number") Long delta);
 }
