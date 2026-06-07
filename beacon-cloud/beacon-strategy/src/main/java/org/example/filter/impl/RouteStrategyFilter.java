@@ -3,19 +3,21 @@ package org.example.filter.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.example.client.BeaconCacheClient;
 import org.example.constant.CacheConstant;
+import org.example.constant.RabbitMQConstant;
 import org.example.enums.ExceptionEnums;
 import org.example.execption.StrategyException;
 import org.example.filter.StrategyFilter;
 import org.example.model.StandardSubmit;
 import org.example.util.ChannelTransferUtil;
 import org.example.util.ErrorSendMsgUtil;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.QueueBuilder;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * BlackStrategyFilter
@@ -36,6 +38,12 @@ public class RouteStrategyFilter implements StrategyFilter {
 	@Autowired
 	private ErrorSendMsgUtil errorSendMsgUtil;
 	
+	@Autowired
+	private AmqpAdmin amqpAdmin;
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+	
 	@Override
 	public void strategy(StandardSubmit submit) {
 		log.info("【策略模块 - 路由策略】  校验ing......");
@@ -44,18 +52,27 @@ public class RouteStrategyFilter implements StrategyFilter {
 		// 2、基于redis获取到当前客户绑定的所有通道信息
 		Set<Map> clientChannels = beaconCacheClient.sMemberMap(CacheConstant.CLIENT_CHANNEL + clientId);
 		// 3、将获取到的客户通道信息基于权重进行排序
-		TreeSet<Map> clientWeightChannels = new TreeSet<>(new Comparator<Map>() {
+		List<Map> clientWeightChannels = new ArrayList<>(clientChannels);
+		clientWeightChannels.sort((o1, o2) -> {
+			int weight2 = Integer.parseInt(String.valueOf(o2.get("clientChannelWeight")));
+			int weight1 = Integer.parseInt(String.valueOf(o1.get("clientChannelWeight")));
+			return weight2 - weight1; // 降序
+		});
+		// TODO TreeSet 会强行去重 如果 Comparator.compare(o1, o2) == 0 TreeSet 就会认为这两个元素是“同一个” 从而丢弃后添加的那个
+		/*TreeSet<Map> clientWeightChannels = new TreeSet<>(new Comparator<Map>() {
 			@Override
 			public int compare(Map o1, Map o2) {
 				int o2Weight = Integer.parseInt(String.valueOf(o2.get("clientChannelWeight")));
 				int o1Weight = Integer.parseInt(String.valueOf(o1.get("clientChannelWeight")));
 				return o2Weight - o1Weight;
 			}
-		});
+		});*/
 		clientWeightChannels.addAll(clientChannels);
 		
 		// 4、基于排序后的通道  选择权重更高的
 		boolean ok = false;
+		Map<String, Object> channel = null;
+		Map clientChannel = null;
 		for (Map clientWeightChannel : clientWeightChannels) {
 			// 5、如果客户和通道的绑定关系可用  基于redis直接查询具体的通道信息
 			if (Integer.parseInt(String.valueOf(clientWeightChannel.get("isAvailable"))) != 0) {
@@ -63,7 +80,7 @@ public class RouteStrategyFilter implements StrategyFilter {
 				continue;
 			}
 			// 6、查询到通道信息后 判断通道可用 以及运营商是否匹配
-			Map<String, Object> channel = beaconCacheClient.hGetAll(CacheConstant.CHANNEL + clientWeightChannel.get("channelId"));
+			channel = beaconCacheClient.hGetAll(CacheConstant.CHANNEL + clientWeightChannel.get("channelId"));
 			if (Integer.parseInt(String.valueOf(channel.get("isAvailable"))) != 0) {
 				// 当前通道不可用 选择权重更低的通道
 				continue;
@@ -79,21 +96,36 @@ public class RouteStrategyFilter implements StrategyFilter {
 			
 			// 找到可以使用的通道了
 			ok = true;
+			clientChannel = clientWeightChannel;
 			break;
 		}
 		
-		if (ok == false) {
+		if (!ok) {
 			log.info("【策略模块 - 路由策略】  没有可用的通道！");
-			// 封装错误信息
-			// ========发送写日志================
 			submit.setErrorMsg(ExceptionEnums.NOT_AVAILABLE_CHANNEL.getMessage());
 			errorSendMsgUtil.sendWriteLog(submit);
-			// ====发送状态报告前 需要将report对象进行数据封装========
 			errorSendMsgUtil.sendPushReport(submit);
-			// ======抛出异常=========
 			throw new StrategyException(ExceptionEnums.NOT_AVAILABLE_CHANNEL);
 		}
 		
-		// 8、
+		// 8、基于选择的通道封装submit的信息
+		submit.setChannelId(Long.parseLong(String.valueOf(channel.get("id"))));
+		submit.setSrcNumber("" + channel.get("channelNumber") + clientChannel.get("clientChannelNumber"));
+		
+		try {
+			// 9、声明队列名称 并构建队列
+			String queueName = RabbitMQConstant.SMS_GATEWAY + submit.getClientId();
+			amqpAdmin.declareQueue(QueueBuilder.durable(queueName).build());
+			
+			// 10、发送消息到声明好的队列中
+			rabbitTemplate.convertAndSend(queueName, submit);
+		} catch (AmqpException e) {
+			log.info("【策略模块 - 路由策略】  声明通道对应队列以及发送消息时出现了错误！");
+			submit.setErrorMsg(e.getMessage());
+			errorSendMsgUtil.sendWriteLog(submit);
+			errorSendMsgUtil.sendPushReport(submit);
+			throw new StrategyException(e.getMessage(),ExceptionEnums.UNKNOWN_ERROR.getCode());
+		}
+		
 	}
 }
