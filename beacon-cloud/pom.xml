@@ -15,6 +15,7 @@
         <module>beacon-synchronization</module>
         <module>beacon-strategy</module>
         <module>beacon-search</module>
+        <module>beacon-push</module>
     </modules>
 
     <parent>
