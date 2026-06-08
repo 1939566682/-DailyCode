@@ -5,14 +5,16 @@ import org.example.enums.ExceptionEnums;
 
 /**
  * StrategyException
- * 策略模块的异常对象
  * @author Yang QingBo
  * @date 2026-06-03 16:48
- * @description
+ * @description 策略模块的异常对象
  */
 
 @Getter
 public class StrategyException extends RuntimeException {
+	
+	private static final long serialVersionUID = 8232017131002759096L;
+	
 	private final Integer code;
 	
 	public StrategyException(String message, Integer code) {
