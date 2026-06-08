@@ -54,7 +54,7 @@ public class ErrorSendMsgUtil {
 			// 如果需要回调  再查询客户的回调地址
 			String callbackUrl = beaconCacheClient.hGet(CacheConstant.CLIENT_BUSINESS + submit.getApiKey(), "callbackUrl");
 			// 如果回调地址不为空
-			if (callbackUrl != null && StringUtils.isEmpty(callbackUrl)) {
+			if (callbackUrl != null && !StringUtils.isEmpty(callbackUrl)) {
 				// 封装客户的报告推送的信息  开始封装StandardReport
 				StandardReport report = new StandardReport();
 				BeanUtils.copyProperties(submit, report);
