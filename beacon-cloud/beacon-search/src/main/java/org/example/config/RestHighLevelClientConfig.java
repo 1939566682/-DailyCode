@@ -1,4 +1,4 @@
-package org.example;
+package org.example.config;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
