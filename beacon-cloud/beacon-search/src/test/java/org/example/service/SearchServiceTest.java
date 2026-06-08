@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * SearchServiceTest
@@ -24,5 +25,11 @@ class SearchServiceTest {
 	@Test
 	void index() throws IOException {
 		searchService.index("sms_submit_log_2026","3","{\"clientId\": 3}");
+	}
+	
+	@Test
+	void getYear() {
+		String s = LocalDate.now().getYear() + "";
+		System.out.println(s);
 	}
 }
