@@ -39,7 +39,8 @@ public class PushReportListener {
 	/**
 	 * 重试的时间间隔
 	 */
-	private final int[] DELAYED_TIME = {0, 15000, 30000, 60000, 300000};
+//	private final int[] DELAYED_TIME = {0, 15000, 30000, 60000, 300000};
+	private final int[] DELAYED_TIME = {0, 150, 300, 600, 3000};
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -47,6 +48,13 @@ public class PushReportListener {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 	
+	/**
+	 * 监控策略模块推送过来的消息（暂时是策略）
+	 * @param report
+	 * @param channel
+	 * @param message
+	 * @throws IOException
+	 */
 	@RabbitListener(queues = RabbitMQConstant.SMS_PUSH_REPORT)
 	public void consume(StandardReport report, Channel channel, Message message) throws IOException {
 		// 1、获取客户的回调地址
@@ -61,36 +69,33 @@ public class PushReportListener {
 		boolean flag = pushReport(report);
 		
 		// 3、如果发送失败  重试
-		if (!flag) {
-			log.error("【推送模块 - 推送状态报告】  第一次推送状态报告失败！ report = {}", report);
-			report.setResendCount(report.getResendCount() + 1);
-			System.out.println("发送延迟消息"+System.currentTimeMillis());
-			rabbitTemplate.convertAndSend(RabbitMQConfig.DELAYED_EXCHANGE, "", report, new MessagePostProcessor() {
-				@Override
-				public Message postProcessMessage(Message message) throws AmqpException {
-					// 设置延迟时间
-					message.getMessageProperties().setDelay(DELAYED_TIME[report.getResendCount()]);
-					return message;
-				}
-			});
-		} else {
-			log.error("【推送模块 - 推送状态报告】  第一次推送状态报告成功！ report = {}", report);
-		}
+		isResend(report, flag);
 		
 		// 4、手动ack
 		channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 	}
 	
+	/**
+	 * 监听延迟交换机路由过来的消息
+	 * @param report
+	 * @param channel
+	 * @param message
+	 * @throws IOException
+	 */
 	@RabbitListener(queues = RabbitMQConfig.DELAYED_QUEUE)
 	public void delayedConsume(StandardReport report, Channel channel, Message message) throws IOException {
-		System.out.println("接收到延迟消息"+System.currentTimeMillis());
-		// TODO 完成状态报告重新推送的操作
+		// 1、发送状态报告
+		boolean flag = pushReport(report);
+		
+		// 2、判断状态报告发送情况
+		isResend(report, flag);
+		
 		// 手动ack
 		channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 	}
 	
 	/**
-	 * 发送一次请求  给callbackUrl
+	 * 发送请求  给callbackUrl
 	 *
 	 * @param report
 	 * @return
@@ -110,11 +115,37 @@ public class PushReportListener {
 			String result = restTemplate.postForObject("https://" + report.getCallbackUrl(), new HttpEntity<>(body, httpHeaders), String.class);
 			flag = SUCCESS.equals(result);
 		} catch (RestClientException e) {
-			e.printStackTrace();
+			// 不做处理
 		}
 		
 		// 3、得到响应后  确定是否为SUCCESS
 		return flag;
 	}
 	
+	/**
+	 * 判断状态报告是否推送成功  失败则需要发送重试消息
+	 * @param report
+	 * @param flag
+	 */
+	private void isResend(StandardReport report, boolean flag) {
+		if ((report.getResendCount()+1) >= DELAYED_TIME.length) {
+			log.error("【推送模块 - 推送状态报告】  状态报告推送重试次数已达上限，放弃推送。report = {}", report);
+			// TODO 可发送到死信队列或直接记录数据库
+			return;
+		}
+		if (!flag) {
+			log.error("【推送模块 - 推送状态报告】  isResend  第{}次推送状态报告推送失败！ report = {}", report.getResendCount() + 1, report);
+			report.setResendCount(report.getResendCount() + 1);
+			rabbitTemplate.convertAndSend(RabbitMQConfig.DELAYED_EXCHANGE, "", report, new MessagePostProcessor() {
+				@Override
+				public Message postProcessMessage(Message message) throws AmqpException {
+					// 设置延迟时间
+					message.getMessageProperties().setDelay(DELAYED_TIME[report.getResendCount()]);
+					return message;
+				}
+			});
+		} else {
+			log.info("【推送模块 - 推送状态报告】  第{}次推送状态报告成功！ report = {}", report.getResendCount() + 1, report);
+		}
+	}
 }
