@@ -73,4 +73,9 @@ public class StandardReport implements Serializable {
 	 * 客户接受状态报告的URL地址
 	 */
 	private String callbackUrl;
+	
+	/**
+	 * 推送报告重试的次数
+	 */
+	private Integer resendCount = 0;
 }
