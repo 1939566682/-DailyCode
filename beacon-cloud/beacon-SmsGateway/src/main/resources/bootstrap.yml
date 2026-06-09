@@ -15,3 +15,8 @@ spring:
         server-addr: 192.168.113.3:8848
         file-extension: yml
         # beacon-smsgateway-dev.yml
+#  rabbitmq:
+#    listener:
+#      simple:
+#        concurrency: 10
+#        prefetch: 50
