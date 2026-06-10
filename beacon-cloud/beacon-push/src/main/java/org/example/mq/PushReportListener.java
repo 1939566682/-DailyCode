@@ -39,8 +39,9 @@ public class PushReportListener {
 	/**
 	 * 重试的时间间隔
 	 */
-//	private final int[] DELAYED_TIME = {0, 15000, 30000, 60000, 300000};
-	private final int[] DELAYED_TIME = {0, 150, 300, 600, 3000};
+	private final int[] DELAYED_TIME = {0, 15000, 30000, 60000, 300000};
+	// 测试时间
+//	private final int[] DELAYED_TIME = {0, 150, 300, 600, 3000};
 	
 	@Autowired
 	private RestTemplate restTemplate;

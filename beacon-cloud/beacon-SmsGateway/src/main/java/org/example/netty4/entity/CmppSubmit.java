@@ -79,7 +79,15 @@ public class CmppSubmit extends CmppMessageHeader {
     private int terminalIdLen;
     private int linkIdLen;
     private int submitExpMsgLen;
-
+    
+    /**
+     *
+     * @param version CMPP2.0
+     * @param srcId 下发的源号码
+     * @param SequenceId 局部的唯一标识
+     * @param mobile 手机号
+     * @param content 短信内容
+     */
     public CmppSubmit(byte version, String srcId, int SequenceId, String mobile, String content) {
         super(Command.CMPP_SUBMIT, version);
         if (version == Command.CMPP2_VERSION) {
