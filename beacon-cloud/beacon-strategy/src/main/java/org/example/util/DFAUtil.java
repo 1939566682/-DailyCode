@@ -2,8 +2,6 @@ package org.example.util;
 
 import org.example.client.BeaconCacheClient;
 import org.example.constant.CacheConstant;
-import org.springframework.messaging.rsocket.annotation.ConnectMapping;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,7 +30,7 @@ public class DFAUtil {
 	 */
 	static {
 		// 获取Spring容器中的cacheClient
-		BeaconCacheClient cacheClient = SpingUtil.getBean(BeaconCacheClient.class);
+		BeaconCacheClient cacheClient = SpringUtil.getBean(BeaconCacheClient.class);
 		// 获取存储在redis中的全部敏感词
 		Set<String> dirtyWords = cacheClient.sMember(CacheConstant.DIRTY_WORD);
 		// 调用create  将dfa的敏感词树构建

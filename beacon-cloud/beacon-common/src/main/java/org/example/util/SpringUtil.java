@@ -1,6 +1,5 @@
 package org.example.util;
 
-import javafx.application.Application;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -15,20 +14,20 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class SpingUtil implements ApplicationContextAware {
+public class SpringUtil implements ApplicationContextAware {
 	
 	private static ApplicationContext applicationContext;
 	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		SpingUtil.applicationContext = applicationContext;
+		SpringUtil.applicationContext = applicationContext;
 	}
 	
-	public static Object getBean(String beanName) {
-		return SpingUtil.applicationContext.getBean(beanName);
+	public static <T> T getBean(String beanName) {
+		return (T) SpringUtil.applicationContext.getBean(beanName);
 	}
 	
 	public static <T> T getBean(Class<T> beanClass) {
-		return SpingUtil.applicationContext.getBean(beanClass);
+		return SpringUtil.applicationContext.getBean(beanClass);
 	}
 }

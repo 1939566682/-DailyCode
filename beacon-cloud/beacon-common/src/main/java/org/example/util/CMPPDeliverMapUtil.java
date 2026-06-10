@@ -15,15 +15,15 @@ public class CMPPDeliverMapUtil {
 	
 	private static ConcurrentHashMap<String, StandardReport> map = new ConcurrentHashMap<>();
 	
-	public static void put(int sequenceId, StandardReport standardReport) {
+	public static void put(String sequenceId, StandardReport standardReport) {
 		map.put(sequenceId + "", standardReport);
 	}
 	
-	public static StandardReport get(int sequenceId) {
+	public static StandardReport get(String sequenceId) {
 		return map.get(sequenceId);
 	}
 	
-	public static StandardReport remove(int sequenceId) {
+	public static StandardReport remove(String sequenceId) {
 		return map.remove(sequenceId);
 	}
 	

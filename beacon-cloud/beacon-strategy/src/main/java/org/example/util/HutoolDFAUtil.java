@@ -24,7 +24,7 @@ public class HutoolDFAUtil {
 	 */
 	static {
 		// 获取Spring容器中的cacheClient
-		BeaconCacheClient cacheClient = SpingUtil.getBean(BeaconCacheClient.class);
+		BeaconCacheClient cacheClient = SpringUtil.getBean(BeaconCacheClient.class);
 		// 获取存储在Redis中的全部敏感词
 		Set<String> dirtyWords = cacheClient.sMember(CacheConstant.DIRTY_WORD);
 		// 调用WordTree的add方法，将dfaMap的敏感词树构建
