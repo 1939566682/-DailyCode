@@ -30,6 +30,7 @@ public class ElasticSearchServiceImpl implements SearchService {
 	 * 添加成功的result
 	 */
 	private final String CREATED = "created";
+	private final String UPDATED = "updated";
 	
 	@Autowired
 	private RestHighLevelClient restHighLevelClient;
@@ -49,11 +50,13 @@ public class ElasticSearchServiceImpl implements SearchService {
 		
 		// 4、校验添加是否成功
 		String result = response.getResult().getLowercase();
-		if (!CREATED.equals(result)) {
+		if (CREATED.equals(result) || UPDATED.equals(result)) {
+			log.info("【搜索模块 - 写入数据成功】  index = {}  id = {}  json = {}  result = {}", index, id, json, result);
+		}else {
 			// 添加失败
 			log.error("【搜索模块 - 写入数据失败】  index = {}  id = {}  json = {}  result = {}", index, id, json, result);
 			throw new SearchException(ExceptionEnums.SEARCH_INDEX_ERROR);
 		}
-		log.info("【搜索模块 - 写入数据成功】  index = {}  id = {}  json = {}  result = {}", index, id, json, result);
+		
 	}
 }

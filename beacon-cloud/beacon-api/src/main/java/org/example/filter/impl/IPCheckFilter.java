@@ -10,6 +10,8 @@ import org.example.model.StandardSubmit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * IPCheckFilter
@@ -33,11 +35,11 @@ public class IPCheckFilter implements CheckFilter {
 		log.info("【接口模块 - 校验ip】  校验ing......");
 		
 		// 1、通过 BeaconCacheClient 根据客户的apikey以及ipAddress查询客户的IP白名单
-		String ip = beaconCacheClient.hGetString(CacheConstant.CLIENT_BUSINESS + submit.getApiKey(), IP_ADDRESS);
+		List<String> ip = beaconCacheClient.hGetStringList(CacheConstant.CLIENT_BUSINESS + submit.getApiKey(), IP_ADDRESS);
 		submit.setIp(ip);
 		
-		// 2、如果IP白名单为null或者在白名单内  直接放行
-		if (ip == null || ip.isEmpty() || ip.contains(submit.getRealIP())) {
+		// 2、在白名单内  直接放行
+		if (ip != null && ip.contains(submit.getRealIP())) {
 			log.info("【接口模块 - 校验ip】  客户端请求IP合法！");
 			return;
 		}

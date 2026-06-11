@@ -2,9 +2,12 @@ package org.example.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.ObjectUtils;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 客户信息表(ClientBusiness)实体类
@@ -86,9 +89,16 @@ public class ClientBusiness implements Serializable {
      * 备用字段4
      */
     private String extend4;
-	
-	
-	@Override
+    
+    public List<String> getIpAddress() {
+        String ips = ipAddress;
+        if (!ObjectUtils.isEmpty(ips)) {
+            return Arrays.asList(ips.split(","));
+        }
+        return null;
+    }
+    
+    @Override
     public String toString() {
         return "ClientBusiness{" +
                 "id=" + id +

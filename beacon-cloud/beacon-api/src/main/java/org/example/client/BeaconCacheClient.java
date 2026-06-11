@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +24,9 @@ public interface BeaconCacheClient {
 	
 	@GetMapping("/cache/hget/{key}/{field}")
 	Object hGet(@PathVariable(value = "key") String key, @PathVariable(value = "field") String field);
+	
+	@GetMapping("/cache/hget/{key}/{field}")
+	List<String> hGetStringList(@PathVariable(value = "key") String key, @PathVariable(value = "field") String field);
 	
 	@GetMapping("/cache/hget/{key}/{field}")
 	String hGetString(@PathVariable(value = "key") String key, @PathVariable(value = "field") String field);
