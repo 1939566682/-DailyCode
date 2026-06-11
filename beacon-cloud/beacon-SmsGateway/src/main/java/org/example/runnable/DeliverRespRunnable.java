@@ -69,7 +69,6 @@ public class DeliverRespRunnable implements Runnable {
 		}
 		
 		// 4、再次发送消息  让搜索模块对之前写入的消息进行修改  这里需要用死信队列  延迟10s再发送修改es信息的消息
-		
-	
+		rabbitTemplate.convertAndSend(RabbitMQConstant.SMS_GATEWAY_NORMAL_EXCHANGE,"", report);
 	}
 }

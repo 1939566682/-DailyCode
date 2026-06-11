@@ -36,4 +36,12 @@ public interface RabbitMQConstant {
 	 */
 	String SMS_GATEWAY = "sms_gateway_topic_";
 	
+	/**
+	 * 短信网关模块涉及到的死信队列需要的信息
+	 */
+	String SMS_GATEWAY_NORMAL_EXCHANGE = "sms_gateway_normal_exchange";
+	String SMS_GATEWAY_NORMAL_QUEUE = "sms_gateway_normal_queue";
+	String SMS_GATEWAY_DEAD_LETTER_EXCHANGE = "sms_gateway_dead_letter_exchange";
+	String SMS_GATEWAY_DEAD_LETTER_QUEUE = "sms_gateway_dead_letter_queue";
+	
 }
