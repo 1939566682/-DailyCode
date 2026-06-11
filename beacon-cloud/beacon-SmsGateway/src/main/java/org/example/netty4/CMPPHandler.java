@@ -4,18 +4,12 @@ package org.example.netty4;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.example.constant.SmsConstant;
-import org.example.enums.CMPP2ResultEnums;
-import org.example.model.StandardReport;
-import org.example.model.StandardSubmit;
 import org.example.netty4.entity.CmppDeliver;
 import org.example.netty4.entity.CmppSubmitResp;
 import org.example.netty4.utils.MsgUtils;
+import org.example.runnable.DeliverRespRunnable;
 import org.example.runnable.SubmitRespRunnable;
-import org.example.util.CMPP2ResultUtil;
-import org.example.util.CMPPSubmitRespMapUtil;
 import org.example.util.SpringUtil;
-import org.springframework.beans.BeanUtils;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -25,7 +19,6 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Slf4j
 public class CMPPHandler extends SimpleChannelInboundHandler {
-	
 	
 	@Override
 	protected void channelRead0(ChannelHandlerContext context, Object msg) throws Exception {
@@ -51,8 +44,8 @@ public class CMPPHandler extends SimpleChannelInboundHandler {
 				log.info("----第二次响应：{}", resp.getMsg_Id_DELIVRD());
 				log.info("----手机号：{}", resp.getDest_terminal_Id());
 				log.info("----状态：{}", resp.getStat());
-				// 先放这里避免报错  也是提前获取
 				ThreadPoolExecutor cmppDeliverPool = SpringUtil.getBean("cmppDeliverPool");
+				cmppDeliverPool.execute(new DeliverRespRunnable(resp.getMsg_Id_DELIVRD(),resp.getStat()));
 			} else {
 				//用户回复会打印在这里
 				log.info("{}", MsgUtils.bytesToLong(resp.getMsg_Id()));
@@ -61,5 +54,4 @@ public class CMPPHandler extends SimpleChannelInboundHandler {
 			}
 		}
 	}
-	
 }

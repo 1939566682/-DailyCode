@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @description
  */
 
-public class CMPP2ResultUtil {
+public class CMPP2ResultRespUtil {
 	private static HashMap<Integer, String> operators = new HashMap();
 	
 	static {

@@ -27,6 +27,12 @@ public class StandardReport implements Serializable {
 	private static final long serialVersionUID = -1607838843843963557L;
 	
 	/**
+	 * 客户端请求携带的apiKey
+	 * 为了在网关运营商的二次回调中可以方便的查询客户的状态报告的推送信息
+	 */
+	private String apiKey;
+	
+	/**
 	 * 针对当前短信的唯一标识
 	 */
 	private Long sequenceId;

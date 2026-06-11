@@ -6,7 +6,7 @@ import org.example.enums.CMPP2ResultEnums;
 import org.example.model.StandardReport;
 import org.example.model.StandardSubmit;
 import org.example.netty4.entity.CmppSubmitResp;
-import org.example.util.CMPP2ResultUtil;
+import org.example.util.CMPP2ResultRespUtil;
 import org.example.util.CMPPDeliverMapUtil;
 import org.example.util.CMPPSubmitRespMapUtil;
 import org.example.util.SpringUtil;
@@ -44,7 +44,7 @@ public class SubmitRespRunnable implements Runnable {
 //			if (result != OK) {
 		if (result != CMPP2ResultEnums.OK.getResult()) {
 			// 说明运营商的提交应答中回馈了失败的情况
-			String resultMessage = CMPP2ResultUtil.getResultMessage(result);
+			String resultMessage = CMPP2ResultRespUtil.getResultMessage(result);
 			submit.setReportState(SmsConstant.REPORT_FAIL);
 			submit.setErrorMsg(resultMessage);
 		} else {

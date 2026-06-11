@@ -17,15 +17,15 @@ public class CMPPSubmitRespMapUtil {
 	private static ConcurrentHashMap<String, StandardSubmit> map = new ConcurrentHashMap<>();
 	
 	public static void put(int sequenceId, StandardSubmit standardSubmit) {
-		map.put(sequenceId + "", standardSubmit);
+		map.put(String.valueOf(sequenceId), standardSubmit);
 	}
 	
 	public static StandardSubmit get(int sequenceId) {
-		return map.get(sequenceId);
+		return map.get(String.valueOf(sequenceId));
 	}
 	
 	public static StandardSubmit remove(int sequenceId) {
-		return map.remove(sequenceId);
+		return map.remove(String.valueOf(sequenceId));
 	}
 	
 }
