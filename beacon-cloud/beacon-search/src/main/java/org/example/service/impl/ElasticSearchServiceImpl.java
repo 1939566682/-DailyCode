@@ -1,6 +1,7 @@
 package org.example.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -58,5 +59,19 @@ public class ElasticSearchServiceImpl implements SearchService {
 			throw new SearchException(ExceptionEnums.SEARCH_INDEX_ERROR);
 		}
 		
+	}
+	
+	@Override
+	public boolean exists(String index, String id) throws IOException {
+		// 1、构建查询指定id的文档是否存在的Request
+		GetRequest getRequest = new GetRequest();
+		
+		// 2、给Request对象封装索引信息  文档id
+		getRequest.index(index);
+		getRequest.id(id);
+		
+		// 3、将封装好的Request的信息发送给es服务
+		// 基于restHighLevelClient将查询指定id的文档是否存在的请求投递过去
+		return restHighLevelClient.exists(getRequest, RequestOptions.DEFAULT);
 	}
 }

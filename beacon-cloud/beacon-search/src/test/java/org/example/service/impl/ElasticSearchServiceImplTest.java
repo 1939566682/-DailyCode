@@ -1,6 +1,7 @@
-package org.example.service;
+package org.example.service.impl;
 
 
+import org.example.service.SearchService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
  */
 
 @SpringBootTest
-class SearchServiceTest {
+class ElasticSearchServiceImplTest {
 	
 	@Autowired
 	private SearchService searchService;
@@ -25,6 +26,11 @@ class SearchServiceTest {
 	@Test
 	void index() throws IOException {
 		searchService.index("sms_submit_log_2026","3","{\"clientId\": 3}");
+	}
+	
+	@Test
+	void exists() throws IOException {
+		System.out.println(searchService.exists("sms_submit_log_2026", "322538202306969"));
 	}
 	
 	@Test
