@@ -34,18 +34,17 @@ public class SmsUpdataLogListener {
 	
 	@RabbitListener(queues = RabbitMQConstant.SMS_GATEWAY_DEAD_LETTER_QUEUE)
 	public void consume(StandardReport report, Channel channel, Message message) throws IOException {
-		log.info("【搜索模块 - 修改日志】  接收到修改日志的信息 report = {}",report);
+		log.info("【搜索模块 - 修改日志】  接收到修改日志的信息 report = {}", report);
 		
 		// 将report对象存储到ThreadLocal中  以便于在搜索模块中获取
 		ThreadLocalUtils.set(report);
 		
 		// 调用搜索模块完成的修改操作
-		Map<String,Object> doc = new HashMap<>();
-		doc.put("reportState",report.getReportState());
-		searchService.update(SearchEnums.INDEX.getIndex() + SearchUtils.getYear(),report.getSequenceId().toString(),doc);
+		Map<String, Object> doc = new HashMap<>();
+		doc.put("reportState", report.getReportState());
+		searchService.update(SearchEnums.INDEX.getIndex() + SearchUtils.getYear(), report.getSequenceId().toString(), doc);
 		
 		// ack
-		channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+		channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 	}
-	
 }

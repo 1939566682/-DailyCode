@@ -108,6 +108,7 @@ public class ElasticSearchServiceImpl implements SearchService {
 			ThreadLocalUtils.remove();
 			return;
 		}
+		ThreadLocalUtils.remove();
 		// 2、文档存在  可以直接进行修改
 		UpdateRequest updateRequest = new UpdateRequest(index,id);
 		updateRequest.doc(doc);
