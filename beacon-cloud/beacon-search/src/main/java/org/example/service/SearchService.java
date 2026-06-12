@@ -1,6 +1,7 @@
 package org.example.service;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * SearchService
@@ -28,4 +29,13 @@ public interface SearchService {
 	 * @throws IOException
 	 */
 	boolean exists(String index,String id) throws IOException;
+	
+	/**
+	 * 修改文档信息
+	 * @param index  文档索引
+	 * @param id  文档id
+	 * @param doc  要修改的key-value集合
+	 * @throws IOException
+	 */
+	void update(String index, String id, Map<String,Object> doc) throws IOException;
 }
