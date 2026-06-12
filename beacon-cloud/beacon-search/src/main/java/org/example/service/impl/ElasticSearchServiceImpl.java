@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
@@ -36,6 +38,10 @@ public class ElasticSearchServiceImpl implements SearchService {
 	 * 添加成功的result
 	 */
 	private final String CREATED = "created";
+	
+	/**
+	 * 修改成功的result
+	 */
 	private final String UPDATED = "updated";
 	
 	@Autowired
@@ -60,10 +66,10 @@ public class ElasticSearchServiceImpl implements SearchService {
 		// 4、校验添加是否成功
 		String result = response.getResult().getLowercase();
 		if (CREATED.equals(result) || UPDATED.equals(result)) {
-			log.info("【搜索模块 - 写入数据成功】  index = {}  id = {}  json = {}  result = {}", index, id, json, result);
+			log.info("【搜索模块 - 写入数据成功】  index = {} id = {} json = {} result = {}", index, id, json, result);
 		}else {
 			// 添加失败
-			log.error("【搜索模块 - 写入数据失败】  index = {}  id = {}  json = {}  result = {}", index, id, json, result);
+			log.error("【搜索模块 - 写入数据失败】  index = {} id = {} json = {} result = {}", index, id, json, result);
 			throw new SearchException(ExceptionEnums.SEARCH_INDEX_ERROR);
 		}
 		
@@ -92,16 +98,29 @@ public class ElasticSearchServiceImpl implements SearchService {
 			StandardReport report = ThreadLocalUtils.get();
 			if (report.getReUpdate()){
 				// 说明已经是第二次修改且文档依旧不存在
-				log.error("【搜索模块 - 修改日志】 修改日志失败 report = {}", report);
+				log.error("【搜索模块 - 修改日志】  第二次修改日志失败 report = {}", report);
 			}else  {
-				// 第一次进行修改时查询到文档不存在  放回到MQ的死信队列  尝试第二次修改
+				// 第一次进行修改时查询到文档不存在 放回到MQ的死信队列  尝试第二次修改
+				log.error("【搜索模块 - 修改日志】 修改日志失败 将进行重试 report = {}", report);
 				report.setReUpdate(true);
 				rabbitTemplate.convertAndSend(RabbitMQConstant.SMS_GATEWAY_NORMAL_EXCHANGE,report);
 			}
 			ThreadLocalUtils.remove();
 			return;
 		}
-		
+		// 2、文档存在  可以直接进行修改
+		UpdateRequest updateRequest = new UpdateRequest(index,id);
+		updateRequest.doc(doc);
+		UpdateResponse update = restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT);
+		// 3、校验修改是否成功
+		String result = update.getResult().getLowercase();
+		if (UPDATED.equals(result)) {
+			log.info("【搜索模块 - 修改数据成功】  index = {} id = {} doc = {} result = {}", index, id, doc, result);
+		}else {
+			// 添加失败
+			log.error("【搜索模块 - 修改数据失败】  index = {} id = {} doc = {} result = {}", index, id, doc, result);
+			throw new SearchException(ExceptionEnums.SEARCH_UPDATE_ERROR);
+		}
 	}
 	
 }
