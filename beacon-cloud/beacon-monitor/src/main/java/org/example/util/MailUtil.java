@@ -41,7 +41,7 @@ public class MailUtil {
 		helper.setFrom(from);
 		helper.setTo(tos.split(","));
 		helper.setSubject(subject);
-		helper.setText(text);
+		helper.setText(text,true);
 		
 		// 发送邮件
 		javaMailSender.send(mimeMessage);

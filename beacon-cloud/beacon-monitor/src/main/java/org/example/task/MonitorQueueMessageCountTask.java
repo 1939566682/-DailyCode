@@ -32,7 +32,7 @@ public class MonitorQueueMessageCountTask {
 	private final Integer CHANNEL_ID_INDEX = QUEUE_PATTERN.indexOf("*");
 	
 	// 队列消息限制
-	private final long MESSAGE_COUNT_LIMIT = 10000;
+	private final long MESSAGE_COUNT_LIMIT = 0;
 	
 	String text = "<h1>您的队列消息堆积超过一万条了  队列名：%s  消息个数：%s</h1>";
 	
@@ -55,18 +55,18 @@ public class MonitorQueueMessageCountTask {
 		// 2、需要channel去操作
 		Connection connection = connectionFactory.createConnection();
 		Channel channel = connection.createChannel(false);
+		listenQueueAndSendEmail(channel,RabbitMQConstant.SMS_PRE_SEND);
 		for (String key : keys) {
 			// 封装队列名称
 			String queueName = RabbitMQConstant.SMS_GATEWAY + key.substring(CHANNEL_ID_INDEX);
-			listenQueueAndSend(channel, queueName);
-			
+			listenQueueAndSendEmail(channel, queueName);
 		}
 		
 		
 
 	}
 	
-	private void listenQueueAndSend(Channel channel, String queueName) throws MessagingException {
+	private void listenQueueAndSendEmail(Channel channel, String queueName) throws MessagingException {
 		// 队列不存在则直接构建  如果已经存在就直接忽略
 		try {
 			channel.queueDeclare(queueName, true, false, false, null);
