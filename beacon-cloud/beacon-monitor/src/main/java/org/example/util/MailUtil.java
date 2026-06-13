@@ -41,11 +41,25 @@ public class MailUtil {
 		helper.setFrom(from);
 		helper.setTo(tos.split(","));
 		helper.setSubject(subject);
-		helper.setText(text,true);
+		helper.setText(text);
 		
 		// 发送邮件
 		javaMailSender.send(mimeMessage);
 	}
 	
 	
+	public void sendEmail(String to, String subject, String text) throws MessagingException {
+		// 构建MimeMessage对象
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		
+		// 给邮件指定信息
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+		helper.setFrom(from);
+		helper.setTo(to);
+		helper.setSubject(subject);
+		helper.setText(text);
+		
+		// 发送邮件
+		javaMailSender.send(mimeMessage);
+	}
 }

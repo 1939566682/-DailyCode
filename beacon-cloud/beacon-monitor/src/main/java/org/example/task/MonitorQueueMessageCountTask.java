@@ -34,7 +34,7 @@ public class MonitorQueueMessageCountTask {
 	// 队列消息限制
 	private final long MESSAGE_COUNT_LIMIT = 0;
 	
-	String text = "<h1>您的队列消息堆积超过一万条了  队列名：%s  消息个数：%s</h1>";
+	String text = "您的队列消息堆积超过一万条了  队列名：%s  消息个数：%s";
 	
 	@Autowired
 	private BeaconCacheClient beaconCacheClient;
