@@ -131,8 +131,17 @@ public class CacheController {
 	                    @PathVariable("field") String field,
 	                    @PathVariable("number") Long delta) {
 		Long balance = redisClient.hIncrementBy(key, field, delta);
-		log.info("【缓存模块】 - hIncrBy方法  修改  key = {} field = {} delta = {}  修改后余额 balance = {}", key,field, delta, balance);
+		log.info("【缓存模块】 - hIncrBy方法  修改 key = {} field = {} delta = {}  修改后余额 balance = {}", key,field, delta, balance);
 		return balance;
+	}
+	
+	@PostMapping("/cache/keys/{pattern}")
+	public Set<String> keys(@PathVariable("pattern") String pattern) {
+		log.info("【缓存模块】 - keys方法  根据pattern查询key的信息 pattern = {}", pattern);
+		// TODO 对性能有影响  可优化  可以吧所有通道的id设置到一个单独的key里  通过smember就可以拿到全部了
+		Set<String> keys = redisTemplate.keys(pattern);
+		log.info("【缓存模块】 - keys方法  根据pattern查询key的信息 pattern = {}  查询出全部的key信息 keys = {}", pattern, keys);
+		return keys;
 	}
 	
 }

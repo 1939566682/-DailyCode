@@ -15,6 +15,11 @@ spring:
         server-addr: 192.168.113.3:8848
         file-extension: yml
         # beacon-monitor-dev.yml
+  mail:
+    host: smtp.qq.com
+    username: 1939566682@qq.com
+    password: 8b42
+    tos: 2978366171@qq.com
 ## xxl-job的基本配置
 #xxl:
 #  job:
