@@ -49,7 +49,6 @@ public class MonitorQueueMessageCountTask {
 	@XxlJob("monitorQueueMessageCountTask")
 	public void monitor() throws MessagingException {
 		// 1、拿到所有的队列名称
-		// TODO 这里说的是通过通道id  但是策略模块推送消息到短信网关模块时用的是submit的clientId
 		Set<String> keys = beaconCacheClient.keys(QUEUE_PATTERN);
 		
 		// 2、需要channel去操作

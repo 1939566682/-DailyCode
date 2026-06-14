@@ -114,7 +114,7 @@ public class RouteStrategyFilter implements StrategyFilter {
 		
 		try {
 			// 9、声明队列名称 并构建队列
-			String queueName = RabbitMQConstant.SMS_GATEWAY + submit.getClientId();
+			String queueName = RabbitMQConstant.SMS_GATEWAY + submit.getChannelId();
 			amqpAdmin.declareQueue(QueueBuilder.durable(queueName).build());
 			
 			// 10、发送消息到声明好的队列中
