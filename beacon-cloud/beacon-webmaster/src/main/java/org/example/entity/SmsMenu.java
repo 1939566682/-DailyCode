@@ -1,8 +1,12 @@
 package org.example.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SmsMenu {
+public class SmsMenu implements Serializable {
+    
+    private static final long serialVersionUID = -2826166683820617242L;
+    
     private Integer id;
 
     private String name;

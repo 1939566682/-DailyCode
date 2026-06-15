@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.example.constant.WebMasterConstant;
 import org.example.dto.UserDTO;
+import org.example.entity.SmsUser;
 import org.example.enums.ExceptionEnums;
 import org.example.util.R;
 import org.example.vo.ResultVO;
@@ -14,6 +16,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * SmsUserController
@@ -30,7 +34,7 @@ import javax.validation.Valid;
 public class SmsUserController {
 	
 	@PostMapping("/login")
-	public ResultVO login(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult) {
+	public ResultVO<Object> login(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult) {
 		// 1、请求参数的非空校验
 		if (bindingResult.hasErrors()) {
 			log.info("【认证操作】  参数不合法 userDTO = {}", userDTO);
@@ -55,5 +59,25 @@ public class SmsUserController {
 		}
 		// 认证成功
 		return R.ok();
+	}
+	
+	/**
+	 * 查询登录用户的信息
+	 */
+	@GetMapping("/user/info")
+	public ResultVO<Object> info(){
+		//1、基于SecurityUtils获取用户信息
+		Subject subject = SecurityUtils.getSubject();
+		SmsUser smsUser = (SmsUser) subject.getPrincipal();
+		if(smsUser == null){
+			log.info("【获取登录用户信息】  用户未登录！！");
+			return R.error(ExceptionEnums.NOT_LOGIN);
+		}
+		
+		//2、封装结果返回
+		Map<String,Object> data = new HashMap<>();
+		data.put("nickname",smsUser.getNickname());
+		data.put("username",smsUser.getUsername());
+		return R.ok(data);
 	}
 }

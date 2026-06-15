@@ -1,8 +1,12 @@
 package org.example.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SmsUser {
+public class SmsUser implements Serializable {
+    
+    private static final long serialVersionUID = -4910485229576950184L;
+    
     private Integer id;
 
     private String username;

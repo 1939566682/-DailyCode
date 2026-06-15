@@ -15,19 +15,23 @@ public class R {
 	
 	/**
 	 * 成功 无数据
-	 * @return
 	 */
-	public static ResultVO ok() {
-		return new ResultVO(0,"success");
+	public static<T> ResultVO<T> ok() {
+		return new ResultVO<>(0,"success");
+	}
+	
+	/**
+	 * 成功 有数据
+	 */
+	public static<T> ResultVO<T> ok(T data) {
+		return new ResultVO<>(0,"success",data);
 	}
 	
 	/**
 	 * 失败 指定错误信息
-	 * @param enums
-	 * @return
 	 */
-	public static ResultVO error(ExceptionEnums enums){
-		return new ResultVO(enums.getCode(),enums.getMessage());
+	public static<T> ResultVO<T> error(ExceptionEnums enums){
+		return new ResultVO<>(enums.getCode(),enums.getMessage());
 	}
 	
 }
