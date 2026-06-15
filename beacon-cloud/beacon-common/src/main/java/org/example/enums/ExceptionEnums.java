@@ -31,6 +31,10 @@ public enum ExceptionEnums {
 	NOT_AVAILABLE_CHANNEL(-18, "无可用的通道！"),
 	SEARCH_INDEX_ERROR(-19, "添加文档信息失败！"),
 	SEARCH_UPDATE_ERROR(-20,"修改文档信息失败！" ),
+	
+	
+	KAPTCHA_ERROR(-100,"验证码错误！" ),
+	AUTHENTICATION_ERROR(-101,"用户名或密码错误！" ),
 	;
 	
 	private final Integer code;

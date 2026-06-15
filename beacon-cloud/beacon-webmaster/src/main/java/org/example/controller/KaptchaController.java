@@ -1,6 +1,8 @@
 package org.example.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import org.apache.shiro.SecurityUtils;
+import org.example.constant.WebMasterConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,10 @@ public class KaptchaController {
 		resp.setContentType("image/jpg");
 		// 3、生成验证码
 		String kaptchaText = kaptcha.createText();
+		
+		// 认证需要验证验证码的准确性  基于Shiro将kaptchaText进行存储
+		SecurityUtils.getSubject().getSession().setAttribute(WebMasterConstant.KAPTCHA, kaptchaText);
+		
 		// 4、基于文字生成对应的图片
 		BufferedImage kaptchaImage = kaptcha.createImage(kaptchaText);
 		// 5、写回验证码图片信息
