@@ -50,10 +50,9 @@ public class ShiroConfig {
 		 * anon 代表放行  使用的是 AnonymousFilter
 		 * logout 代表登出  使用的是 LogoutFilter
 		 */
-		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/public/**","anon");
 		filterChainDefinitionMap.put("/captcha.jpg","anon");
-		filterChainDefinitionMap.put("/sys/login","anon");
+		filterChainDefinitionMap.put("/sys/user/login","anon");
 		filterChainDefinitionMap.put("/index.html","anon");
 		filterChainDefinitionMap.put("/login.html","anon");
 		filterChainDefinitionMap.put("/logout","logout");
