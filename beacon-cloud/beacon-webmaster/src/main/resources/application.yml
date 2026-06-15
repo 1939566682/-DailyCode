@@ -1,0 +1,5 @@
+shiro:
+  # 默认登录页面
+  loginUrl: /login.html
+  # 没有权限的页面
+  unauthorizedUrl: unauthorized.html
