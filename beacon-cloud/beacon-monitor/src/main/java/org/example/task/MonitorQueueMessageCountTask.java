@@ -5,6 +5,7 @@ import com.xxl.job.core.handler.annotation.XxlJob;
 import org.example.client.BeaconCacheClient;
 import org.example.constant.RabbitMQConstant;
 import org.example.util.MailUtil;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 /**
  * MonitorQueueMessageCountTask
@@ -32,7 +34,7 @@ public class MonitorQueueMessageCountTask {
 	private final Integer CHANNEL_ID_INDEX = QUEUE_PATTERN.indexOf("*");
 	
 	// 队列消息限制
-	private final long MESSAGE_COUNT_LIMIT = 0;
+	private final long MESSAGE_COUNT_LIMIT = 10000;
 	
 	String text = "您的队列消息堆积超过一万条了  队列名：%s  消息个数：%s";
 	
@@ -52,17 +54,25 @@ public class MonitorQueueMessageCountTask {
 		Set<String> keys = beaconCacheClient.keys(QUEUE_PATTERN);
 		
 		// 2、需要channel去操作
-		Connection connection = connectionFactory.createConnection();
-		Channel channel = connection.createChannel(false);
-		listenQueueAndSendEmail(channel,RabbitMQConstant.SMS_PRE_SEND);
-		for (String key : keys) {
-			// 封装队列名称
-			String queueName = RabbitMQConstant.SMS_GATEWAY + key.substring(CHANNEL_ID_INDEX);
-			listenQueueAndSendEmail(channel, queueName);
+		try(Connection connection = connectionFactory.createConnection();
+		    Channel channel = connection.createChannel(false);) {
+			
+			listenQueueAndSendEmail(channel,RabbitMQConstant.SMS_PRE_SEND);
+			for (String key : keys) {
+				// 封装队列名称
+				String queueName = RabbitMQConstant.SMS_GATEWAY + key.substring(CHANNEL_ID_INDEX);
+				listenQueueAndSendEmail(channel, queueName);
+			}
+		} catch (AmqpException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			e.printStackTrace();
 		}
 		
-		
-
 	}
 	
 	private void listenQueueAndSendEmail(Channel channel, String queueName) throws MessagingException {
