@@ -74,9 +74,9 @@ public class ClientBusiness implements Serializable {
      */
     private Integer isDelete;
 /**
-     * 备用字段1
+     * 邮箱
      */
-    private String extend1;
+    private String email;
 /**
      * 备用字段2
      */
@@ -115,7 +115,7 @@ public class ClientBusiness implements Serializable {
                 ", updated=" + updated +
                 ", updateId=" + updateId +
                 ", isDelete=" + isDelete +
-                ", extend1='" + extend1 + '\'' +
+                ", extend1='" + email + '\'' +
                 ", extend2='" + extend2 + '\'' +
                 ", extend3='" + extend3 + '\'' +
                 ", extend4='" + extend4 + '\'' +
