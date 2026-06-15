@@ -9,6 +9,9 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.example.entity.SmsUser;
+import org.example.service.SmsUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,8 +32,12 @@ public class ShiroRealm extends AuthorizingRealm {
 		this.setCredentialsMatcher(hashedCredentialsMatcher);
 	}
 	
+	@Autowired
+	private SmsUserService smsUserService;
+	
 	/**
 	 * 认证
+	 *
 	 * @param token the authentication token containing the user's principal and credentials.
 	 * @return
 	 * @throws AuthenticationException
@@ -40,16 +47,18 @@ public class ShiroRealm extends AuthorizingRealm {
 		// 1、基于token拿到用户名
 		String username = token.getPrincipal().toString();
 		
-		// 2、基于用户名获取用户信息（模拟数据库操作）
-		if (username == null && !username.equals("admin")) {
-			// 3、查询完毕后 查看用户是否为null 为null就直接返回即可
+		// 2、基于用户名获取用户信息
+		SmsUser smsUser = smsUserService.findByUsername(username);
+
+		// 3、查询完毕后 查看用户是否为null 为null就直接返回即可
+		if (smsUser == null) {
+			// 用户名错误
 			return null;
 		}
-		String password = "b39dc5da02d002e6ac581e5bb929d2e5";
-		String salt = "09a8424ed5bf4373af6530fec2b29c0f";
+		
 		// 4、不为null 说明用户名正确 封装AuthenticationInfo 设置密码的加密方式和信息
-		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo("用户信息", password, "ShiroRealm");
-		info.setCredentialsSalt(ByteSource.Util.bytes(salt));
+		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(smsUser, smsUser.getPassword(), "ShiroRealm");
+		info.setCredentialsSalt(ByteSource.Util.bytes(smsUser.getSalt()));
 		
 		// 5、返回
 		return info;
@@ -57,6 +66,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	
 	/**
 	 * 授权
+	 *
 	 * @param principals the primary identifying principals of the AuthorizationInfo that should be retrieved.
 	 * @return
 	 */

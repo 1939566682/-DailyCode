@@ -47,15 +47,14 @@ public class SmsUserExample {
 
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
-        if (oredCriteria.size() == 0) {
+        if (oredCriteria.isEmpty()) {
             oredCriteria.add(criteria);
         }
         return criteria;
     }
 
     protected Criteria createCriteriaInternal() {
-        Criteria criteria = new Criteria();
-        return criteria;
+	    return new Criteria();
     }
 
     public void clear() {
