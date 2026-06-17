@@ -36,6 +36,7 @@ public enum ExceptionEnums {
 	KAPTCHA_ERROR(-100,"验证码错误！" ),
 	AUTHENTICATION_ERROR(-101,"用户名或密码错误！" ),
 	NOT_LOGIN(-102,"用户未登录！" ),
+	USER_MENU_ERROR(-103,"查询用户菜单信息失败！" ),
 	;
 	
 	private final Integer code;

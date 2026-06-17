@@ -7,7 +7,7 @@ public class SmsRole implements Serializable {
     
     private static final long serialVersionUID = 691135651557541197L;
     
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -29,11 +29,11 @@ public class SmsRole implements Serializable {
 
     private String extend4;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

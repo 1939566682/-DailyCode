@@ -1,6 +1,8 @@
 package org.example.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.example.entity.SmsMenu;
 import org.example.entity.SmsMenuExample;
@@ -27,4 +29,11 @@ public interface SmsMenuMapper {
     int updateByPrimaryKeySelective(SmsMenu row);
 
     int updateByPrimaryKey(SmsMenu row);
+    
+    /**
+     * 根据用户id查询用户的菜单信息
+     * @param id
+     * @return
+     */
+	List<Map<String, Object>> findMenuByUserId(@Param("userId") Long id);
 }

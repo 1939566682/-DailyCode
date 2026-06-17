@@ -7,7 +7,7 @@ public class SmsMenu implements Serializable {
     
     private static final long serialVersionUID = -2826166683820617242L;
     
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -39,11 +39,11 @@ public class SmsMenu implements Serializable {
 
     private String extend4;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
