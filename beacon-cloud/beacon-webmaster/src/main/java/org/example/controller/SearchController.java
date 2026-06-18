@@ -97,7 +97,7 @@ public class SearchController {
 		Map<String, Object> data = searchClient.findSmsByParams(map);
 		
 		// 3、判断返回的total 如果total为0 正常返回
-		Long total = Long.parseLong(String.valueOf(data.get("total")));
+		long total = Long.parseLong(String.valueOf(data.get("total")));
 		if (total == 0) {
 			return R.ok();
 		}
