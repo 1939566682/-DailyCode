@@ -176,6 +176,7 @@ public class ElasticSearchServiceImpl implements SearchService {
 			highlightBuilder.field("text");
 			highlightBuilder.preTags("<span style='color:red'>");
 			highlightBuilder.postTags("</span>");
+			highlightBuilder.fragmentSize(100);
 			sourceBuilder.highlighter(highlightBuilder);
 		}
 		

@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.SecurityUtils;
 import org.example.client.SearchClient;
 import org.example.constant.WebMasterConstant;
@@ -12,7 +13,6 @@ import org.example.service.SmsRoleService;
 import org.example.util.R;
 import org.example.vo.ResultVO;
 import org.example.vo.SearchSmsVO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -99,13 +100,21 @@ public class SearchController {
 		// 3、判断返回的total 如果total为0 正常返回
 		long total = Long.parseLong(String.valueOf(data.get("total")));
 		if (total == 0) {
-			return R.ok();
+			return R.ok(0L,null);
 		}
 		
 		// 4、如果数据正常  做返回数据的封装  声明了一个SearchSmsVO的实体类
 		List<Map> list = (List<Map>) data.get("rows");
 		List<SearchSmsVO> rows = new ArrayList<>();
-		BeanUtils.copyProperties(list,rows);
+		for (Map row : list) {
+			SearchSmsVO searchSmsVO = new SearchSmsVO();
+			try {
+				BeanUtils.copyProperties(searchSmsVO, row);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				throw new RuntimeException(e);
+			}
+			rows.add(searchSmsVO);
+		}
 		
 		// 5、响应数据
 		return R.ok(total,rows);

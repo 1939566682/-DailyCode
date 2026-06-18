@@ -15,7 +15,7 @@ public class SearchSmsVO {
 
 	private String corpname;
 	
-	private Long sendTimeStr;
+	private String sendTimeStr;
 	
 	private Integer reportState;
 	
@@ -28,4 +28,6 @@ public class SearchSmsVO {
 	private String mobile;
 	
 	private String text;
+	
+	
 }
