@@ -48,7 +48,7 @@ $(function () {
                         return "移动";
                     } else if(v == 2) {
                         return "联通";
-                    } else {
+                    } else if (v == 3) {
                         return "电信";
                     }
                 }

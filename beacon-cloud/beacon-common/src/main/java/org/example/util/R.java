@@ -20,11 +20,24 @@ public class R {
 		return new ResultVO<>(0,"success");
 	}
 	
+	
 	/**
 	 * 成功 有数据
 	 */
 	public static<T> ResultVO<T> ok(T data) {
-		return new ResultVO<>(0,"success",data);
+		ResultVO<T> vo = ok();
+		vo.setData(data);
+		return vo;
+	}
+	
+	/**
+	 * 成功 有数据
+	 */
+	public static<T> ResultVO<T> ok(Long total,Object rows) {
+		ResultVO<T> vo = ok();
+		vo.setTotal(total);
+		vo.setRows(rows);
+		return vo;
 	}
 	
 	/**
