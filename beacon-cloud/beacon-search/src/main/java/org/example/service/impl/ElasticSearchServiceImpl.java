@@ -10,6 +10,11 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.example.constant.RabbitMQConstant;
 import org.example.enums.ExceptionEnums;
 import org.example.execption.SearchException;
@@ -159,6 +164,48 @@ public class ElasticSearchServiceImpl implements SearchService {
 		}else if (!ObjectUtils.isEmpty(clientIDObj)){
 			clientIDList = Collections.singletonList(Integer.parseInt(clientIDObj.toString()));
 		}
+		
+		// 2.3 条件封装
+		SearchSourceBuilder sourceBuilder =  new SearchSourceBuilder();
+		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+		// ---------------- 封装查询条件到boolQueryBuilder ----------------
+		//2.3.1 关键字
+		if (!ObjectUtils.isEmpty(contentObj)){
+			boolQueryBuilder.must(QueryBuilders.matchQuery("text",contentObj));
+			// 高亮设置（短信内容中被检索的文字）
+			HighlightBuilder highlightBuilder = new HighlightBuilder();
+			highlightBuilder.field("text");
+			highlightBuilder.preTags("<span style='color:red'>");
+			highlightBuilder.postTags("</span>");
+			sourceBuilder.highlighter(highlightBuilder);
+		}
+		
+		//2.3.2 手机号
+		if (!ObjectUtils.isEmpty(mobileObj)){
+			boolQueryBuilder.must(QueryBuilders.prefixQuery("mobile", mobileObj.toString()));
+		}
+		
+		//2.3.6 分页查询
+		sourceBuilder.from(Integer.parseInt(fromObj.toString()));
+		sourceBuilder.size(Integer.parseInt(sizeObj.toString()));
+		
+		//2.3.3 开始时间
+		if (!ObjectUtils.isEmpty(startTimeObj)){
+			boolQueryBuilder.must(QueryBuilders.rangeQuery("sendTime").gte(startTimeObj));
+		}
+		
+		//2.3.4 结束时间
+		if (!ObjectUtils.isEmpty(stopTimeObj)){
+			boolQueryBuilder.must(QueryBuilders.rangeQuery("sendTime").lte(stopTimeObj));
+		}
+		
+		//2.3.5 客户id
+		if (!ObjectUtils.isEmpty(clientIDList)){
+			boolQueryBuilder.filter(QueryBuilders.termsQuery("clientId",clientIDList));
+		}
+		
+		sourceBuilder.query(boolQueryBuilder);
+		searchRequest.source(sourceBuilder);
 		
 		// 3、执行查询
 		
