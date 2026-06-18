@@ -38,4 +38,11 @@ public interface SearchService {
 	 * @throws IOException
 	 */
 	void update(String index, String id, Map<String,Object> doc) throws IOException;
+	
+	/**
+	 * 根据页面条件查询短信记录信息
+	 * @param params
+	 * @return
+	 */
+	Map<String, Object> findSmsByParameters(Map<String, Object> params);
 }

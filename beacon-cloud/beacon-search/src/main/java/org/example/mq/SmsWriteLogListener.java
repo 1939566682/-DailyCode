@@ -39,7 +39,7 @@ public class SmsWriteLogListener {
 	public void consume(StandardSubmit submit, Channel channel, Message message) throws IOException {
 		// 1、调用搜索模块的搜索方法  完成添加操作
 		log.info("【搜索模块】  接收到存储日志的信息 submit = {}",submit);
-		searchService.index(SearchEnums.INDEX.getIndex() + SearchUtils.getYear(),submit.getSequenceId().toString(), JsonUtil.ObjectToJson(submit));
+		searchService.index(SearchUtils.getCurrentYearIndex(),submit.getSequenceId().toString(), JsonUtil.ObjectToJson(submit));
 		
 		// 2、手动ack
 		channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);

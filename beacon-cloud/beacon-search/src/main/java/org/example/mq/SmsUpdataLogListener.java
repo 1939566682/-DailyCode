@@ -42,7 +42,7 @@ public class SmsUpdataLogListener {
 		// 调用搜索模块完成的修改操作
 		Map<String, Object> doc = new HashMap<>();
 		doc.put("reportState", report.getReportState());
-		searchService.update(SearchEnums.INDEX.getIndex() + SearchUtils.getYear(), report.getSequenceId().toString(), doc);
+		searchService.update(SearchUtils.getCurrentYearIndex(), report.getSequenceId().toString(), doc);
 		
 		// ack
 		channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);

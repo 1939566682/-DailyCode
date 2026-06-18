@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -14,12 +15,17 @@ import org.example.enums.ExceptionEnums;
 import org.example.execption.SearchException;
 import org.example.model.StandardReport;
 import org.example.service.SearchService;
+import org.example.utils.SearchUtils;
 import org.example.utils.ThreadLocalUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -122,6 +128,45 @@ public class ElasticSearchServiceImpl implements SearchService {
 			log.error("【搜索模块 - 修改数据失败】  index = {} id = {} doc = {} result = {}", index, id, doc, result);
 			throw new SearchException(ExceptionEnums.SEARCH_UPDATE_ERROR);
 		}
+	}
+	
+	/**
+	 * 根据页面条件查询短信记录信息
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public Map<String, Object> findSmsByParameters(Map<String, Object> params) {
+		// 1、声明SearchRequest
+		// TODO 后期需要根据传递的时间指定查询哪些索引  如果没传可以指定默认查询前三个月的
+		SearchRequest searchRequest = new SearchRequest(SearchUtils.getCurrentYearIndex());
+		
+		// 2、封装查询条件
+		// 2.1 取出全部参数
+		Object fromObj = params.get("from");
+		Object sizeObj = params.get("size");
+		Object contentObj = params.get("content");
+		Object mobileObj = params.get("mobile");
+		Object startTimeObj = params.get("starttime");
+		Object stopTimeObj = params.get("stoptime");
+		Object clientIDObj = params.get("clientID");
+		
+		// 2.2 clientID需要单独操作
+		List<Integer> clientIDList = null;
+		if (clientIDObj instanceof List){
+			// 传递的是集合
+			clientIDList = (List<Integer>) clientIDObj;
+		}else if (!ObjectUtils.isEmpty(clientIDObj)){
+			clientIDList = Collections.singletonList(Integer.parseInt(clientIDObj.toString()));
+		}
+		
+		// 3、执行查询
+		
+		// 4、封装数据
+		
+		// 5、返回
+		
+		return Collections.emptyMap();
 	}
 	
 }

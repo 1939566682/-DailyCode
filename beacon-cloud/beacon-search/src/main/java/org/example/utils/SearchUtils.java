@@ -1,5 +1,7 @@
 package org.example.utils;
 
+import org.example.SearchEnums;
+
 import java.time.LocalDate;
 
 /**
@@ -14,5 +16,9 @@ public class SearchUtils {
 	
 	public static String getYear(){
 		return String.valueOf(LocalDate.now().getYear());
+	}
+	
+	public static String getCurrentYearIndex(){
+		return SearchEnums.INDEX.getIndex() + LocalDate.now().getYear();
 	}
 }
