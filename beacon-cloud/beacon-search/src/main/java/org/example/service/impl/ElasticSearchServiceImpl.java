@@ -16,6 +16,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.example.constant.RabbitMQConstant;
 import org.example.enums.ExceptionEnums;
 import org.example.execption.SearchException;
@@ -190,11 +191,13 @@ public class ElasticSearchServiceImpl implements SearchService {
 		sourceBuilder.size(Integer.parseInt(sizeObj.toString()));
 		
 		//2.3.3 开始时间
+		// TODO 检索失败  可能是之前的序列化方式，导致ES存储格式无法做筛选
 		if (!ObjectUtils.isEmpty(startTimeObj)) {
 			boolQueryBuilder.must(QueryBuilders.rangeQuery("sendTime").gte(startTimeObj));
 		}
 		
 		//2.3.4 结束时间
+		// TODO 检索失败  可能是之前的序列化方式，导致ES存储格式无法做筛选
 		if (!ObjectUtils.isEmpty(stopTimeObj)) {
 			boolQueryBuilder.must(QueryBuilders.rangeQuery("sendTime").lte(stopTimeObj));
 		}
@@ -226,11 +229,16 @@ public class ElasticSearchServiceImpl implements SearchService {
 //			List<Integer> sendTime =  Collections.singletonList(Integer.parseInt(row.get("sendTime").));
 			List<Integer> sendTime = (List<Integer>) row.get("sendTime");
 			String sendTimeStr = "";
-			if (sendTime != null) {
-				sendTimeStr = listToDateString(sendTime);
-			}
+			// todo 这里应该没必要  但是前面测试时有错误数据  因此需要处理
+			if (sendTime != null) {sendTimeStr = listToDateString(sendTime);}
 			row.put("sendTimeStr", sendTimeStr);
 			row.put("corpname", row.get("sign"));
+			// 高亮处理
+			HighlightField highlightField = hit.getHighlightFields().get("text");
+			if (highlightField != null) {
+				String textHighlight = highlightField.getFragments()[0].toString();
+				row.put("text", textHighlight);
+			}
 			rows.add(row);
 		}
 		
