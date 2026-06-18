@@ -57,7 +57,7 @@ public class ClientBusinessController {
 		Set<String> roleNameSet = roleService.getRoleName(userId);
 		
 		// 3、根据角色信息查询数据即可
-		List<ClientBusiness> list = null;
+		List<ClientBusiness> list;
 		if (roleNameSet != null && roleNameSet.contains(WebMasterConstant.ROOT)) {
 			// 查询全部即可
 			list = clientBusinessService.findAll();

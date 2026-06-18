@@ -37,6 +37,7 @@ public enum ExceptionEnums {
 	AUTHENTICATION_ERROR(-101,"用户名或密码错误！" ),
 	NOT_LOGIN(-102,"用户未登录！" ),
 	USER_MENU_ERROR(-103,"查询用户菜单信息失败！" ),
+	SMS_NO_PERMISSION(-104,"当前登录用户无权限查询当前短信信息！" ),
 	;
 	
 	private final Integer code;
