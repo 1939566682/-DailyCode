@@ -1,0 +1,18 @@
+# 端口号
+server:
+  port: 18885
+
+spring: 
+# rabbitMQ连接信息
+  rabbitmq:
+    host: 192.168.113.3
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /  
+    listener:
+      simple:
+        # 开启手动ack
+        acknowledge-mode: manual
+        concurrency: 10
+        prefetch: 50

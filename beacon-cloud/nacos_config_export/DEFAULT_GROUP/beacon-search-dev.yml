@@ -1,0 +1,24 @@
+# 端口号
+server:
+  port: 18884
+
+spring: 
+# rabbitMQ连接信息
+  rabbitmq:
+    host: 192.168.113.3
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /  
+    listener:
+      simple:
+        # 开启手动ack
+        acknowledge-mode: manual
+        concurrency: 10
+        prefetch: 50
+# Elasicsearch的连接信息
+elasticsearch:
+  # Elasicsearch的ip和port，多个用‘,’隔间。
+  hostAndPorts: 192.168.113.3:9200,192.168.113.99:9200
+  username: elastic
+  password: By107871895123.

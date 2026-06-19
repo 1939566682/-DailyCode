@@ -1,0 +1,34 @@
+# 端口号
+server:
+  port: 18886
+
+spring: 
+# rabbitMQ连接信息
+  rabbitmq:
+    host: 192.168.113.3
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /  
+    listener:
+      simple:
+        # 开启手动ack
+        acknowledge-mode: manual
+        concurrency: 10
+        prefetch: 50
+# 动态线程池连接信息
+  dynamic:
+    thread-pool:
+      # 服务端地址
+      server-addr: http://192.168.113.3:6691
+      # 用户名
+      username: admin
+      # 密码
+      password: 123456
+      # 租户 id, 对应 tenant 表
+      namespace: beacon-cloud
+      # 项目 id, 对应 item 表
+      item-id: ${spring.application.name}
+# 当前通道需要监听的队列名称
+gateway:
+  sendtopic: sms_gateway_topic_1

@@ -1,0 +1,20 @@
+# 端口号
+server:
+  port: 10001
+spring:
+# RabbitMQ连接信息
+  rabbitmq:
+    host: 192.168.113.3
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    # 开启confirm机制
+    publisher-confirm-type: correlated
+    # 开启return机制
+    publisher-returns: true
+# 校验策略的执行内容和顺序
+filters: apikey,ip,sign,template,mobile,fee
+
+# 维护获取客户端IP地址的请求头信息
+headers: x-forwarded-for,x-real-ip,Proxy-Client-IP,WL-Proxy-Client-IP,HTTP_CLIENT_IP,HTTP_X_FORWARDED_FOR

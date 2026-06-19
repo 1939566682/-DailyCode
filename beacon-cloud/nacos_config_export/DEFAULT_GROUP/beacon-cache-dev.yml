@@ -1,0 +1,9 @@
+# 端口号
+server:
+  port: 18882
+spring:
+  # redis连接信息
+  redis:
+    port: 6379
+    host: 192.168.113.3
+    password: By107871895123.
