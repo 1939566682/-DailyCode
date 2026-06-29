@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../schedule/job/list',
+        url: '/schedule/job/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -74,14 +74,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../schedule/job/info/" + jobId, function (r) {
+            $.get("/schedule/job/info/" + jobId, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.scheduleJob = r.scheduleJob;
             });
         },
         saveOrUpdate: function () {
-            var url = vm.scheduleJob.jobId == null ? "../schedule/job/save" : "../schedule/job/update";
+            var url = vm.scheduleJob.jobId == null ? "/schedule/job/save" : "/schedule/job/update";
             $.ajax({
                 type: "POST",
                 url: url,

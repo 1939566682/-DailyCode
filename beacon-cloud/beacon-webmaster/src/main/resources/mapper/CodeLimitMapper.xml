@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.CodeLimitMapper">
+  <resultMap id="BaseResultMap" type="org.example.entity.CodeLimit">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="limit_time" jdbcType="INTEGER" property="limitTime" />
+    <result column="limit_count" jdbcType="INTEGER" property="limitCount" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="extend1" jdbcType="VARCHAR" property="extend1" />
+    <result column="extend2" jdbcType="VARCHAR" property="extend2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, limit_time, limit_count, description, created,
+    create_id, updated, update_id, is_delete, extend1, extend2
+  </sql>
+  <select id="selectByExample" parameterType="org.example.entity.CodeLimitExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from code_limit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from code_limit
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from code_limit
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.example.entity.CodeLimitExample">
+    delete from code_limit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.example.entity.CodeLimit">
+    insert into code_limit (id, limit_time, limit_count, description, created, create_id, updated, update_id, is_delete, extend1, extend2)
+    values (#{id,jdbcType=BIGINT}, #{limitTime,jdbcType=INTEGER}, #{limitCount,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{createId,jdbcType=BIGINT}, #{updated,jdbcType=TIMESTAMP}, #{updateId,jdbcType=BIGINT}, #{isDelete,jdbcType=TINYINT}, #{extend1,jdbcType=VARCHAR}, #{extend2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.example.entity.CodeLimit">
+    insert into code_limit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="limitTime != null">
+        limit_time,
+      </if>
+      <if test="limitCount != null">
+        limit_count,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="extend1 != null">
+        extend1,
+      </if>
+      <if test="extend2 != null">
+        extend2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="limitTime != null">
+        #{limitTime,jdbcType=INTEGER},
+      </if>
+      <if test="limitCount != null">
+        #{limitCount,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="extend1 != null">
+        #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null">
+        #{extend2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.example.entity.CodeLimitExample" resultType="java.lang.Long">
+    select count(*) from code_limit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update code_limit
+    <set>
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=BIGINT},
+      </if>
+      <if test="row.limitTime != null">
+        limit_time = #{row.limitTime,jdbcType=INTEGER},
+      </if>
+      <if test="row.limitCount != null">
+        limit_count = #{row.limitCount,jdbcType=INTEGER},
+      </if>
+      <if test="row.description != null">
+        description = #{row.description,jdbcType=VARCHAR},
+      </if>
+      <if test="row.created != null">
+        created = #{row.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.createId != null">
+        create_id = #{row.createId,jdbcType=BIGINT},
+      </if>
+      <if test="row.updated != null">
+        updated = #{row.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.updateId != null">
+        update_id = #{row.updateId,jdbcType=BIGINT},
+      </if>
+      <if test="row.isDelete != null">
+        is_delete = #{row.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="row.extend1 != null">
+        extend1 = #{row.extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="row.extend2 != null">
+        extend2 = #{row.extend2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update code_limit
+    set
+      id = #{row.id,jdbcType=BIGINT},
+      limit_time = #{row.limitTime,jdbcType=INTEGER},
+      limit_count = #{row.limitCount,jdbcType=INTEGER},
+      description = #{row.description,jdbcType=VARCHAR},
+      created = #{row.created,jdbcType=TIMESTAMP},
+      create_id = #{row.createId,jdbcType=BIGINT},
+      updated = #{row.updated,jdbcType=TIMESTAMP},
+      update_id = #{row.updateId,jdbcType=BIGINT},
+      is_delete = #{row.isDelete,jdbcType=TINYINT},
+      extend1 = #{row.extend1,jdbcType=VARCHAR},
+      extend2 = #{row.extend2,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.example.entity.CodeLimit">
+    update code_limit
+    <set>
+      <if test="limitTime != null">
+        limit_time = #{limitTime,jdbcType=INTEGER},
+      </if>
+      <if test="limitCount != null">
+        limit_count = #{limitCount,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="extend1 != null">
+        extend1 = #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null">
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.example.entity.CodeLimit">
+    update code_limit
+    set
+      limit_time = #{limitTime,jdbcType=INTEGER},
+      limit_count = #{limitCount,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      create_id = #{createId,jdbcType=BIGINT},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=BIGINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      extend1 = #{extend1,jdbcType=VARCHAR},
+      extend2 = #{extend2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

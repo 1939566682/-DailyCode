@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/publicparams/list',
+        url: '/sys/publicparams/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -109,14 +109,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/publicparams/info/" + id, function (r) {
+            $.get("/sys/publicparams/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.param = r.param;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.param.id == null ? "../sys/publicparams/save" : "../sys/publicparams/update";
+            var url = vm.param.id == null ? "/sys/publicparams/save" : "/sys/publicparams/update";
             $.ajax({
                 type: "POST",
                 url: url,

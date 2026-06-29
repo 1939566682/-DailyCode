@@ -38,6 +38,14 @@ public enum ExceptionEnums {
 	NOT_LOGIN(-102,"用户未登录！" ),
 	USER_MENU_ERROR(-103,"查询用户菜单信息失败！" ),
 	SMS_NO_PERMISSION(-104,"当前登录用户无权限查询当前短信信息！" ),
+	SAVE_ERROR(-105, "保存数据失败！"),
+	UPDATE_ERROR(-106, "修改数据失败！"),
+	DELETE_ERROR(-107, "删除数据失败！"),
+	QUERY_ERROR(-108, "查询数据失败！"),
+	SMS_SEND_ERROR(-21, "短信发送失败！"),
+	PASSWORD_ERROR(-109, "密码修改失败！"),
+	USER_NOT_FOUND(-110, "用户不存在！"),
+	PASSWORD_EMPTY(-111, "新密码不能为空！"),
 	;
 	
 	private final Integer code;

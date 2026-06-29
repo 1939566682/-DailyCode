@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/searchparams/list',
+        url: '/sys/searchparams/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -98,14 +98,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/searchparams/info/" + id, function (r) {
+            $.get("/sys/searchparams/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.searchparams = r.searchparams;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.searchparams.id == null ? "../sys/searchparams/save" : "../sys/searchparams/update";
+            var url = vm.searchparams.id == null ? "/sys/searchparams/save" : "/sys/searchparams/update";
             $.ajax({
                 type: "POST",
                 url: url,

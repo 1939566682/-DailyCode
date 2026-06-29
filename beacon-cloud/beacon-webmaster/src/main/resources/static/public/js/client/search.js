@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/search/list',
+        url: '/sys/search/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         toolbar: '#toolbar',
@@ -79,8 +79,8 @@ var vm = new Vue({
     },
     created: function () {//
         console.log(11)
-        $.get("../sys/clientbusiness/all", function(r){
-            vm.sites = r.data;
+        $.get("/sys/clientbusiness/all", function(r){
+            vm.sites = r.sites;
         });
     }
 });

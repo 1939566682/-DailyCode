@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../system/role/list',
+        url: '/system/role/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         toolbar: '#toolbar',
@@ -77,7 +77,7 @@ var vm = new Vue({
 
                 $.ajax({
                     type: "POST",
-                    url: "../system/role/delete",
+                    url: "/system/role/delete",
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.status) {
@@ -105,14 +105,14 @@ var vm = new Vue({
                 return;
             }
             //sys/menu/info/1
-            $.get("../system/role/info/" + roleId, function (r) {
+            $.get("/system/role/info/" + roleId, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.role = r.role;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.role.id == null ? "../system/role/add" : "../system/role/update";
+            var url = vm.role.id == null ? "/system/role/add" : "/system/role/update";
             $.ajax({
                 type: "POST",
                 url: url,
@@ -158,7 +158,7 @@ var vm = new Vue({
                     }
                     $.ajax({
                         method: "get",
-                        url: "../system/role/assign_menu",
+                        url: "/system/role/assign_menu",
                         data: "roleId=" + roleId + menuIds,
                         success: function (r) {
                             if (r.status) {
@@ -197,8 +197,8 @@ var vm = new Vue({
                     }
                 }
             };
-            $.get("../system/role/role_menu/" + roleId, function (roleMenu) {
-                $.get("../system/role/menu_tree",
+            $.get("/system/role/role_menu/" + roleId, function (roleMenu) {
+                $.get("/system/role/menu_tree",
                     function (r) {
                         //设置ztree的数据
                         ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);

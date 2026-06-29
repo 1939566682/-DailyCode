@@ -1,5 +1,5 @@
 $(function () {
-    $.get("../sys/clientbusiness/all", function (r) {
+    $.get("/sys/clientbusiness/all", function (r) {
         vm.sites = r.sites;
     });
 });
@@ -18,7 +18,7 @@ var vm = new Vue({
             vm.sms = {parentName:null,parentId:0,type:1,orderNum:0};
         },
         saveOrUpdate: function (event) {
-            var url = vm.sms.id == null ? "../sys/sms/save" : "../sys/sms/update";
+            var url = vm.sms.id == null ? "/sys/sms/save" : "/sys/sms/update";
             $.ajax({
                 type: "POST",
                 url: url,

@@ -1,0 +1,418 @@
+classDiagram
+    direction TB
+
+    class ResultVO~T~ {
+        +Integer code
+        +String msg
+        +T data
+        +long total
+        +Object rows
+    }
+
+    class R {
+        +$ok() ResultVO~T~
+        +$ok(T data) ResultVO~T~
+        +$ok(Long total, Object rows) ResultVO~T~
+        +$error(ExceptionEnums) ResultVO~T~
+    }
+
+    class ExceptionEnums {
+        <<enumeration>>
+        NOT_LOGIN(-102)
+        PARAMETER_ERROR(-10)
+        SMS_SEND_ERROR(-21)
+    }
+
+    class VOConverter {
+        +$toVO(Entity entity, Class~VO~ voClass) VO$
+        +$toVOList(List entities, Class~VO~ voClass) List~VO~
+    }
+
+    class BaseCrudService~T~ {
+        <<interface>>
+        +list(int offset, int limit, String search) PageResult
+        +delete(Long[] ids) void
+        +findById(Long id) T
+        +save(T entity) void
+        +update(T entity) void
+        +findAll() List~T~
+    }
+
+    class BaseCrudServiceImpl~T~ {
+        <<abstract>>
+        #mapper : Mapper~T~
+        +list(offset, limit, search) PageResult
+        +delete(ids) void
+        +findById(id) T
+        +save(entity) void
+        +update(entity) void
+        +findAll() List~T~
+    }
+
+    %% ===== P0: 客户模块 =====
+    class Client {
+        +Long id
+        +String corpname
+        +String address
+        +String linkman
+        +String mobile
+        +String email
+        +String customermanager
+        +Date created
+        +Long createId
+        +Date updated
+        +Long updateId
+        +Byte isDelete
+    }
+
+    class ClientVO {
+        +Long id
+        +String corpname
+        +String address
+        +String linkman
+        +String mobile
+        +String email
+        +String customermanager
+    }
+
+    class ClientService {
+        <<interface>>
+        +list(offset, limit, search) PageResult
+        +delete(ids) void
+        +findById(id) Client
+        +save(client) void
+        +update(client) void
+    }
+
+    class ClientServiceImpl {
+        -clientMapper : ClientMapper
+    }
+
+    class ClientController {
+        -clientService : ClientService
+        +list(params) ResultVO
+        +del(ids) ResultVO
+        +info(id) ResultVO
+        +save(client) ResultVO
+        +update(client) ResultVO
+    }
+
+    %% ===== P0: 客户接入模块 =====
+    class ClientBusiness {
+        +Long id
+        +String corpname
+        +String apikey
+        +String ipAddress
+        +Byte isCallback
+        +String callbackUrl
+        +String clientLinkname
+        +String clientPhone
+        +String clientFilters
+        +String email
+        +String extend2-4
+        +Date created/updated
+    }
+
+    class ClientBusinessVO {
+        +Long id
+        +String corpname
+        +String usercode ← apikey
+        +String pwd ← apikey掩码
+        +String ipaddress ← ipAddress
+        +Integer isreturnstatus ← isCallback
+        +String receivestatusurl ← callbackUrl
+        +Integer priority ← extend3
+        +Integer usertype ← extend4
+        +Integer state ← isDelete反转
+        +String mobile ← clientPhone
+        +String money ← from client_balance
+    }
+
+    %% ===== P0: 通道模块 =====
+    class Channel {
+        +Long id
+        +String channelName
+        +Integer channelType
+        +String channelArea
+        +String channelAreaCode
+        +Long channelPrice
+        +Integer channelProtocal
+        +String channelIp
+        +Integer channelPort
+        +String channelUsername
+        +String channelPassword
+        +String channelNumber
+        +Integer isAvailable
+    }
+
+    class ChannelVO {
+        +Long id
+        +String channelname ← channelName
+        +Integer channeltype ← channelType
+        +String spnumber ← channelNumber
+        +Integer protocaltype ← channelProtocal
+    }
+
+    %% ===== P0: 客户通道模块 =====
+    class ClientChannel {
+        +Long id
+        +Long clientId
+        +Long channelId
+        +Integer clientChannelWeight
+        +String clientChannelNumber
+        +Integer isAvailable
+    }
+
+    class ClientChannelVO {
+        +Long id
+        +String corpname ← join client_business
+        +String extendnumber ← clientChannelNumber
+        +Long price ← join channel.channelPrice
+        +String channelname ← join channel.channelName
+    }
+
+    %% ===== P1: 黑名单模块 =====
+    class MobileBlack {
+        +Long id
+        +String blackNumber
+        +Integer clientId
+        +Date created
+    }
+
+    class BlackVO {
+        +Long id
+        +String mobile ← blackNumber
+        +Integer owntype ← clientId(0=全局,其他=客户ID)
+        +String creater ← clientId关联查询corpname
+    }
+
+    %% ===== P1: 敏感词模块 =====
+    class MobileDirtyWord {
+        +Long id
+        +String dirtyword
+        +String extend1
+        +String extend2
+        +String extend3
+        +String extend4
+    }
+
+    class DirtyWordVO {
+        +Long id
+        +String dirtyword
+        +String owntype ← extend1
+        +String creater ← extend2
+    }
+
+    %% ===== P1: 过滤器模块 =====
+    class ApiGatewayFilter {
+        +Long id
+        +String filters
+        +Integer filterState
+        +Date created
+        +Date updated
+    }
+
+    class ApiGatewayFilterVO {
+        +Long id
+        +String filters
+        +Integer filterState
+    }
+
+    class StrategyFilter {
+        +Long id
+        +String filters
+        +Integer filterState
+        +Date created
+        +Date updated
+    }
+
+    class StrategyFilterVO {
+        +Long id
+        +String filters
+        +Integer filterState
+    }
+
+    %% ===== P2: 充值模块 =====
+    class ClientAccountRecord {
+        +Long id
+        +Long clientId
+        +Long paidvalue
+        +Integer paidstate
+        +String paidinfo
+        +Date created
+    }
+
+    class AcountVO {
+        +Long id
+        +String orderid ← id
+        +String corpname ← join client_business
+        +Long paidvalue
+        +String createtime ← created
+        +String paytime ← null if unpaid
+        +Long paymentid ← extend field
+        +String paymentorder ← paidinfo
+        +String paymentinfo ← paidinfo
+    }
+
+    %% ===== P2: 号段模块 =====
+    class SmsPhase {
+        +Long id
+        +String phase
+        +Long provId
+        +Long cityId
+        +String provName
+        +String cityName
+        +Date created
+    }
+
+    class PhaseVO {
+        +Long id
+        +String phase
+        +Long provId
+        +Long cityId
+        +String provName
+        +String cityName
+    }
+
+    %% ===== P2: 限流模块 =====
+    class CodeLimit {
+        +Long id
+        +String limittime
+        +String limitcount
+        +String description
+        +Integer limitstate
+    }
+
+    class LimitVO {
+        +Long id
+        +String limitTime ← limittime
+        +String limitCount ← limitcount
+        +String despcription ← description
+        +Integer limitState ← limitstate
+    }
+
+    %% ===== P2: 图表模块 =====
+    class EchartsBarVO {
+        +String[] categories
+        +Long[] values
+    }
+
+    class EchartsLineVO {
+        +String[] dates
+        +Long[] successCounts
+        +Long[] failCounts
+    }
+
+    class EchartsPieVO {
+        +List~PieItem~ items
+    }
+
+    class PieItem {
+        +String name
+        +Long value
+    }
+
+    %% ===== P3: 灰度发布 =====
+    class GrayRelease {
+        +Long id
+        +String serviceId
+        +String path
+        +Integer percent
+        +Integer forward
+        +Integer state
+        +Date created
+    }
+
+    %% ===== P3: API映射 =====
+    class ApiMapping {
+        +Long id
+        +String sourcePath
+        +String targetPath
+        +String method
+        +Integer state
+        +Date created
+    }
+
+    %% ===== P3: 公共参数 =====
+    class PublicParams {
+        +Long id
+        +String paramName
+        +String paramType
+        +Date createDate
+        +String description
+        +Integer isMust
+        +Integer enableState
+    }
+
+    %% ===== P3: 通知配置 =====
+    class NotifyConfig {
+        +Long id
+        +String tag
+        +String desp
+        +Integer notifyState
+        +Integer cacheState
+        +Date created
+    }
+
+    %% ===== P3: 搜索参数 =====
+    class SearchParams {
+        +Long id
+        +String name
+        +String cloum
+        +Integer type
+        +Integer tOrder
+        +Integer state
+        +Date created
+    }
+
+    %% ===== P3: 活动 =====
+    class Activity {
+        +Long id
+        +String title
+        +String author
+        +Date beginTime
+        +Date endTime
+        +String link
+        +String coverPic
+        +Date created
+    }
+
+    %% ===== 其他: SMS/Feign =====
+    class SmsApiClient {
+        <<interface>>
+        +sendSms(StandardSubmit) Map
+    }
+
+    class SmsController {
+        -smsService : SmsService
+        +save(smsVO) ResultVO
+        +update(smsVO) ResultVO
+    }
+
+    %% ===== 关系 =====
+    ClientService <|.. ClientServiceImpl
+    ClientServiceImpl --> ClientMapper
+    ClientServiceImpl --> Client
+    ClientServiceImpl --> ClientVO
+    ClientController --> ClientService
+    ClientController --> R
+
+    ClientBusinessService <|.. ClientBusinessServiceImpl
+    ClientBusinessServiceImpl --> ClientBusinessMapper
+    ClientBusinessServiceImpl --> ClientBusiness
+    ClientBusinessServiceImpl --> ClientBusinessVO
+    ClientBusinessController --> ClientBusinessService
+    ClientBusinessController --> R
+
+    BaseCrudService <|.. ClientService
+    BaseCrudService <|.. ChannelService
+    BaseCrudService <|.. ClientChannelService
+    BaseCrudServiceImpl <|-- ClientServiceImpl
+    BaseCrudServiceImpl <|-- ChannelServiceImpl
+
+    ClientChannelServiceImpl --> ClientChannelMapper
+    ClientChannelServiceImpl --> ClientChannel
+    ClientChannelServiceImpl --> ClientBusinessMapper
+    ClientChannelServiceImpl --> ChannelMapper
+
+    SmsController --> SmsApiClient

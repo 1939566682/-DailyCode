@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/black/list',
+        url: '/sys/black/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -88,14 +88,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/black/info/" + id, function (r) {
+            $.get("/sys/black/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.black = r.black;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.black.id == null ? "../sys/black/save" : "../sys/black/update";
+            var url = vm.black.id == null ? "/sys/black/save" : "/sys/black/update";
             $.ajax({
                 type: "POST",
                 url: url,

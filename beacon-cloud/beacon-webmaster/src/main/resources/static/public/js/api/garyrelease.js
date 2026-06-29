@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/grayrelease/list',
+        url: '/sys/grayrelease/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -93,14 +93,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/grayrelease/info/" + id, function (r) {
+            $.get("/sys/grayrelease/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.grayrelease = r.grayrelease;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.grayrelease.id == null ? "../sys/grayrelease/save" : "../sys/grayrelease/update";
+            var url = vm.grayrelease.id == null ? "/sys/grayrelease/save" : "/sys/grayrelease/update";
             $.ajax({
                 type: "POST",
                 url: url,

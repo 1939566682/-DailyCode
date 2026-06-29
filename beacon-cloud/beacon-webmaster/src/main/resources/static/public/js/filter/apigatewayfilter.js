@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/apigatewayfilter/list',
+        url: '/sys/apigatewayfilter/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -89,14 +89,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/apigatewayfilter/info/" + id, function (r) {
+            $.get("/sys/apigatewayfilter/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.filter = r.filter;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.filter.id == null ? "../sys/apigatewayfilter/save" : "../sys/apigatewayfilter/update";
+            var url = vm.filter.id == null ? "/sys/apigatewayfilter/save" : "/sys/apigatewayfilter/update";
             $.ajax({
                 type: "POST",
                 url: url,

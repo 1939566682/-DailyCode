@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/acount/list',
+        url: '/sys/acount/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -120,7 +120,7 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.acount = {};
-            $.get("../sys/clientbusiness/all", function (r) {
+            $.get("/sys/clientbusiness/all", function (r) {
                 vm.sites = r.sites;
             });
         },
@@ -131,19 +131,19 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/acount/info/" + id, function (r) {
+            $.get("/sys/acount/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.acount = r.acount;
             });
 
-            $.get("../sys/clientbusiness/all", function (r) {
+            $.get("/sys/clientbusiness/all", function (r) {
                 vm.sites = r.sites;
             });
 
         },
         saveOrUpdate: function (event) {
-            var url = vm.acount.id == null ? "../sys/acount/save" : "../sys/acount/update";
+            var url = vm.acount.id == null ? "/sys/acount/save" : "/sys/acount/update";
             $.ajax({
                 type: "POST",
                 url: url,

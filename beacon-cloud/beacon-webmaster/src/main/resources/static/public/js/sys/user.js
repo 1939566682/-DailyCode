@@ -94,7 +94,7 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.user = {parentName: null, parentId: 0, type: 1, orderNum: 0};
-            $.get("../sys/clientbusiness/all", function (r) {
+            $.get("/sys/clientbusiness/all", function (r) {
                 vm.sites = r.sites;
             });
         },
@@ -104,19 +104,19 @@ var vm = new Vue({
             if (userId == null) {
                 return;
             }
-            $.get("../sys/user/info/" + userId, function (r) {
+            $.get("/sys/user/info/" + userId, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.user = r.user;
             });
-            $.get("../sys/clientbusiness/all", function (r) {
+            $.get("/sys/clientbusiness/all", function (r) {
                 vm.sites = r.sites;
             });
         },
         saveOrUpdate: function (event) {
             //有菜单编号时是修改，没有：新增
 
-            var url = vm.user.id == null ? "../sys/user/save" : "../sys/user/update";
+            var url = vm.user.id == null ? "/sys/user/save" : "/sys/user/update";
             $.ajax({
                 type: "POST",
                 url: url,

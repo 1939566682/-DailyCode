@@ -1,0 +1,77 @@
+sequenceDiagram
+    actor FrontEnd as 前端(bootstrapTable)
+    participant C as ClientController
+    participant S as ClientServiceImpl
+    participant M as ClientMapper
+    participant DB as MySQL(beacon_cloud)
+    participant VC as VOConverter
+
+    %% ===== list 流程 =====
+    FrontEnd->>C: GET /sys/client/list?offset=0&limit=10&search=
+    C->>C: 获取Shiro当前用户(SmsUser)
+    C->>S: list(offset=0, limit=10, search="")
+    S->>S: PageHelper.offsetPage(offset, limit)
+    S->>M: selectByExample(example)
+    M->>DB: SELECT * FROM client WHERE ... LIMIT 10
+    DB-->>M: 返回rows
+    M-->>S: List~Client~
+    S->>S: PageHelper.getTotal() → total
+    S->>VC: toVOList(entities, ClientVO.class)
+    VC->>VC: BeanUtils.copyProperties + 手动差异映射
+    VC-->>S: List~ClientVO~
+    S-->>C: PageResult{total=100, rows=ClientVO[]}
+    C->>C: R.ok(total, rows)
+    C-->>FrontEnd: {code:0, msg:"success", total:100, rows:[...]}
+
+    %% ===== save 流程 =====
+    FrontEnd->>C: POST /sys/client/save {corpname, address, linkman...}
+    C->>C: 获取Shiro当前用户
+    C->>VC: toEntity(clientVO, Client.class)
+    VC-->>C: Client entity
+    C->>S: save(client)
+    S->>S: 设置created/createId
+    S->>M: insertSelective(client)
+    M->>DB: INSERT INTO client (...)
+    DB-->>M: 1
+    M-->>S: void
+    S-->>C: void
+    C->>C: R.ok()
+    C-->>FrontEnd: {code:0, msg:"success"}
+
+    %% ===== del 流程 =====
+    FrontEnd->>C: POST /sys/client/del [1,2,3]
+    C->>S: delete([1,2,3])
+    S->>M: 循环 deleteByPrimaryKey(id)
+    M->>DB: DELETE FROM client WHERE id = ?
+    DB-->>M: N
+    M-->>S: void
+    S-->>C: void
+    C->>C: R.ok()
+    C-->>FrontEnd: {code:0, msg:"success"}
+
+    %% ===== info 流程 =====
+    FrontEnd->>C: GET /sys/client/info/1
+    C->>S: findById(1)
+    S->>M: selectByPrimaryKey(1)
+    M->>DB: SELECT * FROM client WHERE id = 1
+    DB-->>M: Client entity
+    M-->>S: Client
+    S->>VC: toVO(client, ClientVO.class)
+    VC-->>S: ClientVO
+    S-->>C: ClientVO
+    C->>C: R.ok(clientVO)
+    C-->>FrontEnd: {code:0, msg:"success", data:{id:1, corpname:"..."}}
+
+    %% ===== update 流程 =====
+    FrontEnd->>C: POST /sys/client/update {id:1, corpname:"新名称"}
+    C->>VC: toEntity(clientVO, Client.class)
+    VC-->>C: Client entity
+    C->>S: update(client)
+    S->>S: 设置updated/updateId
+    S->>M: updateByPrimaryKeySelective(client)
+    M->>DB: UPDATE client SET ... WHERE id = 1
+    DB-->>M: 1
+    M-->>S: void
+    S-->>C: void
+    C->>C: R.ok()
+    C-->>FrontEnd: {code:0, msg:"success"}

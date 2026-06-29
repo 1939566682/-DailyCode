@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: 'log/list',
+        url: '/schedule/log/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -43,7 +43,7 @@ var vm = new Vue({
     methods: {
         del: function () {
 
-            doTask('logId', '删除', 'log/del');
+            doTask('logId', '删除', '/schedule/log/del');
         }
     }
 });

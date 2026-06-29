@@ -9,16 +9,16 @@ import org.example.enums.ExceptionEnums;
 import org.example.service.ClientBusinessService;
 import org.example.service.SmsRoleService;
 import org.example.util.R;
+import org.example.util.PageResult;
 import org.example.vo.ClientBusinessVO;
 import org.example.vo.ResultVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -34,7 +34,6 @@ import java.util.Set;
 @RequestMapping("/sys")
 public class ClientBusinessController {
 	
-	
 	@Autowired
 	private SmsRoleService roleService;
 	
@@ -45,24 +44,21 @@ public class ClientBusinessController {
 	 * http://localhost:8080/sys/clientbusiness/all?_=1781690552788
 	 */
 	@GetMapping("/clientbusiness/all")
-	public ResultVO<Object> all() {
-		// 1、拿到当前用户的信息
+	public Map<String, Object> all() {
 		SmsUser smsUser = (SmsUser) SecurityUtils.getSubject().getPrincipal();
 		if (smsUser == null) {
 			log.info("【获取客户信息】  用户未登录！！");
-			return R.error(ExceptionEnums.NOT_LOGIN);
+			Map<String, Object> map = new java.util.LinkedHashMap<>();
+			map.put("code", ExceptionEnums.NOT_LOGIN.getCode());
+			map.put("msg", ExceptionEnums.NOT_LOGIN.getMessage());
+			return map;
 		}
 		Long userId = smsUser.getId();
-		// 2、查询当前用户的角色信息
 		Set<String> roleNameSet = roleService.getRoleName(userId);
-		
-		// 3、根据角色信息查询数据即可
 		List<ClientBusiness> list;
 		if (roleNameSet != null && roleNameSet.contains(WebMasterConstant.ROOT)) {
-			// 查询全部即可
 			list = clientBusinessService.findAll();
 		} else {
-			// 根据用户id查询指定的公司信息
 			list = clientBusinessService.findByUserId(userId);
 		}
 		List<ClientBusinessVO> data = new ArrayList<>();
@@ -71,7 +67,38 @@ public class ClientBusinessController {
 			BeanUtils.copyProperties(clientBusiness, clientBusinessVO);
 			data.add(clientBusinessVO);
 		}
-		// 4、响应数据
-		return R.ok(data);
+		return R.okNamed("sites", data);
+	}
+
+	@GetMapping("/clientbusiness/list")
+	public ResultVO<Object> list(@RequestParam(defaultValue = "0") int offset,
+								  @RequestParam(defaultValue = "10") int limit,
+								  @RequestParam(required = false) String search) {
+		PageResult<ClientBusinessVO> result = clientBusinessService.list(offset, limit, search);
+		return R.ok(result.getTotal(), result.getRows());
+	}
+
+	@PostMapping("/clientbusiness/del")
+	public ResultVO<Object> del(@RequestBody Long[] ids) {
+		clientBusinessService.delete(ids);
+		return R.ok();
+	}
+
+	@GetMapping("/clientbusiness/info/{id}")
+	public Map<String, Object> info(@PathVariable Long id) {
+		ClientBusinessVO clientbusiness = clientBusinessService.findById(id);
+		return R.okNamed("clientbusiness", clientbusiness);
+	}
+
+	@PostMapping("/clientbusiness/save")
+	public ResultVO<Object> save(@RequestBody ClientBusinessVO clientBusinessVO) {
+		clientBusinessService.save(clientBusinessVO);
+		return R.ok();
+	}
+
+	@PostMapping("/clientbusiness/update")
+	public ResultVO<Object> update(@RequestBody ClientBusinessVO clientBusinessVO) {
+		clientBusinessService.update(clientBusinessVO);
+		return R.ok();
 	}
 }

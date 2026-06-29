@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/apimapping/list',
+        url: '/sys/apimapping/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -109,14 +109,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/apimapping/info/" + id, function (r) {
+            $.get("/sys/apimapping/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.apimapping = r.apimapping;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.apimapping.id == null ? "../sys/apimapping/save" : "../sys/apimapping/update";
+            var url = vm.apimapping.id == null ? "/sys/apimapping/save" : "/sys/apimapping/update";
             $.ajax({
                 type: "POST",
                 url: url,

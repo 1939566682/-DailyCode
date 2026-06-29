@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/menu/list',
+        url: '/sys/menu/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -55,7 +55,7 @@ $(function () {
                     }
                 }
             },
-            {title: '排序号', field: 'orderNum'}
+            {title: '排序号', field: 'sort'}
         ]
     };
     $('#table').bootstrapTable(option);
@@ -117,7 +117,7 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/menu/info/" + menuId, function (r) {
+            $.get("/sys/menu/info/" + menuId, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.menu = r.menu;
@@ -126,7 +126,7 @@ var vm = new Vue({
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.menu.id == null ? "../sys/menu/save" : "../sys/menu/update";
+            var url = vm.menu.id == null ? "/sys/menu/save" : "/sys/menu/update";
             $.ajax({
                 type: "POST",
                 url: url,
@@ -185,7 +185,7 @@ var vm = new Vue({
             };
 
             //加载菜单树
-            $.get("../sys/menu/select", function (r) {
+            $.get("/sys/menu/select", function (r) {
                 //设置ztree的数据
                 ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
 

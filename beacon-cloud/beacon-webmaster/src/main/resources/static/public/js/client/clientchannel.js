@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/clientchannel/list',
+        url: '/sys/clientchannel/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -77,10 +77,10 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.clientchannel = {};
-            $.get("../sys/clientbusiness/all", function (r) {
+            $.get("/sys/clientbusiness/all", function (r) {
                 vm.sites = r.sites;
             });
-            $.get("../sys/channel/all", function (r) {
+            $.get("/sys/channel/all", function (r) {
                 vm.channelsites = r.channelsites;
             });
         },
@@ -91,23 +91,23 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/clientchannel/info/" + id, function (r) {
+            $.get("/sys/clientchannel/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.clientchannel = r.clientchannel;
             });
 
-            $.get("../sys/clientbusiness/all", function(r){
+            $.get("/sys/clientbusiness/all", function(r){
                 vm.sites = r.sites;
             });
-            $.get("../sys/channel/all", function(r){
+            $.get("/sys/channel/all", function(r){
                 vm.channelsites = r.channelsites;
             });
 
 
         },
         saveOrUpdate: function (event) {
-            var url = vm.clientchannel.id == null ? "../sys/clientchannel/save" : "../sys/clientchannel/update";
+            var url = vm.clientchannel.id == null ? "/sys/clientchannel/save" : "/sys/clientchannel/update";
             $.ajax({
                 type: "POST",
                 url: url,

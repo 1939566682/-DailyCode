@@ -63,7 +63,7 @@ var vm = new Vue({
     created: function () {//在模板渲染成html前调用，即通常初始化某些属性值，然后再渲染成视图
         //console.log(11)
         //一般可以在created函数中调用ajax获取页面初始化所需的数据
-        $.get("../sys/clientbusiness/all", function(r){
+        $.get("/sys/clientbusiness/all", function(r){
             vm.sites = r.sites;
         });
     }

@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/phase/list',
+        url: '/sys/phase/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -76,7 +76,7 @@ var vm = new Vue({
             vm.showList = false;
             vm.title = "新增";
             vm.phase = {parentName: null, parentId: 0, type: 1, orderNum: 0};
-            $.get("../sys/provs/all", function (r) {
+            $.get("/sys/provs/all", function (r) {
                 vm.sites = r.sites;
             });
         },
@@ -87,13 +87,13 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/phase/info/" + id, function (r) {
+            $.get("/sys/phase/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.phase = r.phase;
-                $.get("../sys/provs/all", function (r1) {
+                $.get("/sys/provs/all", function (r1) {
                     vm.sites = r1.sites;
-                    $.get("../sys/citys/all/"+r.phase.provId, function (r2) {
+                    $.get("/sys/citys/all/"+r.phase.provId, function (r2) {
                         vm.citys = r2.citys;
                     });
                 });
@@ -102,7 +102,7 @@ var vm = new Vue({
 
         },
         saveOrUpdate: function (event) {
-            var url = vm.phase.id == null ? "../sys/phase/save" : "../sys/phase/update";
+            var url = vm.phase.id == null ? "/sys/phase/save" : "/sys/phase/update";
             $.ajax({
                 type: "POST",
                 url: url,
@@ -121,7 +121,7 @@ var vm = new Vue({
         },
         getCitys: function (event) {
             var provId = event.target.value;
-            $.get("../sys/citys/all/"+provId, function (r) {
+            $.get("/sys/citys/all/"+provId, function (r) {
                 vm.citys = r.citys;
             });
         },

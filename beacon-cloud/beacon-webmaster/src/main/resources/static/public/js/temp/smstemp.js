@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/smstemp/list',
+        url: '/sys/smstemp/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -99,14 +99,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/smstemp/info/" + id, function (r) {
+            $.get("/sys/smstemp/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.smstemplate = r.smstemplate;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.smstemplate.id == null ? "../sys/smstemp/save" : "../sys/smstemp/update";
+            var url = vm.smstemplate.id == null ? "/sys/smstemp/save" : "/sys/smstemp/update";
             $.ajax({
                 type: "POST",
                 url: url,

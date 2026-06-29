@@ -1,6 +1,6 @@
 $(function () {
     var option = {
-        url: '../sys/limit/list',
+        url: '/sys/limit/list',
         pagination: true,	//显示分页条
         sidePagination: 'server',//服务器端分页
         showRefresh: true,  //显示刷新按钮
@@ -91,14 +91,14 @@ var vm = new Vue({
                 return;
             }
 
-            $.get("../sys/limit/info/" + id, function (r) {
+            $.get("/sys/limit/info/" + id, function (r) {
                 vm.showList = false;
                 vm.title = "修改";
                 vm.limit = r.limit;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.limit.id == null ? "../sys/limit/save" : "../sys/limit/update";
+            var url = vm.limit.id == null ? "/sys/limit/save" : "/sys/limit/update";
             $.ajax({
                 type: "POST",
                 url: url,
