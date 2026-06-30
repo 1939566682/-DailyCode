@@ -1,0 +1,36 @@
+# shiro
+shiro:
+  # 默认登录页面
+  loginUrl: /login.html
+  # 没有权限的页面
+  unauthorizedUrl: unauthorized.html
+# dataSource
+spring:
+  # 服务名称
+  application:
+    name: beacon-webmaster
+  # 多环境
+  profiles:
+    active: dev
+  # nacos注册中心地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.113.3:8848
+      # nacos配置中心地址
+#      config:
+#        server-addr: 192.168.113.3:8848
+#        file-extension: yml
+        # beacon-search-dev.yml
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.113.3:3306/beacon_cloud?characterEncoding=utf-8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+# MyBatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
