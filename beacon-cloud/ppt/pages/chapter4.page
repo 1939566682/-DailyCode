@@ -1,0 +1,45 @@
+pageType: chapter
+background:
+  type: solid
+  color: "$darkBg"
+elements:
+  - elementId: ch4-hero-num
+    elementType: text
+    bounds: [60, 160, 300, 120]
+    content:
+      style: "$heroNumber"
+      color: "#FFFFFF18"
+      fontSize: 120
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>04</strong></p>
+  - elementId: ch4-accent-line
+    elementType: shape
+    bounds: [60, 310, 60, 4]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: ch4-title
+    elementType: text
+    bounds: [60, 330, 600, 50]
+    content:
+      fontSize: 36
+      color: "$light"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>项目成果与展望</strong></p>
+  - elementId: ch4-subtitle
+    elementType: text
+    bounds: [60, 390, 600, 30]
+    content:
+      fontSize: 18
+      color: "$lightText"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p>已完成工作、待完善事项、未来方向</p>

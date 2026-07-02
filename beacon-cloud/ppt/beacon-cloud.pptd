@@ -1,0 +1,68 @@
+title: beacon-cloud 分布式短信平台
+size: [1280, 720]
+theme:
+  colors:
+    primary: "#2C3E50"
+    secondary: "#95A5A6"
+    accent: "#E67E22"
+    background: "#FDFCFA"
+    text: "#2C3E50"
+    light: "#FFFFFF"
+    cardBg: "#F5F3F0"
+    darkBg: "#2C3E50"
+    lightText: "#BDC3C7"
+  textStyles:
+    title:
+      fontSize: 28
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+    subtitle:
+      fontSize: 22
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+    body:
+      fontSize: 18
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      lineHeight: 1.6
+    caption:
+      fontSize: 14
+      color: "$secondary"
+      fontFamily: "QuattrocentoSans, MiSans"
+    nav:
+      fontSize: 14
+      color: "$light"
+      fontFamily: "QuattrocentoSans, MiSans"
+    heroNumber:
+      fontSize: 96
+      color: "#FFFFFF20"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+  tableStyles:
+    default:
+      fontSize: 16
+      fontFamily: "QuattrocentoSans, MiSans"
+      headerFill: "$primary"
+      headerColor: "$light"
+      headerBold: true
+      bodyFill: ["$background", "$cardBg"]
+      bodyColor: "$text"
+      border:
+        style: solid
+        width: 1
+        color: "#E0E0E0"
+pages:
+  - pages/cover.page
+  - pages/toc.page
+  - pages/chapter1.page
+  - pages/content-position.page
+  - pages/content-techstack.page
+  - pages/chapter2.page
+  - pages/content-modules.page
+  - pages/content-flow.page
+  - pages/chapter3.page
+  - pages/content-patterns.page
+  - pages/content-webmaster.page
+  - pages/chapter4.page
+  - pages/content-status.page
+  - pages/content-summary.page
+  - pages/final.page

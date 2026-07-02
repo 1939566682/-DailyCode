@@ -1,0 +1,242 @@
+pageType: content
+background:
+  type: solid
+  color: "$background"
+elements:
+  - elementId: nav-bg
+    elementType: shape
+    bounds: [0, 0, 1280, 36]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: nav-active
+    elementType: shape
+    bounds: [640, 32, 320, 4]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: nav-text1
+    elementType: text
+    bounds: [0, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目背景与定位</p>
+  - elementId: nav-text2
+    elementType: text
+    bounds: [320, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>系统架构设计</p>
+  - elementId: nav-text3
+    elementType: text
+    bounds: [640, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$accent"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>关键技术亮点</p>
+  - elementId: nav-text4
+    elementType: text
+    bounds: [960, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目成果与展望</p>
+  - elementId: wm-accent-bar
+    elementType: shape
+    bounds: [60, 56, 4, 28]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: wm-title
+    elementType: text
+    bounds: [76, 50, 700, 36]
+    content:
+      style: "$title"
+      fontSize: 28
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>管理后台与数据模型</strong></p>
+  - elementId: wm-left-bg
+    elementType: shape
+    bounds: [60, 110, 540, 340]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: wm-left-icon
+    elementType: icon
+    bounds: [80, 130, 32, 32]
+    iconName: "fas:desktop"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: wm-left-title
+    elementType: text
+    bounds: [122, 128, 300, 36]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>管理后台技术架构</strong></p>
+  - elementId: wm-left-desc
+    elementType: text
+    bounds: [80, 175, 500, 260]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.6
+      text: |
+        <p><strong>后端：</strong>Spring Boot + Shiro + MyBatis + Druid</p>
+        <p><strong>前端：</strong>原生 HTML + JavaScript + jQuery + Layui + ECharts + UEditor</p>
+        <p><strong>数据库：</strong>MySQL (beacon_cloud)</p>
+        <p style="margin-top:8px"><strong>核心功能页面：</strong></p>
+        <p>客户管理、通道管理、黑名单、敏感词、充值、报表统计、系统配置、活动管理、API 灰度发布</p>
+  - elementId: wm-right-bg
+    elementType: shape
+    bounds: [620, 110, 600, 340]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: wm-right-icon
+    elementType: icon
+    bounds: [640, 130, 32, 32]
+    iconName: "fas:database"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: wm-right-title
+    elementType: text
+    bounds: [682, 128, 300, 36]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>核心数据表</strong></p>
+  - elementId: wm-right-table
+    elementType: table
+    bounds: [640, 175, 560, 260]
+    style: "$default"
+    columnWidths: [0.4, 0.6]
+    rowHeights: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
+    rows:
+      - - content:
+            text: |
+              <p><strong>表名</strong></p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p><strong>用途</strong></p>
+            align: [center, middle]
+      - - content:
+            text: |
+              <p>client_business</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>客户业务信息（apikey、IP白名单、回调URL等）</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>client_sign / template</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>客户签名与短信模板</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>channel</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>通道信息（名称、协议、IP、端口、价格等）</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>mobile_black</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>黑名单号码</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>mobile_dirty_word</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>敏感词库</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>mobile_area</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>手机号段归属地</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>sms_menu / role / user</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>管理后台权限（Shiro RBAC）</p>
+            align: [left, middle]
+  - elementId: wm-bottom-line
+    elementType: shape
+    bounds: [60, 470, 1160, 0]
+    shapeName: straightConnector1
+    border:
+      style: solid
+      width: 1
+      color: "#E0E0E0"
+  - elementId: wm-bottom-text
+    elementType: text
+    bounds: [60, 490, 1160, 160]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.6
+      text: |
+        <p><strong>代码生成工具：</strong>项目根目录包含 2 个 Python 脚本（generate_webmaster_code.py / v2），用于根据前端接口路径批量生成 webmaster 的 Service/Controller/Mapper/XML 代码，大幅提升开发效率。</p>
+        <p style="margin-top:6px"><strong>VO 映射层：</strong>Entity 严格匹配 DB 列名（MBG 生成），VO 匹配前端字段名，Controller 层做 Entity→VO 转换，确保前端兼容性与数据库一致性。</p>
+  - elementId: wm-page-num
+    elementType: text
+    bounds: [1190, 690, 50, 20]
+    content:
+      style: "$caption"
+      fontSize: 12
+      align: [right, middle]
+      wrap: false
+      text: |
+        <p>11 / 15</p>

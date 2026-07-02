@@ -1,0 +1,531 @@
+pageType: content
+background:
+  type: solid
+  color: "$background"
+elements:
+  - elementId: nav-bg
+    elementType: shape
+    bounds: [0, 0, 1280, 36]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: nav-active
+    elementType: shape
+    bounds: [320, 32, 320, 4]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: nav-text1
+    elementType: text
+    bounds: [0, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目背景与定位</p>
+  - elementId: nav-text2
+    elementType: text
+    bounds: [320, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$accent"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>系统架构设计</p>
+  - elementId: nav-text3
+    elementType: text
+    bounds: [640, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>关键技术亮点</p>
+  - elementId: nav-text4
+    elementType: text
+    bounds: [960, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目成果与展望</p>
+  - elementId: flow-accent-bar
+    elementType: shape
+    bounds: [60, 56, 4, 28]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: flow-title
+    elementType: text
+    bounds: [76, 50, 700, 36]
+    content:
+      style: "$title"
+      fontSize: 28
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>核心业务流程 — 短信发送全链路</strong></p>
+  - elementId: flow-stage1-bg
+    elementType: shape
+    bounds: [60, 110, 250, 200]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: flow-stage1-title
+    elementType: text
+    bounds: [70, 120, 230, 30]
+    content:
+      fontSize: 18
+      color: "$light"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p><strong>API 接入</strong></p>
+  - elementId: flow-stage1-port
+    elementType: text
+    bounds: [70, 152, 230, 20]
+    content:
+      fontSize: 12
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>beacon-api :10001</p>
+  - elementId: flow-stage1-desc
+    elementType: text
+    bounds: [70, 180, 230, 120]
+    content:
+      fontSize: 14
+      color: "$lightText"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>• 参数校验</p>
+        <p>• 前置校验链</p>
+        <p>  apikey→IP→sign→</p>
+        <p>  template→mobile→fee</p>
+  - elementId: flow-arrow1
+    elementType: shape
+    bounds: [310, 200, 50, 0]
+    shapeName: straightConnector1
+    arrow: [null, "arrow"]
+    border:
+      style: solid
+      width: 2
+      color: "$accent"
+  - elementId: flow-mq1
+    elementType: shape
+    bounds: [360, 110, 100, 40]
+    shapeName: roundRect
+    adjustments: [5000]
+    fill:
+      type: solid
+      color: "$cardBg"
+    border:
+      style: solid
+      width: 1
+      color: "$secondary"
+  - elementId: flow-mq1-text
+    elementType: text
+    bounds: [360, 110, 100, 40]
+    content:
+      fontSize: 12
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>SMS_PRE_SEND</p>
+  - elementId: flow-stage2-bg
+    elementType: shape
+    bounds: [470, 110, 250, 200]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: flow-stage2-title
+    elementType: text
+    bounds: [480, 120, 230, 30]
+    content:
+      fontSize: 18
+      color: "$light"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p><strong>策略处理</strong></p>
+  - elementId: flow-stage2-port
+    elementType: text
+    bounds: [480, 152, 230, 20]
+    content:
+      fontSize: 12
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>beacon-strategy :18883</p>
+  - elementId: flow-stage2-desc
+    elementType: text
+    bounds: [480, 180, 230, 120]
+    content:
+      fontSize: 14
+      color: "$lightText"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>• 号段补全</p>
+        <p>• 敏感词 DFA</p>
+        <p>• 黑名单/频次限制</p>
+        <p>• 计费扣费</p>
+        <p>• 通道路由</p>
+  - elementId: flow-arrow2
+    elementType: shape
+    bounds: [720, 200, 50, 0]
+    shapeName: straightConnector1
+    arrow: [null, "arrow"]
+    border:
+      style: solid
+      width: 2
+      color: "$accent"
+  - elementId: flow-mq2
+    elementType: shape
+    bounds: [770, 110, 100, 40]
+    shapeName: roundRect
+    adjustments: [5000]
+    fill:
+      type: solid
+      color: "$cardBg"
+    border:
+      style: solid
+      width: 1
+      color: "$secondary"
+  - elementId: flow-mq2-text
+    elementType: text
+    bounds: [770, 110, 100, 40]
+    content:
+      fontSize: 12
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>push 队列</p>
+  - elementId: flow-stage3-bg
+    elementType: shape
+    bounds: [880, 110, 160, 90]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: flow-stage3-title
+    elementType: text
+    bounds: [890, 118, 140, 26]
+    content:
+      fontSize: 16
+      color: "$light"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p><strong>推送路由</strong></p>
+  - elementId: flow-stage3-port
+    elementType: text
+    bounds: [890, 146, 140, 18]
+    content:
+      fontSize: 11
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>beacon-push :18885</p>
+  - elementId: flow-stage3-desc
+    elementType: text
+    bounds: [890, 166, 140, 24]
+    content:
+      fontSize: 12
+      color: "$lightText"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>按路由选择通道</p>
+  - elementId: flow-arrow3
+    elementType: shape
+    bounds: [1040, 145, 50, 0]
+    shapeName: straightConnector1
+    arrow: [null, "arrow"]
+    border:
+      style: solid
+      width: 2
+      color: "$accent"
+  - elementId: flow-mq3
+    elementType: shape
+    bounds: [1090, 125, 130, 40]
+    shapeName: roundRect
+    adjustments: [5000]
+    fill:
+      type: solid
+      color: "$cardBg"
+    border:
+      style: solid
+      width: 1
+      color: "$secondary"
+  - elementId: flow-mq3-text
+    elementType: text
+    bounds: [1090, 125, 130, 40]
+    content:
+      fontSize: 12
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>sms_gateway_topic</p>
+  - elementId: flow-stage4-bg
+    elementType: shape
+    bounds: [880, 220, 340, 90]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: flow-stage4-title
+    elementType: text
+    bounds: [890, 228, 320, 26]
+    content:
+      fontSize: 16
+      color: "$light"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p><strong>短信网关 (CMPP)</strong></p>
+  - elementId: flow-stage4-port
+    elementType: text
+    bounds: [890, 256, 320, 18]
+    content:
+      fontSize: 11
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>beacon-SmsGateway :18886</p>
+  - elementId: flow-stage4-desc
+    elementType: text
+    bounds: [890, 276, 320, 24]
+    content:
+      fontSize: 12
+      color: "$lightText"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>Netty 连接运营商 SMSC → 短信下发</p>
+  - elementId: flow-user-icon
+    elementType: icon
+    bounds: [1140, 315, 40, 40]
+    iconName: "fas:mobile-screen"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: flow-user-text
+    elementType: text
+    bounds: [1070, 325, 180, 24]
+    content:
+      fontSize: 14
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>用户手机收到短信</p>
+  - elementId: flow-detail-title
+    elementType: text
+    bounds: [60, 330, 400, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>校验链详细说明</strong></p>
+  - elementId: flow-detail-line
+    elementType: shape
+    bounds: [60, 370, 1160, 0]
+    shapeName: straightConnector1
+    border:
+      style: solid
+      width: 1
+      color: "#E0E0E0"
+  - elementId: flow-check1-bg
+    elementType: shape
+    bounds: [60, 390, 200, 100]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: flow-check1-title
+    elementType: text
+    bounds: [70, 398, 180, 24]
+    content:
+      fontSize: 16
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>API 校验链</strong></p>
+  - elementId: flow-check1-desc
+    elementType: text
+    bounds: [70, 426, 180, 56]
+    content:
+      fontSize: 13
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>apikey→IP→sign→template→mobile→fee</p>
+  - elementId: flow-check2-bg
+    elementType: shape
+    bounds: [280, 390, 200, 100]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: flow-check2-title
+    elementType: text
+    bounds: [290, 398, 180, 24]
+    content:
+      fontSize: 16
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>策略校验链</strong></p>
+  - elementId: flow-check2-desc
+    elementType: text
+    bounds: [290, 426, 180, 56]
+    content:
+      fontSize: 13
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>号段→敏感词→黑名单→频次→计费→路由</p>
+  - elementId: flow-check3-bg
+    elementType: shape
+    bounds: [500, 390, 200, 100]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: flow-check3-title
+    elementType: text
+    bounds: [510, 398, 180, 24]
+    content:
+      fontSize: 16
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>消息可靠性</strong></p>
+  - elementId: flow-check3-desc
+    elementType: text
+    bounds: [510, 426, 180, 56]
+    content:
+      fontSize: 13
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>confirm + return 机制，手动 ACK，失败 Reject</p>
+  - elementId: flow-check4-bg
+    elementType: shape
+    bounds: [720, 390, 200, 100]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: flow-check4-title
+    elementType: text
+    bounds: [730, 398, 180, 24]
+    content:
+      fontSize: 16
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>CMPP 协议</strong></p>
+  - elementId: flow-check4-desc
+    elementType: text
+    bounds: [730, 426, 180, 56]
+    content:
+      fontSize: 13
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>Connect→Submit→Deliver→ActiveTest 心跳</p>
+  - elementId: flow-check5-bg
+    elementType: shape
+    bounds: [940, 390, 280, 100]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: flow-check5-title
+    elementType: text
+    bounds: [950, 398, 260, 24]
+    content:
+      fontSize: 16
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>动态配置</strong></p>
+  - elementId: flow-check5-desc
+    elementType: text
+    bounds: [950, 426, 260, 56]
+    content:
+      fontSize: 13
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>校验顺序通过 Nacos/Redis 动态配置，@RefreshScope 热更新</p>
+  - elementId: flow-page-num
+    elementType: text
+    bounds: [1190, 690, 50, 20]
+    content:
+      style: "$caption"
+      fontSize: 12
+      align: [right, middle]
+      wrap: false
+      text: |
+        <p>8 / 15</p>

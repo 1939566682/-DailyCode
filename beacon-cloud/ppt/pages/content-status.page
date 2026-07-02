@@ -1,0 +1,242 @@
+pageType: content
+background:
+  type: solid
+  color: "$background"
+elements:
+  - elementId: nav-bg
+    elementType: shape
+    bounds: [0, 0, 1280, 36]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: nav-active
+    elementType: shape
+    bounds: [960, 32, 320, 4]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: nav-text1
+    elementType: text
+    bounds: [0, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目背景与定位</p>
+  - elementId: nav-text2
+    elementType: text
+    bounds: [320, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>系统架构设计</p>
+  - elementId: nav-text3
+    elementType: text
+    bounds: [640, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>关键技术亮点</p>
+  - elementId: nav-text4
+    elementType: text
+    bounds: [960, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$accent"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目成果与展望</p>
+  - elementId: status-accent-bar
+    elementType: shape
+    bounds: [60, 56, 4, 28]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: status-title
+    elementType: text
+    bounds: [76, 50, 700, 36]
+    content:
+      style: "$title"
+      fontSize: 28
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>项目状态与潜在风险</strong></p>
+  - elementId: status-done-bg
+    elementType: shape
+    bounds: [60, 110, 560, 270]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: status-done-icon
+    elementType: icon
+    bounds: [80, 130, 28, 28]
+    iconName: "fas:circle-check"
+    fill:
+      type: solid
+      color: "#27ae60"
+  - elementId: status-done-title
+    elementType: text
+    bounds: [118, 128, 300, 32]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>已完成</strong></p>
+  - elementId: status-done-text
+    elementType: text
+    bounds: [80, 170, 520, 195]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.6
+      text: |
+        <p><span style="color:#27ae60;">✓</span> 核心短信发送链路完整</p>
+        <p><span style="color:#27ae60;">✓</span> 前置校验链 6 个过滤器</p>
+        <p><span style="color:#27ae60;">✓</span> 策略校验链 9+ 个过滤器</p>
+        <p><span style="color:#27ae60;">✓</span> CMPP 协议 Netty 客户端</p>
+        <p><span style="color:#27ae60;">✓</span> 管理后台前端 + 后端 CRUD</p>
+        <p><span style="color:#27ae60;">✓</span> 数据同步模块 + Nacos 配置</p>
+  - elementId: status-risk-bg
+    elementType: shape
+    bounds: [640, 110, 580, 270]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: status-risk-icon
+    elementType: icon
+    bounds: [660, 130, 28, 28]
+    iconName: "fas:triangle-exclamation"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: status-risk-title
+    elementType: text
+    bounds: [698, 128, 300, 32]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>待完善与潜在风险</strong></p>
+  - elementId: status-risk-text
+    elementType: text
+    bounds: [660, 170, 540, 195]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.6
+      text: |
+        <p><span style="color:$accent;">⚠</span> PhaseStrategyFilter 号段同步逻辑未完成</p>
+        <p><span style="color:$accent;">⚠</span> 敏感词检测后处理逻辑缺失</p>
+        <p><span style="color:$accent;">⚠</span> Nacos 配置包含明文密码</p>
+        <p><span style="color:$accent;">⚠</span> 核心链路缺少单元测试</p>
+        <p><span style="color:$accent;">⚠</span> Java 8 + Spring Boot 2.3 版本较旧</p>
+        <p><span style="color:$accent;">⚠</span> 消息 Reject 后不重新入队，可能丢失</p>
+  - elementId: status-missing-title
+    elementType: text
+    bounds: [60, 400, 400, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>待完善的 Controller 接口</strong></p>
+  - elementId: status-missing-line
+    elementType: shape
+    bounds: [60, 440, 1160, 0]
+    shapeName: straightConnector1
+    border:
+      style: solid
+      width: 1
+      color: "#E0E0E0"
+  - elementId: status-missing-table
+    elementType: table
+    bounds: [60, 455, 1160, 190]
+    style: "$default"
+    columnWidths: [0.25, 0.35, 0.40]
+    rowHeights: [0.25, 0.25, 0.25, 0.25]
+    rows:
+      - - content:
+            text: |
+              <p><strong>前端 JS</strong></p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p><strong>需要接口</strong></p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p><strong>状态</strong></p>
+            align: [center, middle]
+      - - content:
+            text: |
+              <p>role.js</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>8 个 /system/role/* 接口</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>无 Controller，需建 sms_role_menu 关联表</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>smstemp.js</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>6 个 /sys/smstemp/* 接口</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>无 sms_template 表及 Entity/Mapper</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>smssend.js</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>2 个 /sys/sms/save/update 接口</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>需 Feign 调用 beacon-api 发送短信</p>
+            align: [left, middle]
+  - elementId: status-page-num
+    elementType: text
+    bounds: [1190, 690, 50, 20]
+    content:
+      style: "$caption"
+      fontSize: 12
+      align: [right, middle]
+      wrap: false
+      text: |
+        <p>13 / 15</p>

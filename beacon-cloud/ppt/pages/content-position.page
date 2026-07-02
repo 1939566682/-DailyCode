@@ -1,0 +1,257 @@
+pageType: content
+background:
+  type: solid
+  color: "$background"
+elements:
+  - elementId: nav-bg
+    elementType: shape
+    bounds: [0, 0, 1280, 36]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: nav-active
+    elementType: shape
+    bounds: [0, 32, 320, 4]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: nav-text1
+    elementType: text
+    bounds: [0, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$accent"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目背景与定位</p>
+  - elementId: nav-text2
+    elementType: text
+    bounds: [320, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>系统架构设计</p>
+  - elementId: nav-text3
+    elementType: text
+    bounds: [640, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>关键技术亮点</p>
+  - elementId: nav-text4
+    elementType: text
+    bounds: [960, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目成果与展望</p>
+  - elementId: pos-accent-bar
+    elementType: shape
+    bounds: [60, 56, 4, 28]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: pos-title
+    elementType: text
+    bounds: [76, 50, 500, 36]
+    content:
+      style: "$title"
+      fontSize: 28
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>项目定位与核心业务</strong></p>
+  - elementId: pos-desc-bg
+    elementType: shape
+    bounds: [60, 110, 1160, 110]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: pos-desc-icon
+    elementType: icon
+    bounds: [80, 130, 40, 40]
+    iconName: "fas:comment-dots"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: pos-desc-text
+    elementType: text
+    bounds: [140, 120, 1060, 90]
+    content:
+      style: "$body"
+      fontSize: 18
+      align: [left, top]
+      lineHeight: 1.6
+      text: |
+        <p>beacon-cloud 是一个基于 <strong>Spring Cloud 微服务架构</strong>的分布式短信平台（SMS Gateway Platform），提供从 API 接入、校验、策略路由到运营商通道下发的完整短信发送链路，并配套管理后台、数据同步、搜索和监控能力。</p>
+  - elementId: pos-scene-title
+    elementType: text
+    bounds: [60, 250, 200, 30]
+    content:
+      style: "$subtitle"
+      fontSize: 20
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>核心业务场景</strong></p>
+  - elementId: pos-scene1-bg
+    elementType: shape
+    bounds: [60, 300, 360, 180]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: pos-scene1-icon
+    elementType: icon
+    bounds: [80, 320, 36, 36]
+    iconName: "fas:shield-halved"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: pos-scene1-title
+    elementType: text
+    bounds: [130, 318, 270, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>验证码短信</strong></p>
+  - elementId: pos-scene1-desc
+    elementType: text
+    bounds: [80, 365, 320, 100]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>登录注册、身份认证、密码找回等场景的快速验证码下发，支持高并发与频次限制。</p>
+  - elementId: pos-scene2-bg
+    elementType: shape
+    bounds: [460, 300, 360, 180]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: pos-scene2-icon
+    elementType: icon
+    bounds: [480, 320, 36, 36]
+    iconName: "fas:bell"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: pos-scene2-title
+    elementType: text
+    bounds: [530, 318, 270, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>通知短信</strong></p>
+  - elementId: pos-scene2-desc
+    elementType: text
+    bounds: [480, 365, 320, 100]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>订单状态、物流通知、系统告警、服务提醒等实时消息推送，确保及时触达。</p>
+  - elementId: pos-scene3-bg
+    elementType: shape
+    bounds: [860, 300, 360, 180]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: pos-scene3-icon
+    elementType: icon
+    bounds: [880, 320, 36, 36]
+    iconName: "fas:bullhorn"
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: pos-scene3-title
+    elementType: text
+    bounds: [930, 318, 270, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>营销短信</strong></p>
+  - elementId: pos-scene3-desc
+    elementType: text
+    bounds: [880, 365, 320, 100]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>会员活动、优惠推广、节日祝福等批量营销触达，支持黑名单过滤与敏感词检测。</p>
+  - elementId: pos-mgmt-title
+    elementType: text
+    bounds: [60, 510, 500, 30]
+    content:
+      style: "$subtitle"
+      fontSize: 20
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>管理后台覆盖</strong></p>
+  - elementId: pos-mgmt-line
+    elementType: shape
+    bounds: [60, 550, 1160, 0]
+    shapeName: straightConnector1
+    border:
+      style: solid
+      width: 1
+      color: "#E0E0E0"
+  - elementId: pos-mgmt-items
+    elementType: text
+    bounds: [60, 565, 1160, 100]
+    content:
+      fontSize: 16
+      color: "$text"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.8
+      text: |
+        <p><span style="color:$accent;">●</span> 客户管理  <span style="color:$accent;">●</span> 通道管理  <span style="color:$accent;">●</span> 黑名单  <span style="color:$accent;">●</span> 敏感词  <span style="color:$accent;">●</span> 计费充值  <span style="color:$accent;">●</span> 报表统计  <span style="color:$accent;">●</span> 系统配置</p>
+  - elementId: pos-page-num
+    elementType: text
+    bounds: [1190, 690, 50, 20]
+    content:
+      style: "$caption"
+      fontSize: 12
+      align: [right, middle]
+      wrap: false
+      text: |
+        <p>4 / 15</p>

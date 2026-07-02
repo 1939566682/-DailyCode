@@ -1,0 +1,195 @@
+pageType: table_of_contents
+background:
+  type: solid
+  color: "$background"
+elements:
+  - elementId: toc-accent-bar
+    elementType: shape
+    bounds: [60, 86, 4, 80]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: toc-title
+    elementType: text
+    bounds: [80, 86, 300, 80]
+    content:
+      style: "$title"
+      fontSize: 40
+      color: "$primary"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>目录</strong></p>
+  - elementId: toc-en
+    elementType: text
+    bounds: [80, 170, 300, 30]
+    content:
+      fontSize: 16
+      color: "$secondary"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, middle]
+      wrap: false
+      letterSpacing: 4
+      text: |
+        <p>CONTENTS</p>
+  - elementId: toc-card1-bg
+    elementType: shape
+    bounds: [460, 120, 370, 220]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: toc-card1-num
+    elementType: text
+    bounds: [490, 150, 80, 50]
+    content:
+      fontSize: 40
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>01</strong></p>
+  - elementId: toc-card1-title
+    elementType: text
+    bounds: [490, 210, 310, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>项目背景与定位</strong></p>
+  - elementId: toc-card1-desc
+    elementType: text
+    bounds: [490, 250, 310, 60]
+    content:
+      fontSize: 14
+      color: "$secondary"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>了解 beacon-cloud 是什么、解决什么问题、使用什么技术</p>
+  - elementId: toc-card2-bg
+    elementType: shape
+    bounds: [850, 120, 370, 220]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: toc-card2-num
+    elementType: text
+    bounds: [880, 150, 80, 50]
+    content:
+      fontSize: 40
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>02</strong></p>
+  - elementId: toc-card2-title
+    elementType: text
+    bounds: [880, 210, 310, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>系统架构设计</strong></p>
+  - elementId: toc-card2-desc
+    elementType: text
+    bounds: [880, 250, 310, 60]
+    content:
+      fontSize: 14
+      color: "$secondary"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>微服务拆分、模块职责、核心业务流程</p>
+  - elementId: toc-card3-bg
+    elementType: shape
+    bounds: [460, 370, 370, 220]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: toc-card3-num
+    elementType: text
+    bounds: [490, 400, 80, 50]
+    content:
+      fontSize: 40
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>03</strong></p>
+  - elementId: toc-card3-title
+    elementType: text
+    bounds: [490, 460, 310, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>关键技术亮点</strong></p>
+  - elementId: toc-card3-desc
+    elementType: text
+    bounds: [490, 500, 310, 60]
+    content:
+      fontSize: 14
+      color: "$secondary"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>设计模式、协议实现、动态配置、数据管理</p>
+  - elementId: toc-card4-bg
+    elementType: shape
+    bounds: [850, 370, 370, 220]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$cardBg"
+  - elementId: toc-card4-num
+    elementType: text
+    bounds: [880, 400, 80, 50]
+    content:
+      fontSize: 40
+      color: "$accent"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>04</strong></p>
+  - elementId: toc-card4-title
+    elementType: text
+    bounds: [880, 460, 310, 30]
+    content:
+      fontSize: 20
+      color: "$primary"
+      fontFamily: "QuattrocentoSans, alimamashuheiti"
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>项目成果与展望</strong></p>
+  - elementId: toc-card4-desc
+    elementType: text
+    bounds: [880, 500, 310, 60]
+    content:
+      fontSize: 14
+      color: "$secondary"
+      fontFamily: "QuattrocentoSans, MiSans"
+      align: [left, top]
+      lineHeight: 1.5
+      text: |
+        <p>已完成工作、待完善事项、未来方向</p>

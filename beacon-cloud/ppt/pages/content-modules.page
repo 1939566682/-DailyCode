@@ -1,0 +1,248 @@
+pageType: content
+background:
+  type: solid
+  color: "$background"
+elements:
+  - elementId: nav-bg
+    elementType: shape
+    bounds: [0, 0, 1280, 36]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$primary"
+  - elementId: nav-active
+    elementType: shape
+    bounds: [320, 32, 320, 4]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: nav-text1
+    elementType: text
+    bounds: [0, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目背景与定位</p>
+  - elementId: nav-text2
+    elementType: text
+    bounds: [320, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$accent"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>系统架构设计</p>
+  - elementId: nav-text3
+    elementType: text
+    bounds: [640, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>关键技术亮点</p>
+  - elementId: nav-text4
+    elementType: text
+    bounds: [960, 0, 320, 32]
+    content:
+      style: "$nav"
+      color: "$lightText"
+      align: [center, middle]
+      wrap: false
+      text: |
+        <p>项目成果与展望</p>
+  - elementId: mod-accent-bar
+    elementType: shape
+    bounds: [60, 56, 4, 28]
+    shapeName: rect
+    fill:
+      type: solid
+      color: "$accent"
+  - elementId: mod-title
+    elementType: text
+    bounds: [76, 50, 600, 36]
+    content:
+      style: "$title"
+      fontSize: 28
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p><strong>模块全景 — 10 个 Maven 子模块</strong></p>
+  - elementId: mod-table
+    elementType: table
+    bounds: [60, 110, 1160, 540]
+    style: "$default"
+    columnWidths: [0.18, 0.12, 0.15, 0.55]
+    rowHeights: [0.08, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092, 0.092]
+    rows:
+      - - content:
+            text: |
+              <p><strong>分组</strong></p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p><strong>模块</strong></p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p><strong>端口</strong></p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p><strong>核心职责</strong></p>
+            align: [center, middle]
+      - - content:
+            text: |
+              <p>核心链路</p>
+            align: [center, middle]
+          rowSpan: 4
+        - content:
+            text: |
+              <p>beacon-api</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>10001</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>API 接入网关，接收短信请求，执行前置校验链，投递到 RabbitMQ</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>beacon-strategy</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>18883</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>策略处理中心，执行二次策略校验（敏感词/黑名单/频次/计费/路由）</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>beacon-push</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>18885</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>推送模块，消费策略消息，按通道路由到具体短信网关</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>beacon-SmsGateway</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>18886</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>短信网关，Netty 实现 CMPP 协议客户端，连接运营商 SMSC</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>数据与缓存</p>
+            align: [center, middle]
+          rowSpan: 3
+        - content:
+            text: |
+              <p>beacon-cache</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>18882</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>Redis 缓存服务封装，提供 REST API 供其他模块调用</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>beacon-synchronization</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>-</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>数据同步模块，MySQL ↔ Redis 双向同步，管理实体与 Mapper</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>beacon-search</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>18884</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>Elasticsearch 搜索服务，提供短信发送记录检索和报表能力</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>运维管理</p>
+            align: [center, middle]
+          rowSpan: 2
+        - content:
+            text: |
+              <p>beacon-monitor</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>18887</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>监控告警模块，集成 XXL-Job 定时任务 + 邮件告警</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>beacon-webmaster</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>-</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>管理后台，Spring Boot + Shiro + MyBatis + 原生 HTML/JS 前端</p>
+            align: [left, middle]
+      - - content:
+            text: |
+              <p>公共模块</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>beacon-common</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>-</p>
+            align: [center, middle]
+        - content:
+            text: |
+              <p>公共常量、枚举、异常、工具类（SnowFlake、JsonUtil 等）</p>
+            align: [left, middle]
+  - elementId: mod-page-num
+    elementType: text
+    bounds: [1190, 690, 50, 20]
+    content:
+      style: "$caption"
+      fontSize: 12
+      align: [right, middle]
+      wrap: false
+      text: |
+        <p>7 / 15</p>
