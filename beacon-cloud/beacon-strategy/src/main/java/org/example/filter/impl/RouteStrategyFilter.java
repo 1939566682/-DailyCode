@@ -67,7 +67,7 @@ public class RouteStrategyFilter implements StrategyFilter {
 				return o2Weight - o1Weight;
 			}
 		});*/
-		clientWeightChannels.addAll(clientChannels);
+//		clientWeightChannels.addAll(clientChannels);
 		
 		// 4、基于排序后的通道  选择权重更高的
 		boolean ok = false;
