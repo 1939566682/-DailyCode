@@ -1,22 +1,48 @@
 package org.example;
 
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 /**
  * @author Yang QingBo
  * {@code @date} 2026-03-15 13:49
  */
 
-//TIP 要<b>运行</b>代码，请按 <shortcut actionId="Run"/> 或
-// 点击装订区域中的 <icon src="AllIcons.Actions.Execute"/> 图标。
 public class Main {
-    public static void main(String[] args) {
-        //TIP 当文本光标位于高亮显示的文本处时按 <shortcut actionId="ShowIntentionActions"/>
-        // 查看 IntelliJ IDEA 建议如何修正。
-        System.out.printf("Hello and welcome!");
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP 按 <shortcut actionId="Debug"/> 开始调试代码。我们已经设置了一个 <icon src="AllIcons.Debugger.Db_set_breakpoint"/> 断点
-            // 但您始终可以通过按 <shortcut actionId="ToggleLineBreakpoint"/> 添加更多断点。
-            System.out.println("i = " + i);
-        }
-    }
+	
+	private static final LocalDate START_TIME = LocalDate.of(2006, 1, 1);
+	private static final Path ROOT_PATH = Paths.get("C:\\");
+	
+	public static void main(String[] args) {
+		System.out.println("开始遍历 C 盘，筛选修改日期 > 2006-01-01 的 .exe 文件...");
+		
+		try {
+			Files.walkFileTree(ROOT_PATH, new SimpleFileVisitor<>() {
+				@Override
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+					if (file.getFileName().toString().toLowerCase().endsWith(".exe")) {
+						LocalDate modifiedDate = attrs.lastModifiedTime()
+								.toInstant()
+								.atZone(ZoneId.systemDefault())
+								.toLocalDate();
+						if (modifiedDate.isAfter(START_TIME)) {
+							System.out.println(file.toAbsolutePath().normalize());
+						}
+					}
+					return FileVisitResult.CONTINUE;
+				}
+				
+				@Override
+				public FileVisitResult visitFileFailed(Path file, IOException exc) {
+					return FileVisitResult.CONTINUE;
+				}
+			});
+			System.out.println("\n扫描完毕。");
+		} catch (IOException e) {
+			System.err.println("遍历启动失败：" + e.getMessage());
+		}
+	}
 }
