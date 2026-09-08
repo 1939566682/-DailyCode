@@ -51,5 +51,4 @@ public class IPCheckFilter implements CheckFilter {
 		throw new ApiIllegalException(ExceptionEnums.IP_NOT_IN_WHITELIST);
 		
 	}
-	
 }
